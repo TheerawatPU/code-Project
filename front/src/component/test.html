@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .tab-container {
+      display: flex;
+    }
+
+    .tab {
+      flex: 1;
+      border: 1px solid #ccc;
+    }
+
+    .tab input[type="radio"] {
+      display: none;
+    }
+
+    .tab label {
+      display: block;
+      padding: 10px;
+      background-color: #f2f2f2;
+      cursor: pointer;
+    }
+
+    .tab-content {
+      padding: 10px;
+    }
+
+    .tab-content p {
+      margin: 0;
+    }
+  </style>
+  <body>
+    <div class="tab-container">
+      <div class="tab">
+        <input type="radio" id="tab1" name="tabs" checked />
+        <label for="tab1" onclick="changeTab('tab1')">แท็บที่ 1</label>
+        <div class="tab-content">
+          <p>เนื้อหาแท็บที่ 1</p>
+        </div>
+      </div>
+      <div class="tab">
+        <input type="radio" id="tab2" name="tabs" />
+        <label for="tab2" onclick="changeTab('tab2')">แท็บที่ 2</label>
+        <div class="tab-content">
+          <p>เนื้อหาแท็บที่ 2</p>
+        </div>
+      </div>
+      <div class="tab">
+        <input type="radio" id="tab3" name="tabs" />
+        <label for="tab3" onclick="changeTab('tab3')">แท็บที่ 3</label>
+        <div class="tab-content">
+          <p>เนื้อหาแท็บที่ 3</p>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function changeTab(tabId) {
+      const tabContent = document.querySelectorAll(".tab-content");
+
+      // ซ่อนเนื้อหาทั้งหมด
+      tabContent.forEach((content) => {
+        content.style.display = "none";
+      });
+
+      // แสดงเนื้อหาของแท็บที่เลือก
+      const selectedTabContent = document.querySelector(
+        `#${tabId} + .tab-content`
+      );
+      selectedTabContent.style.display = "block";
+    }
+  </script>
+</html>
