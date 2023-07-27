@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./Customer.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { FaPen ,FaEye} from 'react-icons/fa';
+import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
-
-
 
 function Customer() {
   //! ตัวเชื่อมต่อกับserver
@@ -92,6 +90,24 @@ function Customer() {
   const npage = Math.ceil(data.length / recordsPerPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
+  function prePage() {
+    if (currentPage < firstIndex) {
+      setCurrentPage(currentPage - 1);
+    } else if (currentPage === firstIndex) {
+      setCurrentPage(changeCPage + 0);
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
   return (
     <div>
       {/* //! แถบรายการ customer // */}
@@ -107,10 +123,12 @@ function Customer() {
           onInput={(e) => handleFilter(e)}
         />
         <button className="btn1" onClick={() => navigate(`CreateCus`)}>
-        <h2><BiPlus /></h2>
+          <h2>
+            <BiPlus />
+          </h2>
         </button>
       </div>
-      
+
       <div class="table-body">
         <table class="styled-table">
           <thead>
@@ -156,13 +174,17 @@ function Customer() {
                       className="btn2"
                       onClick={() => navigate(`CreateRead/${item.id_customer}`)}
                     >
-                      <h3><FaEye /></h3>
+                      <h3>
+                        <FaEye />
+                      </h3>
                     </button>
                     <button
                       onClick={() => navigate(`CusUpdate/${item.id_customer}`)}
                       className="btn3"
                     >
-                      <h3><FaPen /></h3>
+                      <h3>
+                        <FaPen />
+                      </h3>
                     </button>
                     {/* <button
                       // className="btn3"
