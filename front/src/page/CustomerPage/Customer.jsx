@@ -81,7 +81,7 @@ function Customer() {
   };
   const navigate = useNavigate();
 
-  //next page2
+  //next page555555
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 9;
   const lastIndex = currentPage * recordsPerPage;
