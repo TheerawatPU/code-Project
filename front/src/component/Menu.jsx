@@ -1,9 +1,9 @@
 import React, { children } from "react";
-import "./NewMenu.css";
 import { FaTh, FaBars, FaBox, FaBoxes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { BsBoxSeam } from "react-icons/bs";
 import { GiBackwardTime } from "react-icons/gi";
+import "../CSS/Component.css"
 
 function Menu({ children }) {
   const menuItem = [
