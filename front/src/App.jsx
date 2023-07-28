@@ -3,14 +3,16 @@ import React from "react";
 // import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./component/Menu";
-import Customer from "./page/CustomerPage/Customer";
 import StablePage from "./page/StablePage/StablePage";
 import Report from "./page/ReportPage/Repoet";
 import Unit from "./page/UnitPage/Unit";
 import Topnav from "./component/Topnav";
-import CreateCus from "./page/CustomerPage/CreateCus";
-import CreateRead from "./page/CustomerPage/CreateRead";
-import CusUpdate from "./page/CustomerPage/CusUpdate";
+
+
+import CustomerReadPage from "./page/CustomerPage/CustomerReadPage";
+import CustomerReadIDPage from "./page/CustomerPage/CustomerReadIDPage";
+import CustomerUpdatePage from "./page/CustomerPage/CustomerUpdatePage";
+import CustomerCreatePage from "./page/CustomerPage/CustomerCreatePage";
 
 function App() {
   return (
@@ -20,10 +22,12 @@ function App() {
 
         <Routes>
           {/* <Route path="/" element={<Menu />} /> */}
-          <Route path="/Customer" element={<Customer />} />
-          <Route path="Customer/CreateCus" element={<CreateCus />} />
-          <Route path="Customer/CreateRead/:id" element={<CreateRead />} />
-          <Route path="Customer/CusUpdate/:id" element={<CusUpdate />} />
+          <Route path="/CustomerReadPage" element={<CustomerReadPage />} />
+          <Route path="CustomerReadPage/CustomerCreatePage" element={<CustomerCreatePage />} />
+          <Route path="CustomerReadPage/CustomerReadIDPage/:id" element={<CustomerReadIDPage />} />
+          <Route path="CustomerReadPage/CustomerUpdatePage/:id" element={<CustomerUpdatePage />} />
+
+
           <Route path="/StablePage" element={<StablePage />} />
           <Route path="/Report" element={<Report />} />
           <Route path="/Unit" element={<Unit />} />

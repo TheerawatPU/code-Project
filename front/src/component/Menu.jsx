@@ -18,7 +18,7 @@ function Menu({ children }) {
       icon: <FaBoxes />,
     },
     {
-      path: "/Customer",
+      path: "/CustomerReadPage",
       name: "ลูกค้า",
       icon: <BsBoxSeam />,
     },
@@ -52,11 +52,6 @@ function Menu({ children }) {
           </ul>
         </nav>
       </div>
-
-      {/* <div class="navbar">
-        <div class="navbar-brand">ชื่อเว็บไซต์</div>
-        <div class="navbar-login">ชื่อผู้ล็อกอิน</div>
-      </div> */}
 
       <div class="content">
         <main>{children}</main>
