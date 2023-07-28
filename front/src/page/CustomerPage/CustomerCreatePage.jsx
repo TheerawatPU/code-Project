@@ -64,7 +64,7 @@ function CustomerCreatePage() {
     setValues({
       ...values,
       [e.target.name]: filterDistrict[0].name_in_thai,
-      zibcode: filterDistrict[0].zip_code,
+      zip_code: filterDistrict[0].zip_code,
     });
     console.log(e.target.value);
   };
@@ -80,12 +80,12 @@ function CustomerCreatePage() {
     provinces: "",
     districts: "",
     subdistricts: "",
-    zibcode: "",
+    zip_code: "",
   });
 
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     // ตรวจสอบและลบขีดคั่นออกจากเบอร์โทรศัพท์
@@ -102,30 +102,16 @@ function CustomerCreatePage() {
       err.phone_cus === "" &&
       err.address_cus === ""
     ) {
-      try {
-        // ตรวจสอบว่าบัตรประชาชนมีอยู่ในฐานข้อมูลหรือไม่
-        const response = await axios.get(
-          `http://localhost:5500/cuscreate/${values.phone_cus}`
-        );
-
-        if (response.data.exists) {
-          setErrors({ phone_cus: "บัตรประชาชนนี้มีอยู่ในฐานข้อมูลแล้ว" });
-        } else {
-          // ส่งข้อมูลไปยังเซิร์ฟเวอร์หรือประมวลผลต่อไป
-          axios
-            .post("http://localhost:5500/cuscreate", {
-              ...values,
-              phone_cus: formattedPhone,
-            })
-            .then((res) => {
-              console.log(res);
-              navigate("/CustomerReadPage");
-            })
-            .catch((err) => console.log(err));
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      axios
+        .post("http://localhost:5500/cuscreate", {
+          ...values,
+          phone_cus: formattedPhone,
+        })
+        .then((res) => {
+          console.log(res);
+          navigate("/CustomerReadPage");
+        })
+        .catch((err) => console.log(err));
     }
 
     console.log(phoneNumber);
@@ -342,8 +328,8 @@ function CustomerCreatePage() {
                   style={{ width: "140px", height: "30px" }}
                   type="text"
                   className="form-input"
-                  name="zibcode"
-                  value={values.zibcode}
+                  name="zip_code"
+                  value={values.zip_code}
                   disabled
 
                   // onChange={handleInput}

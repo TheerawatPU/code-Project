@@ -3,7 +3,7 @@ import db from "../db.js";
 //เพิ่มข้อมูล
 export const cuscreate = (req, res) => {
   const sql =
-    "INSERT INTO customer (`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`,`address_cus`,`provinces`,`districts`,`subdistricts`,`zibcode`) VALUES (?)";
+    "INSERT INTO customer (`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`,`address_cus`,`provinces`,`districts`,`subdistricts`,`zip_code`) VALUES (?)";
   const vlaues = [
     req.body.name_company,
     req.body.name_cus,
@@ -14,7 +14,7 @@ export const cuscreate = (req, res) => {
     req.body.provinces,
     req.body.districts,
     req.body.subdistricts,
-    req.body.zibcode,
+    req.body.zip_code,
   ];
 
   db.query(sql, [vlaues], (err, result) => {
@@ -26,7 +26,7 @@ export const cuscreate = (req, res) => {
 //อ่านข้อมูลทั้งหมด
 export const customer = (req, res) => {
   const sql =
-    "SELECT `id_customer`,`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`, CONCAT(`address_cus`, ' ',`provinces`, ' ', `districts`, ' ', `subdistricts`,' ',`zibcode`) As address FROM `customer` ORDER BY `id_customer`DESC";
+    "SELECT `id_customer`,`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`, CONCAT(`address_cus`, ' ',`provinces`, ' ', `districts`, ' ', `subdistricts`,' ',`zip_code`) As address FROM `customer` ORDER BY `id_customer`DESC";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);
@@ -36,7 +36,7 @@ export const customer = (req, res) => {
 //อ่านข้อมูลแต่ละ ID
 export const customerID = (req, res) => {
   const sql =
-    "SELECT `id_customer`,`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`, CONCAT(`address_cus`, ' ',`provinces`, ' ', `districts`, ' ', `subdistricts`,' ',`zibcode`) As address FROM `customer`  WHERE id_customer = ?";
+    "SELECT `id_customer`,`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`, CONCAT(`address_cus`, ' ',`provinces`, ' ', `districts`, ' ', `subdistricts`,' ',`zip_code`) As address FROM `customer`  WHERE id_customer = ?";
   const id = req.params.id;
 
   db.query(sql, [id], (err, result) => {
@@ -62,7 +62,7 @@ export const customerUpdate = (req, res) => {
 export const customerUp = (req, res) => {
   const id = req.params.id;
   const sql =
-    "UPDATE customer SET `name_company` = ? , `name_cus` = ? ,`card_ID` = ? ,`email_cus` = ? ,`phone_cus` = ? ,`address_cus` = ? ,`provinces` = ? ,`districts`=?, `subdistricts`=?,`zibcode`=? WHERE id_customer=?";
+    "UPDATE customer SET `name_company` = ? , `name_cus` = ? ,`card_ID` = ? ,`email_cus` = ? ,`phone_cus` = ? ,`address_cus` = ? ,`provinces` = ? ,`districts`=?, `subdistricts`=?,`zip_code`=? WHERE id_customer=?";
 
   db.query(
     sql,
@@ -76,7 +76,7 @@ export const customerUp = (req, res) => {
       req.body.provinces,
       req.body.districts,
       req.body.subdistricts,
-      req.body.zibcode,
+      req.body.zip_code,
       id,
     ],
     (err, result) => {
