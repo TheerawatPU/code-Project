@@ -203,7 +203,7 @@ function Customer() {
           <ul className="pagination">
             <li className="page-item">
               <a href="#" className="page-link" onClick={prePage}>
-                Prev
+                ก่อน
               </a>
             </li>
             {number.map((n, i) => (
@@ -222,7 +222,7 @@ function Customer() {
             ))}
             <li className="page-item">
               <a href="#" className="page-link" onClick={nextPage}>
-                Next
+                ต่อไป
               </a>
             </li>
           </ul>
@@ -232,23 +232,6 @@ function Customer() {
       {/* //! สิ้นสุดแถบรายการ customer // */}
     </div>
   );
-  function prePage() {
-    if (currentPage < firstIndex) {
-      setCurrentPage(currentPage - 1);
-    } else if (currentPage === firstIndex) {
-      setCurrentPage(changeCPage + 0);
-    }
-  }
-
-  function changeCPage(id) {
-    setCurrentPage(id);
-  }
-
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
 }
 
 export default Customer;

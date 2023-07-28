@@ -73,20 +73,46 @@ th.sss {
 }
 
 li.page-item {
-  padding: 10px;
-  /* margin: 30px; */
-  border: 1px solid red;
+  /* padding: 5px; */
+  margin: 10px;
+  /* border: 1px solid red; */
   font-size: 20px;
-}
-li.page-item :active {
-  background: #12e2b8;
-  color: #ffffff;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-ul.pagination {
+.pagination {
   display: flex;
   list-style: none;
   /* padding: 30px; */
+}
+.pagination .page-item:hover a {
+  background: #b0b0b0;
+  color: rgb(0, 0, 0);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.pagination .active a {
+  background: #22a699;
+  color: rgb(255, 255, 255);
+  display: flex;
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.pagination a {
+  color: black;
 }
 
 td.TDB {

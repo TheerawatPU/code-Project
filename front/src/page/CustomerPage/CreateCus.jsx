@@ -102,16 +102,15 @@ function CreateCus() {
       err.email_cus === "" &&
       err.phone_cus === "" &&
       err.address_cus === ""
-    ) 
-    {
+    ) {
       try {
         // ตรวจสอบว่าบัตรประชาชนมีอยู่ในฐานข้อมูลหรือไม่
         const response = await axios.get(
           `http://localhost:5500/cuscreate/${values.phone_cus}`
         );
-  
+
         if (response.data.exists) {
-          setErrors({ phone_cus: 'บัตรประชาชนนี้มีอยู่ในฐานข้อมูลแล้ว' });
+          setErrors({ phone_cus: "บัตรประชาชนนี้มีอยู่ในฐานข้อมูลแล้ว" });
         } else {
           // ส่งข้อมูลไปยังเซิร์ฟเวอร์หรือประมวลผลต่อไป
           axios
@@ -126,65 +125,15 @@ function CreateCus() {
             .catch((err) => console.log(err));
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
-    // {
-    //   axios
-    //     .post("http://localhost:5500/cuscreate", {
-    //       ...values,
-    //       phone_cus: formattedPhone, // นำเบอร์โทรที่ลบขีดคั่นได้แทนค่าใน values ที่จะส่งไปบันทึก
-    //     })
-    //     .then((res) => {
-    //       console.log(res);
-    //       navigate("/Customer");
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
+
     console.log(phoneNumber);
   };
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [cradID, setCradID] = useState("");
-
-  // const handleInput = (event) => {
-  //   const { name, value } = event.target;
-
-  //   if (name === "card_ID") {
-  //     const formattedCardID = value.replace(/-/g, "");
-  //     const formattedText1 = formattedCardID
-  //       .replace(/\D/g, "")
-  //       .slice(0, 13)
-  //       .replace(/(\d{1})(\d{4})(\d{5})(\d{2})(\d{1})/, "$1-$2-$3-$4-$5");
-
-  //     setCradID(formattedText1);
-  //     setValues((prev) => ({ ...prev, [name]: formattedText1 }));
-  //   }
-  //   if (name === "phone_cus") {
-  //     const formattedPhoneNumber = value.replace(/-/g, "");
-  //     let formattedText;
-  //     if (formattedPhoneNumber.length === 9) {
-  //       formattedText = formattedPhoneNumber.replace(
-  //         /(\d{2})(\d{3})(\d{4})/,
-  //         "$1-$2-$3"
-  //       );
-  //     } else if (formattedPhoneNumber.length === 10) {
-  //       formattedText = formattedPhoneNumber.replace(
-  //         /(\d{3})(\d{3})(\d{4})/,
-  //         "$1-$2-$3"
-  //       );
-  //     } else {
-  //       formattedText = formattedPhoneNumber
-  //         .slice(0, 10)
-  //         .replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-  //     }
-
-  //     setPhoneNumber(formattedText);
-  //     setValues((prev) => ({ ...prev, [name]: formattedText }));
-  //   } else {
-  //     setValues((prev) => ({ ...prev, [name]: value }));
-  //   }
-  // };
 
   const handleInput = (event) => {
     const { name, value } = event.target;
