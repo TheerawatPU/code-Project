@@ -1,0 +1,59 @@
+/* .tabsgrubs {
+  background: violet;
+}
+.tabsgrubs ul {
+  display: flex;
+  background: rgb(238, 130, 130);
+  list-style: none;
+  margin-top: 20px;
+}
+.tabsgrubs button {
+  background: #22a699;
+  color: white;
+  border-radius: 22px 20px 1px 1px;
+  border: 1px solid #12e2b8;
+}
+.tabsgrubs button:active  {
+  background: #00ffe5;
+  color: white;
+  border-radius: 22px 20px 1px 1px;
+  border: 1px solid #12e2b8;
+} */
+
+
+/* CSS สำหรับแท็บทั้งสอง */
+.tabsgrubs ul {
+    list-style-type: none;
+    /* margin-top: 20px; */
+    display: flex;
+    background: #f5f5f5;
+    height: 60px;
+    flex-direction: row;
+    align-items: flex-end;
+    box-shadow: inset 1px 2px 15px 5px rgb(0 0 0 / 16%);
+    
+  }
+  
+  .tabsgrubs li {
+    margin: 0 0px;
+  }
+  
+  .tabsgrubs button {
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    cursor: pointer;
+    /* outline: none; */
+    border-radius: 15px 15px 0px 0px;
+    width: 170px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+  
+  /* CSS สำหรับแท็บที่เลือก */
+  .tabsgrubs button.active {
+    background-color: #22a699;
+    color: #ffffff;
+    border: none;
+  }
+  
