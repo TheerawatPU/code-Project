@@ -85,6 +85,9 @@ function CustomerCreatePage() {
 
   const [errors, setErrors] = useState({});
 
+
+  // แก้ตรงนี้------------------------------------
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -113,6 +116,9 @@ function CustomerCreatePage() {
         })
         .catch((err) => console.log(err));
     }
+
+
+    // ถึงตรงนี้------------------------------------
 
     console.log(phoneNumber);
   };
