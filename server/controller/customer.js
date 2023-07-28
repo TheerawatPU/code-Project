@@ -89,9 +89,6 @@ export const customerUp = (req, res) => {
 };
 //todo สิ้นสุด//
 
-
-
-
 //ลบข้อมูล
 export const customerDelete = (req, res) => {
   const sql = "DELETE FROM `customer`  WHERE id_customer = ?";
@@ -102,4 +99,3 @@ export const customerDelete = (req, res) => {
     return res.json(result);
   });
 };
-
