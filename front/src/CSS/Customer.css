@@ -1,5 +1,5 @@
 /* //todo CustomerRade */
-.table-body {
+.table-body-Customer {
   display: flex;
   /* height: 100vh; */
   margin-left: 37px;
@@ -7,7 +7,7 @@
   width: 95%;
   flex-direction: column;
 }
-.styled-table {
+.styled-table-Customer {
   border-collapse: collapse;
   margin: 15px 0;
   font-size: 14px;
@@ -17,27 +17,27 @@
   padding-bottom: 30px;
 }
 
-.styled-table thead tr {
+.styled-table-Customer thead tr {
   background-color: #22a699;
   color: #ffffff;
   text-align: left;
   font-size: 15px;
 }
 
-.styled-table th,
-.styled-table td {
+.styled-table-Customer th,
+.styled-table-Customer td {
   padding: 11px 10px 5px 14px;
 }
 
-.styled-table tbody tr {
+.styled-table-Customer tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
+.styled-table-Customer tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.styled-table tbody tr:last-of-type {
+.styled-table-Customer tbody tr:last-of-type {
   border-bottom: 2px solid #12e2b8;
 }
 
@@ -73,7 +73,7 @@ th.sss {
   /* margin-right: 50px; */
 }
 
-li.page-item {
+li.page-item-Customer {
   /* padding: 5px; */
   margin: 10px;
   /* border: 1px solid red; */
@@ -85,12 +85,12 @@ li.page-item {
   align-items: center;
 }
 
-.pagination {
+.pagination-Customer {
   display: flex;
   list-style: none;
   /* padding: 30px; */
 }
-.pagination .page-item:hover a {
+.pagination-Customer .page-item-Customer:hover a {
   background: #b0b0b0;
   color: rgb(0, 0, 0);
   width: 50px;
@@ -100,7 +100,7 @@ li.page-item {
   align-items: center;
   border-radius: 5px;
 }
-.pagination .active a {
+.pagination-Customer .active a {
   background: #22a699;
   color: rgb(255, 255, 255);
   display: flex;
@@ -112,7 +112,7 @@ li.page-item {
   align-items: center;
   border-radius: 5px;
 }
-.pagination a {
+.pagination-Customer a {
   color: black;
 }
 

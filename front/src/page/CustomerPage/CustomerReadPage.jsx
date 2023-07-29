@@ -113,8 +113,8 @@ function CustomerReadPage() {
         </button>
       </div>
 
-      <div class="table-body">
-        <table class="styled-table">
+      <div class="table-body-Customer">
+        <table class="styled-table-Customer">
           <thead>
             <tr>
               <th>รหัส</th>
@@ -178,15 +178,15 @@ function CustomerReadPage() {
         </table>
 
         <nav>
-          <ul className="pagination">
-            <li className="page-item">
+          <ul className="pagination-Customer">
+            <li className="page-item-Customer">
               <a href="#" className="page-link" onClick={prePage}>
                 ก่อน
               </a>
             </li>
             {number.map((n, i) => (
               <li
-                className={`page-item ${currentPage === n ? "active" : ""}`}
+                className={`page-item-Customer ${currentPage === n ? "active" : ""}`}
                 key={i}
               >
                 <a
@@ -198,7 +198,7 @@ function CustomerReadPage() {
                 </a>
               </li>
             ))}
-            <li className="page-item">
+            <li className="page-item-Customer">
               <a href="#" className="page-link" onClick={nextPage}>
                 ต่อไป
               </a>

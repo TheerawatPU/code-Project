@@ -3,7 +3,7 @@ import React from "react";
 // import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Menu from "./component/Menu";
-import StablePage from "./page/StablePage/StablePage";
+
 import Report from "./page/ReportPage/Repoet";
 import Unit from "./page/UnitPage/Unit";
 import Topnav from "./component/Topnav";
@@ -13,6 +13,10 @@ import CustomerReadPage from "./page/CustomerPage/CustomerReadPage";
 import CustomerReadIDPage from "./page/CustomerPage/CustomerReadIDPage";
 import CustomerUpdatePage from "./page/CustomerPage/CustomerUpdatePage";
 import CustomerCreatePage from "./page/CustomerPage/CustomerCreatePage";
+
+
+import StablePage from "./page/StablePage/StablePage";
+import StableReadIDPage from "./page/StablePage/StableReadIDPage";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
 
 
           <Route path="/StablePage" element={<StablePage />} />
+          <Route path="StablePage/StableReadIDPage/:id" element={<StableReadIDPage />} />
+          
+
+
           <Route path="/Report" element={<Report />} />
           <Route path="/Unit" element={<Unit />} />
           
