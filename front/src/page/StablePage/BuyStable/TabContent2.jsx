@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../../CSS/Stable.css"
+import "../../../CSS/Stable.css";
 
 function TabContent2() {
   return (

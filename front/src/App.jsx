@@ -15,8 +15,8 @@ import CustomerUpdatePage from "./page/CustomerPage/CustomerUpdatePage";
 import CustomerCreatePage from "./page/CustomerPage/CustomerCreatePage";
 
 
-import StablePage from "./page/StablePage/StablePage";
-import StableReadIDPage from "./page/StablePage/StableReadIDPage";
+import StablePage from "./page/StablePage/Stable/StablePage";
+import StableReadIDPage from "./page/StablePage/Stable/StableReadIDPage";
 
 function App() {
   return (

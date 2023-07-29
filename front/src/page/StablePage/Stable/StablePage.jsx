@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../../CSS/Stable.css";
-import TabContent1 from "./TabStable/TabContent1";
-import TabContent2 from "./TabStable/TabContent2";
+import "../../../CSS/Stable.css";
+import TabContent1 from "./TabContent1";
+import TabContent2 from "../BuyStable/TabContent2";
 
 function StablePage() {
   const [activeTab, setActiveTab] = useState(1);
