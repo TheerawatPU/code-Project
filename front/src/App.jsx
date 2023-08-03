@@ -17,6 +17,7 @@ import CustomerCreatePage from "./page/CustomerPage/CustomerCreatePage";
 
 import StablePage from "./page/StablePage/StablePage";
 import StableReadIDPage from "./page/StablePage/Stable/StableReadIDPage";
+import StableCreatePage from "./page/StablePage/Stable/StableCreatePage";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
           <Route path="/StablePage" element={<StablePage />} />
           <Route path="StablePage/StableReadIDPage/:id" element={<StableReadIDPage />} />
+          <Route path="StablePage/StableCreatePage" element={<StableCreatePage />} />
           
 
 

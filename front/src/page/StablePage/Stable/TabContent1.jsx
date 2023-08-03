@@ -8,9 +8,17 @@ import "../../../CSS/Stable.css";
 function TabContent1() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5500/stable")
+  //     .then((res) => setData(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
+
   useEffect(() => {
     axios
-      .get("http://localhost:5500/stable")
+      .get("http://localhost:5500/stabletest")
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -111,7 +119,7 @@ function TabContent1() {
         />
         <button
           className="btnstable"
-          onClick={() => navigate(`CustomerCreatePage`)}
+          onClick={() => navigate(`StableCreatePage`)}
         >
           <h2>
             <BiPlus />
@@ -125,7 +133,7 @@ function TabContent1() {
             <tr>
               <th>รหัส</th>
               <th>ชื่อวัตถุดิบ</th>
-              <th>ชื่อINCIANME</th>
+              <th>INCI Name</th>
               <th>จุดสั่งซื้อ</th>
               <th>ราคา</th>
               <th >คงเหลือ</th>
@@ -152,11 +160,12 @@ function TabContent1() {
                   >
                     {item.id_staple}
                   </td>
-                  <td>{item.Name_staple}</td>
-                  <td>{item.Name_INCIname}</td>
-                  <td>{item.reOrder}</td>
-                  <td>{item.cost}</td>
-                  <td>{item.amount}</td>
+                  <td style={{ color: item.textColor }}>{item.Name_staple}</td>
+                  {/* <td>{item.Name_INCIname}</td> */}
+                  <td style={{ color: item.textColor }}>{item.Name_INCIname}</td>
+                  <td style={{ color: item.textColor }}>{item.reOrder}</td>
+                  <td style={{ color: item.textColor }}>{item.cost}</td>
+                  <td style={{ color: item.textColor }}>{item.amount}</td>
 
                   <td className="TDStable">
                     <button
