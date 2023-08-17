@@ -99,3 +99,28 @@ export const customerDelete = (req, res) => {
     return res.json(result);
   });
 };
+
+// ! sql funtion check phone_number customer display on react CustomerReadPage.jsx
+// SELECT
+//     CASE
+//         WHEN LENGTH(`phone_cus`) = 9 THEN
+//             CONCAT(
+//                 SUBSTRING(`phone_cus` FROM 1 FOR 2),
+//                 '-',
+//                 SUBSTRING(`phone_cus` FROM 3 FOR 4),
+//                 '-',
+//                 SUBSTRING(`phone_cus` FROM 7 FOR 5)
+//             )
+//         WHEN LENGTH(`phone_cus`) = 10 THEN
+//             CONCAT(
+//                 SUBSTRING(`phone_cus` FROM 1 FOR 3),
+//                 '-',
+//                 SUBSTRING(`phone_cus` FROM 4 FOR 3),
+//                 '-',
+//                 SUBSTRING(`phone_cus` FROM 7 FOR 4)
+//             )
+//         ELSE
+//             `phone_cus`
+//     END AS formatted_phone_number
+// FROM customer
+// ORDER BY `phone_cus` ASC
