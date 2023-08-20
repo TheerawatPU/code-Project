@@ -244,7 +244,7 @@ td.TDB {
     display: flex;
   }
   
-  form {
+  .form-customer {
     display: flex;
     flex-direction: column;
     /* margin-top: 80px; */

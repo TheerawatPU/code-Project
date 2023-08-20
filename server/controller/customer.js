@@ -24,9 +24,17 @@ export const cuscreate = (req, res) => {
 };
 
 //อ่านข้อมูลทั้งหมด
+// export const customer = (req, res) => {
+//   const sql =
+//     "SELECT `id_customer`,`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`, CONCAT(`address_cus`, ' ',`provinces`, ' ', `districts`, ' ', `subdistricts`,' ',`zip_code`) As address FROM `customer` ORDER BY `id_customer`DESC";
+//   db.query(sql, (err, result) => {
+//     if (err) return res.json({ Message: "Error inside server" });
+//     return res.json(result);
+//   });
+// };
 export const customer = (req, res) => {
   const sql =
-    "SELECT `id_customer`,`name_company`,`name_cus`,`card_ID`,`email_cus`,`phone_cus`, CONCAT(`address_cus`, ' ',`provinces`, ' ', `districts`, ' ', `subdistricts`,' ',`zip_code`) As address FROM `customer` ORDER BY `id_customer`DESC";
+    "SELECT `id_customer`,`name_company`,`name_cus`,`card_ID`,`email_cus`,CASE WHEN LENGTH(`phone_cus`) = 9 THEN CONCAT( SUBSTRING(`phone_cus` FROM 1 FOR 2), '-', SUBSTRING(`phone_cus` FROM 3 FOR 4), '-', SUBSTRING(`phone_cus` FROM 7 FOR 5) ) WHEN LENGTH(`phone_cus`) = 10 THEN CONCAT( SUBSTRING(`phone_cus` FROM 1 FOR 3), '-', SUBSTRING(`phone_cus` FROM 4 FOR 3), '-', SUBSTRING(`phone_cus` FROM 7 FOR 4) ) ELSE `phone_cus` END AS phone_cus, CONCAT(`address_cus`, ' ตำบล',`subdistricts` , ' อำเภอ',`districts`, ' จังหวัด', `provinces`,' ',`zip_code`) As address FROM `customer` ORDER BY `id_customer`DESC";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);

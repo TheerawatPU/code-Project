@@ -186,7 +186,7 @@ function CustomerCreatePage() {
 
         <div className="con">
           {/* <pre>{JSON.stringify(formValues, undefined, 2)}</pre> */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="form-customer">
             <div className="form-row">
               <label className="form-label">
                 <p>*</p>ชื่อบริษัท :
