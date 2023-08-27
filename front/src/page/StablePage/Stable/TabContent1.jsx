@@ -4,6 +4,8 @@ import { BiPlus } from "react-icons/bi";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../../../CSS/Stable.css";
+import Topnav from "../../../component/Topnav";
+import Menu from "../../../component/Menu";
 
 function TabContent1() {
   const navigate = useNavigate();
@@ -108,122 +110,124 @@ function TabContent1() {
 
   return (
     <div>
-      <div className="grup_btn">
-        <p>วัตถุดิบ</p>
-        <input
-          className="inputsearch"
-          type="text"
-          placeholder="ช่องค้นหา...."
-          value={filterVal}
-          onInput={(e) => handleFilter(e)}
-        />
-        <button
-          className="btnstable"
-          onClick={() => navigate(`StableCreatePage`)}
-        >
-          <h2>
-            <BiPlus />
-          </h2>
-        </button>
-      </div>
+      <main className="main-stable ">
+        <div className="grup_btn">
+          <p>วัตถุดิบ</p>
+          <input
+            className="inputsearch"
+            type="text"
+            placeholder="ช่องค้นหา...."
+            value={filterVal}
+            onInput={(e) => handleFilter(e)}
+          />
+          <button className="btnstable" onClick={() => navigate(`StableNew`)}>
+            <h2>
+              <BiPlus />
+            </h2>
+          </button>
+        </div>
 
-      <div class="table-body">
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>รหัส</th>
-              <th>ชื่อวัตถุดิบ</th>
-              <th>INCI Name</th>
-              <th>จุดสั่งซื้อ</th>
-              <th>ราคา</th>
-              <th >คงเหลือ</th>
+        <div class="table-body">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>รหัส</th>
+                <th>ชื่อวัตถุดิบ</th>
+                <th>INCI Name</th>
+                <th>จุดสั่งซื้อ</th>
+                <th>ราคา</th>
+                <th>คงเหลือ</th>
 
-              <th
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px",
-                  
-                }}
-              >
-                แก้ไข
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {records.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td
-                    style={{ color: "blue", cursor: "pointer" }}
-                    onClick={() => navigate(`..//StableReadIDPage/${item.id_staple}`)}
-                  >
-                    {item.id_staple}
-                  </td>
-                  <td style={{ color: item.textColor }}>{item.Name_staple}</td>
-                  {/* <td>{item.Name_INCIname}</td> */}
-                  <td style={{ color: item.textColor }}>{item.Name_INCIname}</td>
-                  <td style={{ color: item.textColor }}>{item.reOrder}</td>
-                  <td style={{ color: item.textColor }}>{item.cost}</td>
-                  <td style={{ color: item.textColor }}>{item.amount}</td>
-
-                  <td className="TDStable">
-                    <button
-                      className="btnstableRead"
-                      onClick={() =>
-                        navigate(`..//StableReadIDPage/${item.id_staple}`)
-                      }
-                    >
-                      <h3>
-                        <FaEye />
-                      </h3>
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`CustomerUpdatePage/${item.id_staple}`)
-                      }
-                      className="btnstableEdit"
-                    >
-                      <h3>
-                        <FaPen />
-                      </h3>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-
-        <nav>
-          <ul className="pagination-stable">
-            <li className="page-item-stable">
-              <a href="#" className="page-link" onClick={prePage}>
-                ก่อน
-              </a>
-            </li>
-            {number.map((n, i) => (
-              <li
-                className={`page-item-stable ${currentPage === n ? "active" : ""}`}
-                key={i}
-              >
-                <a
-                  href="#"
-                  className="page-link"
-                  onClick={() => changeCPage(n)}
+                <th
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                  }}
                 >
-                  {n}
+                  แก้ไข
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {records.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => navigate(`Stabledetel/${item.id_staple}`)}
+                    >
+                      {item.id_staple}
+                    </td>
+                    <td style={{ color: item.textColor }}>
+                      {item.Name_staple}
+                    </td>
+                    {/* <td>{item.Name_INCIname}</td> */}
+                    <td style={{ color: item.textColor }}>
+                      {item.Name_INCIname}
+                    </td>
+                    <td style={{ color: item.textColor }}>{item.reOrder}</td>
+                    <td style={{ color: item.textColor }}>{item.cost}</td>
+                    <td style={{ color: item.textColor }}>{item.amount}</td>
+
+                    <td className="TDStable">
+                      <button
+                        className="btnstableRead"
+                        onClick={() =>
+                          navigate(`Stabledetel/${item.id_staple}`)
+                        }
+                      >
+                        <h3>
+                          <FaEye />
+                        </h3>
+                      </button>
+                      <button
+                        onClick={() => navigate(`StableEdit/${item.id_staple}`)}
+                        className="btnstableEdit"
+                      >
+                        <h3>
+                          <FaPen />
+                        </h3>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+
+          <nav>
+            <ul className="pagination-stable">
+              <li className="page-item-stable">
+                <a href="#" className="page-link" onClick={prePage}>
+                  ก่อน
                 </a>
               </li>
-            ))}
-            <li className="page-item-stable">
-              <a href="#" className="page-link" onClick={nextPage}>
-                ต่อไป
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+              {number.map((n, i) => (
+                <li
+                  className={`page-item-stable ${
+                    currentPage === n ? "active" : ""
+                  }`}
+                  key={i}
+                >
+                  <a
+                    href="#"
+                    className="page-link"
+                    onClick={() => changeCPage(n)}
+                  >
+                    {n}
+                  </a>
+                </li>
+              ))}
+              <li className="page-item-stable">
+                <a href="#" className="page-link" onClick={nextPage}>
+                  ต่อไป
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </main>
     </div>
   );
 }

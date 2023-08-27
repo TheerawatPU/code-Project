@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Validation from "../../function/CusValidate";
-import "../../CSS/Customer.css";
+
+import Topnav from "../../component/Topnav";
+import Menu from "../../component/Menu";
+import "../../CSS/CustomerNew.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function CustomerCreatePage() {
   const [province, setProvince] = useState([]);
@@ -85,9 +90,6 @@ function CustomerCreatePage() {
 
   const [errors, setErrors] = useState({});
 
-
-  // แก้ตรงนี้------------------------------------
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -112,11 +114,10 @@ function CustomerCreatePage() {
         })
         .then((res) => {
           console.log(res);
-          navigate("/CustomerReadPage");
+          navigate("/EM/CustomerReadPage");
         })
         .catch((err) => console.log(err));
     }
-
 
     // ถึงตรงนี้------------------------------------
 
@@ -164,190 +165,189 @@ function CustomerCreatePage() {
   };
 
   return (
-    <div>
-      <div className="box">
-        <h2>เพิ่มข้อมูลลูกค้า</h2>
-        <div className="g-btn">
-          <button className="cancle-btn" onClick={() => navigate(-1)}>
-            ยกเลิก
-          </button>
-          <button
-            type="submit"
-            className="save-btn"
-            onClick={(e) => {
-              handleSubmit(e);
-            }}
-          >
-            บันทึก
-          </button>
+    <div className="all-page">
+      <header className="header">
+        <Topnav />
+      </header>
+      <section className="aside">
+        <Menu />
+      </section>
+      <main className="main">
+        <div className="top-text-new-C">
+          <div className="text-new-C">เพิ่มข้อมูลข้อมูลลูกค้า</div>
         </div>
 
-        {/* //! todo เริ่มจากต้นนี้----------------------------------------------------// */}
+        <div className="text-new-lg-C">
+          กรุณากรอกข้อมูลให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
+        </div>
 
-        <div className="con">
-          {/* <pre>{JSON.stringify(formValues, undefined, 2)}</pre> */}
-          <form onSubmit={handleSubmit} className="form-customer">
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>ชื่อบริษัท :
-              </label>
-              <input
-                type="text"
-                name="name_company"
-                className="form-input"
-                onChange={handleInput}
-              />
-              {errors.name_company && (
-                <span className="text-danger">{errors.name_company}</span>
-              )}
-            </div>
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>ชื่อลูกค้า :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="name_cus"
-                onChange={handleInput}
-              />
-              {errors.name_cus && (
-                <span className="text-danger">{errors.name_cus}</span>
-              )}
-            </div>
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>รหัสบัตรประชาชน :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="card_ID"
-                value={cradID}
-                onChange={handleInput}
-                maxLength={17}
-                required
-              />
-              {errors.card_ID && (
-                <span className="text-danger">{errors.card_ID}</span>
-              )}
-            </div>
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>อีเมล :
-              </label>
-              <input
-                type="email"
-                className="form-input"
-                name="email_cus"
-                onChange={handleInput}
-              />
-              {errors.email_cus && (
-                <span className="text-danger">{errors.email_cus}</span>
-              )}
-            </div>
-
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>เบอร์โทรศัพท์ :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="phone_cus"
-                // onChange={handleInput}
-                value={phoneNumber}
-                onChange={handleInput}
-                maxLength={12}
-                required
-              />
-
-              {errors.phone_cus && (
-                <span className="text-danger">{errors.phone_cus}</span>
-              )}
-            </div>
-            <div className="form-row2">
-              <label className="form-label">
-                <p>*</p>ที่อยู่ :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="address_cus"
-                onChange={handleInput}
-              />
-              {/* {errors.address_cus && (
-                <span className="text-danger">{errors.address_cus}</span>
-              )} */}
-            </div>
-            <div className="form-row1">
-              <div className="select-row">
-                <select
-                  className="form-input1"
-                  // value={formValues.provinces}
-                  onChange={(e) => onChangeProvince(e)}
-                  name="provinces"
-                >
-                  <option>เลือกจังหวัด</option>
-                  {province.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name_in_thai}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="select-row">
-                <select
-                  className="form-input1"
-                  // value={formValues.districts}
-                  onChange={(e) => onChangeDistricts(e)}
-                  name="districts"
-                >
-                  <option>เลือกอำเภอ</option>
-                  {districts.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name_in_thai}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="select-row">
-                <select
-                  className="form-input1"
-                  // value={formValues.subdistricts}
-                  onChange={(e) => onChangeSubdistricts(e)}
-                  name="subdistricts"
-                >
-                  <option>เลือกตำบล</option>
-                  {subdistricts.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name_in_thai}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="select-row">
+        <div className="box-big-bg-new-C">
+          <div className="box-BG-area-new-C">
+            <form className="form-stable-new-C" onSubmit={handleSubmit}>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>ชื่อบริษัท :
+                </label>
                 <input
-                  style={{ width: "140px", height: "30px" }}
+                  name="name_company"
                   type="text"
-                  className="form-input"
-                  name="zip_code"
-                  value={values.zip_code}
-                  disabled
+                  className="form-input-new"
+                  onChange={handleInput}
+                />
+                {errors.name_company && (
+                  <p className="text-danger">{errors.name_company}</p>
+                )}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>ชื่อลูกค้า :
+                </label>
+                <input
+                  name="name_cus"
+                  type="text"
+                  className="form-input-new-C"
+                  onChange={handleInput}
+                />
+                {errors.name_cus && <p>{errors.name_cus}</p>}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>รหัสบัตรประชาชน :
+                </label>
+                <input
+                  name="card_ID"
+                  type="text"
+                  className="form-input-new-C"
+                  onChange={handleInput}
+                  value={cradID}
+                  maxLength={17}
+                  required
+                />
+                {errors.card_ID && <p>{errors.card_ID}</p>}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>อีเมล :
+                </label>
+                <input
+                  name="email_cus"
+                  type="email"
+                  className="form-input-new-C"
+                  onChange={handleInput}
+                />
+                {errors.email_cus && <p>{errors.email_cus}</p>}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>เบอร์โทรศัพท์ :
+                </label>
+                <input
+                  name="phone_cus"
+                  type="text"
+                  className="form-input-new-C"
+                  onChange={handleInput}
+                  value={phoneNumber}
+                  maxLength={12}
+                  required
+                />
+                {errors.phone_cus && <p>{errors.phone_cus}</p>}
+              </div>
 
-                  // onChange={handleInput}
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>ที่อยู่ :
+                </label>
+                <textarea
+                  type="text"
+                  className="form-input-new2-C"
+                  name="address_cus"
+                  onChange={handleInput}
                 />
               </div>
+
+              <div className="form-row-new-select-C">
+                <div className="select-row-C">
+                  <select
+                    className="form-input-select-C"
+                    onChange={(e) => onChangeProvince(e)}
+                    name="provinces"
+                  >
+                    <option>เลือกจังหวัด</option>
+                    {province.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name_in_thai}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="select-row-C">
+                  <select
+                    className="form-input-select-C"
+                    onChange={(e) => onChangeDistricts(e)}
+                    name="districts"
+                  >
+                    <option>เลือกอำเภอ</option>
+                    {districts.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name_in_thai}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="select-row-C">
+                  <select
+                    className="form-input-select-C"
+                    onChange={(e) => onChangeSubdistricts(e)}
+                    name="subdistricts"
+                  >
+                    <option>เลือกตำบล</option>
+                    {subdistricts.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name_in_thai}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="select-row-C">
+                  <input
+                    type="text"
+                    className="form-input-select-C"
+                    name="zip_code"
+                    value={values.zip_code}
+                    disabled
+                  />
+                </div>
+              </div>
+              <div className="form-error-C">
+                <p>{errors.address_cus}</p>
+              </div>
+            </form>
+          </div>
+
+          <div className="btn-submit-new-C">
+            <div className="btn-area-new-C">
+              <button
+                type="cancle"
+                className="cancle-new-C"
+                onClick={() => navigate(-1)}
+              >
+                <FontAwesomeIcon icon={faXmark} />
+                <span>ยกเลิก</span>
+              </button>
+              <button
+                type="submit"
+                className="submit-new-C"
+                onClick={(e) => {
+                  handleSubmit(e);
+                }}
+              >
+                <FontAwesomeIcon icon={faFloppyDisk} />
+                <span>บันทึก</span>
+              </button>
             </div>
-            <div className="form-row5">
-              <span className="text-danger">{errors.address_cus}</span>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

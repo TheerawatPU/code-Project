@@ -3,9 +3,9 @@ import "../CSS/Component.css"
 
 function Topnav() {
   return (
-    <div class="navbar">
-      <div class="navbar-brand">ชื่อเว็บไซต์</div>
-      <div class="navbar-login">ชื่อผู้ล็อกอิน</div>
+    <div className="topnav-EM">
+      <div className="name-logo-EM">Food4Skin Thailand</div>
+      <div className="profile-EM">นายกำลังทำงาน</div>
     </div>
   );
 }

@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import "../../CSS/Customer.css";
+// import "../../CSS/Customer.css";
+import Topnav from "../../component/Topnav";
+import Menu from "../../component/Menu";
+import "../../CSS/CustomerNew.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function CustomerUpdatePage() {
   const [province, setProvince] = useState([]);
@@ -20,10 +25,12 @@ function CustomerUpdatePage() {
         console.log(err);
       });
   }, []);
+  
   const onChangeProvince = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
     setValues({ ...values, [e.target.name]: label });
+    // setValues({ ...values, provinces: e.target.value });
 
     const id = e.target.value;
     axios
@@ -52,19 +59,24 @@ function CustomerUpdatePage() {
       });
   };
   const onChangeSubdistricts = (e) => {
-    let index = e.nativeEvent.target.selectedIndex;
-    let label = e.nativeEvent.target[index].text;
-    setValues({ ...values, [e.target.name]: label });
+    // let index = e.nativeEvent.target.selectedIndex;
+    // let label = e.nativeEvent.target[index].text;
+    const filterDistrict = subdistricts.filter((item) => {
+      return e.target.value == item.id;
+    });
+    console.log(filterDistrict[0].name_in_thai);
+    console.log(filterDistrict[0].zip_code);
 
+    setValues({
+      ...values,
+      [e.target.name]: filterDistrict[0].name_in_thai,
+      zip_code: filterDistrict[0].zip_code,
+    });
     console.log(e.target.value);
-  };
-  const onchangeData = (e) => {
-    setValues({ ...values });
   };
 
   const navigate = useNavigate();
   const { id } = useParams();
-
 
   useEffect(() => {
     axios
@@ -74,6 +86,7 @@ function CustomerUpdatePage() {
         console.log(res);
         setValues({
           ...values,
+          id_customer: res.data[0].id_customer,
           name_company: res.data[0].name_company,
           name_cus: res.data[0].name_cus,
           card_ID: res.data[0].card_ID,
@@ -83,6 +96,7 @@ function CustomerUpdatePage() {
           provinces: res.data[0].provinces,
           districts: res.data[0].districts,
           subdistricts: res.data[0].subdistricts,
+          zip_code: res.data[0].zip_code,
         });
       })
       .catch((err) => console.log(err));
@@ -98,6 +112,7 @@ function CustomerUpdatePage() {
     provinces: "",
     districts: "",
     subdistricts: "",
+    zip_code: "",
   });
 
   const handleUpdate = (event) => {
@@ -106,171 +121,233 @@ function CustomerUpdatePage() {
       .put("http://localhost:5500/customerUp/" + id, values)
       .then((res) => {
         console.log(res);
-        navigate("/CustomerReadPage");
+        navigate("/EM/CustomerReadPage");
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div>
-      <div className="box">
-        <h2>แก้ไขข้อมูลลูกค้า</h2>
-        <div className="g-btn">
-          <button className="cancle-btn" onClick={() => navigate(-1)}>
-            ยกเลิก
-          </button>
-          <button type="submit" className="save-btn" onClick={handleUpdate}>
-            บันทึก
-          </button>
+    <div className="all-page">
+      <header className="header">
+        <Topnav />
+      </header>
+      <section className="aside">
+        <Menu />
+      </section>
+      <main className="main">
+        <div className="top-text-new-C">
+          <div className="text-new-C">แก้ไขข้อมูลลูกค้า</div>
         </div>
 
-        {/* //! todo เริ่มจากต้นนี้----------------------------------------------------// */}
-        <div className="con">
-          <form onSubmit={handleUpdate}>
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>ชื่อบริษัท :
-              </label>
-              <input
-                type="text"
-                name="name_company"
-                className="form-input"
-                value={values.name_company}
-                onChange={(e) =>
-                  setValues({ ...values, name_company: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>ชื่อลูกค้า :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="name_cus"
-                value={values.name_cus}
-                onChange={(e) =>
-                  setValues({ ...values, name_cus: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>รหัสบัตรประชาชน :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="card_ID"
-                value={values.card_ID}
-                onChange={(e) =>
-                  setValues({ ...values, card_ID: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>อีเมล :
-              </label>
-              <input
-                type="email"
-                className="form-input"
-                name="email_cus"
-                value={values.email_cus}
-                onChange={(e) =>
-                  setValues({ ...values, email_cus: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="form-row">
-              <label className="form-label">
-                <p>*</p>เบอร์โทรศัพท์ :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="phone_cus"
-                value={values.phone_cus}
-                onChange={(e) =>
-                  setValues({ ...values, phone_cus: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="form-row2">
-              <label className="form-label">
-                <p>*</p>ที่อยู่ :
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                name="address_cus"
-                value={values.address_cus}
-                onChange={(e) =>
-                  setValues({ ...values, address_cus: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="form-row1">
-              <div className="select-row">
-                <select
-                  className="form-input1"
-                  value={values.provinces}
-                  // value={formValues.provinces}
-                  onChange={(e) => onChangeProvince(e)}
-                  name="provinces"
-                >
-                  <option>เลือกจังหวัด</option>
-                  {province.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name_in_thai}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="select-row">
-                <select
-                  className="form-input1"
-                  // value={formValues.districts}
-                  onChange={(e) => onChangeDistricts(e)}
-                  name="districts"
-                >
-                  <option>เลือกอำเภอ</option>
-                  {districts.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name_in_thai}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="select-row">
-                <select
-                  className="form-input1"
-                  // value={formValues.subdistricts}
-                  onChange={(e) => onChangeSubdistricts(e)}
-                  name="subdistricts"
-                >
-                  <option>เลือกตำบล</option>
-                  {subdistricts.map((item, index) => (
-                    <option key={index} value={item.id}>
-                      {item.name_in_thai}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </form>
+        <div className="text-new-lg-C">
+          กรุณากรอกข้อมูลให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
         </div>
-        {/* ))} */}
-      </div>
+
+        <div className="box-big-bg-new-C">
+          <div className="box-BG-area-new-C">
+            <form className="form-stable-new-C" onSubmit={handleUpdate}>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">รหัสลูกค้า :</label>
+                <input
+                  style={{ background: "#e5e5e5", border: "none" }}
+                  name="id_customer "
+                  type="text"
+                  className="form-input-new-C"
+                  value={values.id_customer}
+                  onChange={(e) =>
+                    setValues({ ...values, id_customer: e.target.value })
+                  }
+                  disabled
+                />
+                {/* {errors.name_company && (
+                  <span className="text-danger">{errors.name_company}</span>
+                )} */}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>ชื่อบริษัท :
+                </label>
+                <input
+                  name="name_company"
+                  type="text"
+                  className="form-input-new-C"
+                  value={values.name_company}
+                  onChange={(e) =>
+                    setValues({ ...values, name_company: e.target.value })
+                  }
+                />
+                {/* {errors.name_company && (
+                  <span className="text-danger">{errors.name_company}</span>
+                )} */}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>ชื่อลูกค้า :
+                </label>
+                <input
+                  name="name_cus"
+                  type="text"
+                  className="form-input-new-C"
+                  value={values.name_cus}
+                  onChange={(e) =>
+                    setValues({ ...values, name_cus: e.target.value })
+                  }
+                />
+                {/* {errors.name_cus && (
+                  <span className="text-danger">{errors.name_cus}</span>
+                )} */}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>รหัสบัตรประชาชน :
+                </label>
+                <input
+                  name="card_ID"
+                  type="text"
+                  className="form-input-new-C"
+                  value={values.card_ID}
+                  onChange={(e) =>
+                    setValues({ ...values, card_ID: e.target.value })
+                  }
+                />
+                {/* {errors.card_ID && (
+                  <span className="text-danger">{errors.card_ID}</span>
+                )} */}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>อีเมล :
+                </label>
+                <input
+                  name="email_cus"
+                  type="email"
+                  className="form-input-new-C"
+                  value={values.email_cus}
+                  onChange={(e) =>
+                    setValues({ ...values, email_cus: e.target.value })
+                  }
+                />
+                {/* {errors.email_cus && (
+                  <span className="text-danger">{errors.email_cus}</span>
+                )} */}
+              </div>
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>เบอร์โทรศัพท์ :
+                </label>
+                <input
+                  name="phone_cus"
+                  type="text"
+                  className="form-input-new-C"
+                  value={values.phone_cus}
+                  onChange={(e) =>
+                    setValues({ ...values, phone_cus: e.target.value })
+                  }
+                />
+                {/* {errors.phone_cus && (
+                  <span className="text-danger">{errors.phone_cus}</span>
+                )} */}
+              </div>
+
+              <div className="form-row-new-C">
+                <label className="form-label-new-C">
+                  <p>*</p>ที่อยู่ :
+                </label>
+                <textarea
+                  type="text"
+                  className="form-input-new2-C"
+                  name="address_cus"
+                  value={values.address_cus}
+                  onChange={(e) =>
+                    setValues({ ...values, address_cus: e.target.value })
+                  }
+                />
+              </div>
+
+              <div className="form-row-new-select-C">
+                <div className="select-row-C">
+                  <select
+                    className="form-input-select-C"
+                    onChange={(e) => onChangeProvince(e)}
+                    name="provinces"
+                  >
+                    <option>{values.provinces}</option>
+                    {province.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name_in_thai}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="select-row-C">
+                  <select
+                    className="form-input-select-C"
+                    onChange={(e) => onChangeDistricts(e)}
+                    name="districts"
+                  >
+                    <option>{values.districts}</option>
+                    {districts.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name_in_thai}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="select-row-C">
+                  <select
+                    className="form-input-select-C"
+                    onChange={(e) => onChangeSubdistricts(e)}
+                    name="subdistricts"
+                  >
+                    <option>{values.subdistricts}</option>
+                    {subdistricts.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name_in_thai}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="select-row-C">
+                  <input
+                    style={{ background: "#e5e5e5", border: "none" }}
+                    type="text"
+                    className="form-input-select-C"
+                    name="zip_code"
+                    value={values.zip_code}
+                    disabled
+                  />
+                </div>
+              </div>
+              {/* <div className="form-error-C">
+                <span className="text-danger">{errors.address_cus}</span>
+              </div> */}
+            </form>
+          </div>
+
+          <div className="btn-submit-new-C">
+            <div className="btn-area-new-C">
+              <button
+                type="cancle"
+                className="cancle-new-C"
+                onClick={() => navigate(-1)}
+              >
+                <FontAwesomeIcon icon={faXmark} />
+                <span>ยกเลิก</span>
+              </button>
+              <button
+                type="submit"
+                className="submit-new-C"
+                onClick={(e) => {
+                  handleUpdate(e);
+                }}
+              >
+                <FontAwesomeIcon icon={faFloppyDisk} />
+                <span>บันทึก</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

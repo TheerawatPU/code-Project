@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../CSS/Customer.css";
+import Topnav from "../../component/Topnav";
+import Menu from "../../component/Menu";
+import "../../CSS/CustomerNew.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function CustomerReadIDPage() {
   const { id } = useParams();
@@ -15,111 +20,131 @@ function CustomerReadIDPage() {
   }, []);
 
   const navigate = useNavigate();
+
   return (
-    <div>
-      <h2>รายละเอียดลูกค้า</h2>
-      <div className="g-btn">
-        <button className="cancle-btn" onClick={() => navigate(-1)}>
-          ย้อนกลับ
-        </button>
-      </div>
-      {Data.map((d, index) => (
-        <div key={index}>
-          <div className="con">
-            <form>
-              <div className="form-row">
-                <label for="name_company" className="form-label">
-                  รหัสลูกค้า :
-                </label>
-                <input
-                  type="text"
-                  name="name_company"
-                  className="form-input"
-                  value={d.id_customer}
-                  readOnly
-                />
-              </div>
-              <div className="form-row">
-                <label for="name_company" className="form-label">
-                  ชื่อบริษัท :
-                </label>
-                <input
-                  type="text"
-                  name="name_company"
-                  className="form-input"
-                  value={d.name_company}
-                  readOnly
-                />
-              </div>
-
-              <div className="form-row">
-                <label for="name_cus" className="form-label">
-                  ชื่อลูกค้า :
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  name="name_cus"
-                  value={d.name_cus}
-                  readOnly
-                />
-              </div>
-
-              <div className="form-row">
-                <label for="card_ID" className="form-label">
-                  รหัสบัตรประชาชน :
-                </label>
-                <input
-                  type="number"
-                  className="form-input"
-                  name="card_ID"
-                  value={d.card_ID}
-                  readOnly
-                />
-              </div>
-
-              <div className="form-row">
-                <label for="email_cus" className="form-label">
-                  อีเมลล์ :
-                </label>
-                <input
-                  type="email"
-                  className="form-input"
-                  name="email_cus"
-                  value={d.email_cus}
-                  readOnly
-                />
-              </div>
-
-              <div className="form-row">
-                <label for="phone_cus" className="form-label">
-                  เบอร์โทรศัพท์ :
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  name="phone_cus"
-                  value={d.phone_cus}
-                  readOnly
-                />
-              </div>
-
-              <div className="form-row2">
-                <label for="address_cus" className="form-label">
-                  ที่อยู่ :
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  name="address_cus"
-                  value={d.address}
-                  readOnly
-                />
-              </div>
-            </form>
-          </div>
+    <div className="all-page">
+      <header className="header">
+        <Topnav />
+      </header>
+      <section className="aside">
+        <Menu />
+      </section>
+      <main className="main">
+        <div className="top-text-new-C">
+          <div className="text-new-C">รายละเอียดข้อมูลลูกค้า</div>
         </div>
-      ))}
+        {Data.map((d, index) => (
+          <div className="box-big-bg-new-C" key={index}>
+            <div className="box-BG-area-new-C">
+              <form className="form-stable-new-C">
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">รหัสลูกค้า :</label>
+                  <input
+                    name="name_company"
+                    type="text"
+                    className="form-input-new-read-C"
+                    value={d.id_customer}
+                    readOnly
+                    disabled
+                  />
+                </div>
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">ชื่อบริษัท :</label>
+                  <input
+                    name="name_company"
+                    type="text"
+                    className="form-input-new-read-C"
+                    value={d.name_company}
+                    readOnly
+                    disabled
+                  />
+                </div>
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">ชื่อลูกค้า :</label>
+                  <input
+                    name="name_cus"
+                    type="text"
+                    className="form-input-new-read-C"
+                    value={d.name_cus}
+                    readOnly
+                    disabled
+                  />
+                </div>
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">รหัสบัตรประชาชน :</label>
+                  <input
+                    name="card_ID"
+                    type="text"
+                    className="form-input-new-read-C"
+                    value={d.card_ID}
+                    readOnly
+                    disabled
+                  />
+                </div>
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">อีเมล :</label>
+                  <input
+                    name="email_cus"
+                    type="email"
+                    className="form-input-new-read-C"
+                    value={d.email_cus}
+                    readOnly
+                    disabled
+                  />
+                </div>
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">เบอร์โทรศัพท์ :</label>
+                  <input
+                    name="phone_cus"
+                    type="text"
+                    className="form-input-new-read-C"
+                    value={d.phone_cus}
+                    readOnly
+                    disabled
+                  />
+                </div>
+
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">ที่อยู่ :</label>
+                  <input
+                    type="text"
+                    className="form-input-new-read-C"
+                    name="address_cus"
+                    value={d.address}
+                    readOnly
+                    disabled
+                  />
+                </div>
+              </form>
+            </div>
+
+            <div className="btn-submit-new-C">
+              <div className="btn-area-new-C">
+                <button
+                  type="cancle"
+                  className="cancle-new-C"
+                  onClick={() => navigate(-1)}
+                >
+                  <FontAwesomeIcon icon={faArrowLeft} />
+                  <span>ย้อนกลับ</span>
+                </button>
+                <button
+                  type="submit"
+                  className="submit-new-C"
+                  onClick={() =>
+                    navigate(
+                      `/EM/CustomerReadPage/CustomerUpdatePage/${d.id_customer}`
+                    )
+                  }
+                >
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                  <span>แก้ไข</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </main>
     </div>
   );
 }

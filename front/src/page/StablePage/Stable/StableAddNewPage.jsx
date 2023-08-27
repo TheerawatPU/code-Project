@@ -1,60 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
 
-function StableCreatePage() {
-  const [staple, setStaple] = useState([]);
-
-  useEffect(() => {
-    // ทำการดึงข้อมูลจาก API และอัปเดต state ของ options
-    axios
-      .get("http://localhost:5500/stapleRead_lot")
-      .then((response) => {
-        setStaple(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
-
-  const onChangeSubdistricts = (e) => {
-    // let index = e.nativeEvent.target.selectedIndex;
-    // let label = e.nativeEvent.target[index].text;
-    const filterDistrict = staple.filter((item) => {
-      return e.target.value == item.id_staple;
-    });
-    console.log(filterDistrict[0].Name_INCIname);
-    console.log(filterDistrict[0].howUsing);
-    
-
-    setValues({
-      ...values,
-      [e.target.name]: filterDistrict[0].Name_staple,
-      id_staple: filterDistrict[0].id_staple,
-      Name_INCIname: filterDistrict[0].Name_INCIname,
-      howUsing: filterDistrict[0].howUsing,
-      melting: filterDistrict[0].melting,
-      howMixing: filterDistrict[0].howMixing,
-      saving: filterDistrict[0].saving,
-      reOrder: filterDistrict[0].reOrder,
-    });
-    console.log(e.target.value);
-  };
-
-  const [values, setValues] = useState({
-    id_staple: "",
-    Name_staple: "",
-    Name_INCIname: "",
-    howUsing: "",
-    howMixing: "",
-    saving: "",
-    melting: "",
-    reOrder: "",
-  });
-
-  console.log(staple);
-
+function StableAddNewPage() {
   return (
     <div className="all-page">
       <header className="header-stable ">
@@ -80,85 +28,38 @@ function StableCreatePage() {
                   <div class="div3">
                     <div className="div3-3">
                       <label className="input-stable">รหัสวัตถุดิบ</label>
-                      <input
-                        type="text"
-                        readOnly
-                        className="stable-input-L"
-                        value={values.id_staple}
-                        name="id_staple"
-                        disabled
-                      ></input>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="div3-3">
                       <label className="input-stable">ชื่อวัตถุดิบ</label>
-                      <select
-                        className="stable-input-L-select"
-                        onChange={(e) => onChangeSubdistricts(e)}
-                        name="Name_staple"
-                      >
-                        <option>เลือกวัตถุดิบ</option>
-                        {staple.map((item, index) => (
-                          <option key={index} value={item.id_staple}>
-                            {item.Name_staple}
-                          </option>
-                        ))}
-                      </select>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="div3-3">
                       <label className="input-stable">INACI Name</label>
-                      <input
-                        type="text"
-                        className="stable-input-L"
-                        value={values.Name_INCIname}
-                        name="Name_INCIname"
-                        onChange={(e) => onChangeSubdistricts(e)}
-                      ></input>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="div3-3">
                       <label className="input-stable">การละลาย</label>
-                      <input
-                        className="stable-input-L"
-                        value={values.melting}
-                        name="melting"
-                      ></input>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="div3-3">
                       <label className="input-stable">การใช้</label>
-                      <input
-                        className="stable-input-L"
-                        value={values.howUsing}
-                        name="howUsing"
-                      ></input>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="div3-3">
                       <label className="input-stable">การผสม</label>
-                      <input
-                        className="stable-input-L"
-                        value={values.howMixing}
-                        name="howMixing"
-                      ></input>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="div3-3">
                       <label className="input-stable">การรักษา</label>
-                      <input
-                        className="stable-input-L"
-                        value={values.saving}
-                        name="saving"
-                      ></input>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="div3-3">
                       <label className="input-stable">จุดสั่งซื้อ</label>
-                      <input
-                        className="stable-input-L"
-                        value={values.reOrder}
-                        name="reOrder"
-                        type="number"
-                      ></input>
+                      <input className="stable-input-L"></input>
                     </div>
                     <div className="addstable">
-                      <a href="/EM/StablePage/StableAddNewPage">
-                        + เพิ่มรายการวัตถุดิบใหม่
-                      </a>
+                      <a href="/EM/StablePage/StableCreatePage">ย้อนกลับ</a>
                     </div>
                   </div>
 
@@ -167,7 +68,7 @@ function StableCreatePage() {
                       <div className="minibox4">
                         <div className="div4-4">
                           <label className="input-stable">รหัสล็อต</label>
-                          <input className="stable-input-R"></input>
+                          <input className="stable-input-R" ></input>
                         </div>
 
                         <div className="div4-4">
@@ -322,4 +223,4 @@ function StableCreatePage() {
   );
 }
 
-export default StableCreatePage;
+export default StableAddNewPage;

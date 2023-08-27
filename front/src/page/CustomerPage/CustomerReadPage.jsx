@@ -4,6 +4,8 @@ import { BiPlus } from "react-icons/bi";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../../CSS/Customer.css";
+import Topnav from "../../component/Topnav";
+import Menu from "../../component/Menu";
 
 function CustomerReadPage() {
   const navigate = useNavigate();
@@ -96,116 +98,129 @@ function CustomerReadPage() {
   }
 
   return (
-    <div>
-      <div className="grup_btn">
-        <p>ลูกค้า</p>
-        <input
-          className="inputsearch"
-          type="text"
-          placeholder="ช่องค้นหา...."
-          value={filterVal}
-          onInput={(e) => handleFilter(e)}
-        />
-        <button className="btn1" onClick={() => navigate(`CustomerCreatePage`)}>
-          <h2>
-            <BiPlus />
-          </h2>
-        </button>
-      </div>
+    <div className="all-page">
+      <header className="header">
+        <Topnav />
+      </header>
+      <section className="aside">
+        <Menu />
+      </section>
 
-      <div class="table-body-Customer">
-        <table class="styled-table-Customer">
-          <thead>
-            <tr>
-              <th>รหัส</th>
-              <th>ชื่อบริษัท</th>
-              <th>ชื่อลูกค้า</th>
-              <th>รหัสบัตรประชาชน</th>
-              <th>อีเมล</th>
-              <th className="sss">เบอร์โทรศัพท์</th>
-              <th>ที่อยู่</th>
+      <main className="main">
+        <div className="area main C"></div>
+        <div className="grup_btn">
+          <p>ลูกค้า</p>
+          <input
+            className="inputsearch"
+            type="text"
+            placeholder="ช่องค้นหา...."
+            value={filterVal}
+            onInput={(e) => handleFilter(e)}
+          />
+          <button
+            className="btn1"
+            onClick={() => navigate(`CustomerCreatePage`)}
+          >
+            <h2>
+              <BiPlus />
+            </h2>
+          </button>
+        </div>
 
-              <th
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: "10px",
-                }}
-              >
-                แก้ไข
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {records.map((item, index) => {
-              return (
-                <tr key={index}>
-                  <td
-                    style={{ color: "blue", cursor: "pointer" }}
-                    onClick={() => navigate(`CreateRead/${item.id_customer}`)}
-                  >
-                    {item.id_customer}
-                  </td>
-                  <td>{item.name_company}</td>
-                  <td>{item.name_cus}</td>
-                  <td>{item.card_ID}</td>
-                  <td>{item.email_cus}</td>
-                  <td>{item.phone_cus}</td>
-                  <td>{item.address}</td>
+        <div class="table-body-Customer">
+          <table class="styled-table-Customer">
+            <thead>
+              <tr>
+                <th>รหัส</th>
+                <th>ชื่อบริษัท</th>
+                <th>ชื่อลูกค้า</th>
+                <th>บัตรประชาชน</th>
+                <th>อีเมล</th>
+                <th className="sss">เบอร์โทรศัพท์</th>
+                <th>ที่อยู่</th>
 
-                  <td className="TDB">
-                    <button
-                      className="btn2"
-                      onClick={() => navigate(`CustomerReadIDPage/${item.id_customer}`)}
+                <th>แก้ไข</th>
+              </tr>
+            </thead>
+            <tbody>
+              {records.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => navigate(`CreateRead/${item.id_customer}`)}
                     >
-                      <h3>
-                        <FaEye />
-                      </h3>
-                    </button>
-                    <button
-                      onClick={() => navigate(`CustomerUpdatePage/${item.id_customer}`)}
-                      className="btn3"
-                    >
-                      <h3>
-                        <FaPen />
-                      </h3>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                      {item.id_customer}
+                    </td>
+                    <td>{item.name_company}</td>
+                    <td>{item.name_cus}</td>
+                    <td>{item.card_ID}</td>
+                    <td>{item.email_cus}</td>
+                    <td>{item.phone_cus}</td>
+                    <td>{item.address}</td>
 
-        <nav>
-          <ul className="pagination-Customer">
-            <li className="page-item-Customer">
-              <a href="#" className="page-link" onClick={prePage}>
-                ก่อน
-              </a>
-            </li>
-            {number.map((n, i) => (
-              <li
-                className={`page-item-Customer ${currentPage === n ? "active" : ""}`}
-                key={i}
-              >
-                <a
-                  href="#"
-                  className="page-link"
-                  onClick={() => changeCPage(n)}
-                >
-                  {n}
+                    <td>
+                      <div className="TDB">
+                        <button
+                          className="btn2"
+                          onClick={() =>
+                            navigate(`CustomerReadIDPage/${item.id_customer}`)
+                          }
+                        >
+                          <h3>
+                            <FaEye />
+                          </h3>
+                        </button>
+                        <button
+                          onClick={() =>
+                            navigate(`CustomerUpdatePage/${item.id_customer}`)
+                          }
+                          className="btn3"
+                        >
+                          <h3>
+                            <FaPen />
+                          </h3>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+
+          <nav>
+            <ul className="pagination-Customer">
+              <li className="page-item-Customer">
+                <a href="#" className="page-link" onClick={prePage}>
+                  ก่อน
                 </a>
               </li>
-            ))}
-            <li className="page-item-Customer">
-              <a href="#" className="page-link" onClick={nextPage}>
-                ต่อไป
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+              {number.map((n, i) => (
+                <li
+                  className={`page-item-Customer ${
+                    currentPage === n ? "active" : ""
+                  }`}
+                  key={i}
+                >
+                  <a
+                    href="#"
+                    className="page-link"
+                    onClick={() => changeCPage(n)}
+                  >
+                    {n}
+                  </a>
+                </li>
+              ))}
+              <li className="page-item-Customer">
+                <a href="#" className="page-link" onClick={nextPage}>
+                  ต่อไป
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </main>
     </div>
   );
 }
