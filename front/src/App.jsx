@@ -13,14 +13,12 @@ import CustomerUpdatePage from "./page/CustomerPage/CustomerUpdatePage";
 import CustomerCreatePage from "./page/CustomerPage/CustomerCreatePage";
 
 import StablePage from "./page/StablePage/StablePage";
-import StableReadIDPage from "./page/StablePage/Stable/StableReadIDPage";
-import StableCreatePage from "./page/StablePage/Stable/StableCreatePage";
-import StableAddNewPage from "./page/StablePage/Stable/StableAddNewPage";
 import StableNew from "./page/StablePage/Stable/StableNew.jsx";
 import StableEdit from "./page/StablePage/Stable/StableEdit";
 import Stabledetel from "./page/StablePage/Stable/Stabledetel";
-import Lot from "./page/StablePage/Stable/Lot";
-import LotNew from "./page/StablePage/Stable/LotNew";
+
+import Lot from "./page/StablePage/BuyStable/Lot";
+import LotNew from "./page/StablePage/BuyStable/LotNew";
 
 import EmployeeReadPage from "./Admin/EmployeeReadPage";
 import StockReadPage from "./Admin/StockReadPage";
@@ -48,18 +46,6 @@ function App() {
         />
 
         <Route path="/EM/StablePage" element={<StablePage />} />
-        <Route
-          path="/EM/StablePage/StableReadIDPage/:id"
-          element={<StableReadIDPage />}
-        />
-        <Route
-          path="/EM/StablePage/StableCreatePage"
-          element={<StableCreatePage />}
-        />
-        <Route
-          path="/EM/StablePage/StableAddNewPage"
-          element={<StableAddNewPage />}
-        />
         <Route path="/EM/StablePage/StableNew" element={<StableNew />} />
         <Route path="/EM/StablePage/StableEdit/:id" element={<StableEdit />} />
         <Route
@@ -87,7 +73,6 @@ function App() {
 
     //       <Route path="/StablePage" element={<StablePage />} />
     //       <Route path="StablePage/StableReadIDPage/:id" element={<StableReadIDPage />} />
-    //       <Route path="StablePage/StableCreatePage" element={<StableCreatePage />} />
 
     //       <Route path="/Report" element={<Report />} />
     //       <Route path="/Unit" element={<Unit />} />

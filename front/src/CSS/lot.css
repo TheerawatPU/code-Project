@@ -1,0 +1,495 @@
+/* StablePage */
+@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Prompt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@700&display=swap");
+
+/* start page */
+.header {
+  grid-area: header-menu;
+  background: #000000;
+}
+
+.main {
+  margin-top: 0px;
+  grid-area: main-menu;
+  background: #ffffff;
+}
+
+.aside {
+  z-index: 9;
+  grid-area: aside-menu;
+  background: #ffffff;
+}
+
+.all-page {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 3fr;
+  grid-template-rows: 60px auto;
+  grid-template-areas:
+    "aside-menu header-menu  "
+    "aside-menu main-menu  ";
+}
+
+/* end page */
+
+.tabsgrubs ul {
+  list-style-type: none;
+  display: flex;
+  background: #f5f5f5;
+  height: 60px;
+  flex-direction: row;
+  align-items: flex-end;
+  box-shadow: inset 1px 2px 15px 5px rgb(0 0 0 / 16%);
+}
+
+.tabsgrubs li {
+  margin: 0 0px;
+}
+
+.tabsgrubs button {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 15px 15px 0px 0px;
+  width: 170px;
+  height: 45px;
+  font-size: 1.2rem;
+}
+
+/* CSS สำหรับแท็บที่เลือก */
+.tabsgrubs button.active {
+  background-color: #22a699;
+  color: #ffffff;
+  border: none;
+}
+
+/* //todo Stable */
+.table-body-lot {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.styled-table-lot {
+  border-collapse: collapse;
+  margin: 15px 0;
+  font-size: 14px;
+  font-family: sans-serif;
+  width: 95%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  padding-bottom: 30px;
+}
+
+.styled-table-lot thead tr {
+  background-color: #22a699;
+  color: #ffffff;
+  text-align: left;
+  font-size: 15px;
+}
+
+.styled-table-lot th,
+.styled-table-lot td {
+  padding: 11px 10px 5px 14px;
+}
+
+.styled-table-lot tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table-lot tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table-lot tbody tr:last-of-type {
+  border-bottom: 2px solid #12e2b8;
+}
+
+/* จัดตำแหน่งช่องจักการรายละเอียด */
+.grup_btn-lot {
+  display: flex;
+  color: red;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-right: 50px;
+  margin-top: 5px;
+}
+
+.inputsearch {
+  width: 450px;
+  border-radius: 10px;
+  height: 40px;
+  padding-left: 20px;
+  border: 1px solid #a1a1a1;
+  font-size: 15px;
+}
+
+.grup_btn p {
+  color: black;
+  font-size: 2rem;
+  padding-left: 5px;
+}
+th.sss {
+  width: 100px;
+}
+
+li.page-item-stable {
+  margin: 10px;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ul.pagination-stable {
+  margin-top: 20px;
+  background: white;
+  height: 50px;
+  box-shadow: 0px 0px 0px 0px rgb(255 255 255);
+}
+.pagination-stable .page-item-stable:hover a {
+  background: #b0b0b0;
+  color: rgb(0, 0, 0);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.pagination-stable .active a {
+  background: #22a699;
+  color: rgb(255, 255, 255);
+  display: flex;
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.pagination-stable a {
+  color: black;
+}
+/* หัวข้อล็อตวัตถุดิบ */
+.lot-text-header {
+  padding-left: 38px;
+  padding-top: 20px;
+  font-size: 2rem;
+  font-family: "Noto Serif Thai", serif;
+  color: #000000;
+}
+/* จัดตำแหน่งselect */
+.select-show {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  /* margin-top: 40px; */
+}
+.select-show span {
+  font-size: 20px;
+  font-family: "Noto Serif Thai", serif;
+}
+.seact-lot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* selectเลือกวัตถุดิบ */
+.select-stable-showtable {
+  /* width: 20%; */
+  height: 40px;
+  border-radius: 5px;
+  font-family: "Noto Serif Thai", serif;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: 10px;
+}
+/* ปุ่มค้นหา */
+button.btn-lot-seact {
+  background: #22a699;
+  width: 15%;
+  border: none;
+  color: white;
+  border-radius: 0px 10px 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* ช่องกรอกค้นหา */
+.inputsearch-lot {
+  width: 450px;
+  border-radius: 10px 0px 0px 10px;
+  height: 40px;
+  padding-left: 20px;
+  border: 1px solid #a1a1a1;
+  font-size: 15px;
+  margin-left: -100px;
+}
+
+td.TDStable {
+  display: flex;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  align-items: center;
+  justify-content: center;
+}
+/* ช่องตรงปุ่ม */
+td.td-lot {
+  padding-bottom: 12px;
+}
+/* ปุ่มเพิ่มข้อมูล */
+button.btnstable {
+  display: flex;
+  background: #22a699;
+  color: WHITE;
+  width: 60px;
+  border-radius: 10px;
+  height: 55px;
+  align-items: center;
+  justify-content: center;
+}
+
+button.btnstableRead {
+  display: flex;
+  background: #22a699;
+  color: WHITE;
+  width: 52px;
+  border-radius: 10px;
+  height: 39px;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  margin-right: 10px;
+}
+button.btnstableEdit {
+  display: flex;
+  background: #fdd835;
+  color: WHITE;
+  width: 52px;
+  border-radius: 10px;
+  height: 39px;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+/* StableCreatePage */
+
+::-webkit-scrollbar-thumb {
+  background: #22a699;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* พื้นที่ทำงานนอกสุดของหน้าทั้งหมดรสมถึงการจัดตำแห่ง */
+.all-page-new {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 3fr;
+  grid-template-rows: 60px auto;
+  grid-template-areas:
+    "aside header  "
+    "aside main  ";
+}
+
+/* พื้นที่ทำงานนอกสุดของ header */
+.header-new {
+  grid-area: header;
+  background: #000000;
+}
+/* พื้นที่ทำงานนอกสุดของ aside */
+.aside-new {
+  z-index: 9;
+  grid-area: aside;
+  background: #ffffff;
+}
+/* พื้นที่ทำงานนอกสุดของ main */
+.main-new {
+  margin-top: 0px;
+  grid-area: main;
+  background: #efefef;
+  overflow-y: auto;
+}
+/* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
+.top-text-new {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #efefef;
+}
+/* ตกแต่งตัวหนังสือบอกหน้าเพจ */
+.text-new {
+  padding-left: 250px;
+  font-size: 35px;
+  font-family: "Noto Serif Thai", serif;
+  font-weight: 700;
+  color: #000000;
+  justify-content: center;
+  background: #efefef;
+  padding: 30px 250px 4px;
+}
+/* ตกแต่งตัวหนังสือบอกรายละเอียดรองลงมา */
+.text-new-lg {
+  font-family: "Noto Serif Thai", serif;
+  padding-left: 250px;
+  font-size: 14px;
+  color: #ed0000;
+  justify-content: center;
+  background: #efefef;
+  padding-bottom: 20px;
+}
+/* พื้นหลังสุดพื้นที่ทำงานสีเทา */
+.box-big-bg-new {
+  display: flex;
+  background: #efefef;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+}
+/* พื้นหลังสุดพื้นที่ทำงานสีขาวรองลงมา */
+.box-BG-area-new {
+  background: #ffffff;
+  width: 70%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 50px 0px;
+}
+/* ฟอร์มของหน้า stable */
+.form-stable-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* ฟอร์มเพื่อจัดตำแหน่ง */
+.form-row-new {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  flex-direction: column;
+}
+/* ฟอร์มตัวหนังสือบนฟอร์ม */
+.form-label-new {
+  width: 150px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+/* ช่องกรอกข้อมูลของฟอร์ม */
+.form-input-new {
+  width: 1000px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+}
+/* ฟอร์มกรอกข้อมูลใหญ่ */
+.form-input-new2 {
+  min-width: 1000px;
+  max-width: 1000px;
+  min-height: 60px;
+  border-radius: 5px;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+  padding-top: 10px;
+  font-weight: 300;
+}
+
+/* หน้า Stabledetel ตรงช่อง input ของ form */
+/* input เล็ก */
+.form-input-new-read {
+  width: 1000px;
+  height: 40px;
+  /* border-radius: 5px; */
+  border: 1px solid #ffffff;
+  border-bottom: 1px solid #cbcbcb;
+  padding-left: 0px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+  /* border: none; */
+  background: white;
+  color: #2a2a2a;
+}
+/* input ใหญ่ */
+.form-input-new2-read {
+  min-width: 1000px;
+  max-width: 1000px;
+  min-height: 60px;
+  /* border-radius: 5px; */
+  border: 1px solid #ffffff;
+  border-bottom: 1px solid #cbcbcb;
+  padding-left: 0px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+  padding-top: 10px;
+  font-weight: 300;
+  /* border: none; */
+  background: white;
+  color: #2a2a2a;
+}
+
+/* พื้นที่ของปุ่มด้านล่าง */
+/* พื้นที่ของปุ่มนอกสุด */
+.btn-submit-new {
+  margin-top: 50px;
+  width: 100%;
+  height: 80px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  box-shadow: 1px -6px 6px -2px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: 1px -6px 6px -2px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 1px -6px 6px -2px rgba(0, 0, 0, 0.13);
+}
+/* พื้นที่รองลงมาเพื่อจัดตำแหน่งปุ่ม */
+.btn-area-new {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+/* ปุ่มยกเลิก */
+.cancle-new {
+  color: #22a699;
+  font-size: 1rem;
+  border: 1px solid #22a699;
+}
+/* ตัวหนังสือปุ่มยกเลิก */
+.cancle-new span {
+  padding-left: 5px;
+  color: #22a699;
+}
+/* ปุ่มบันทึก */
+.submit-new {
+  background: #22a699;
+  color: white;
+  font-size: 1rem;
+  border: none;
+}
+/* ตัวหนังสือปุ่มบันทึก */
+.submit-new span {
+  padding-left: 5px;
+  color: #ffffff;
+}

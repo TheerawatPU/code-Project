@@ -11,13 +11,6 @@ function TabContent1() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5500/stable")
-  //     .then((res) => setData(res.data))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
   useEffect(() => {
     axios
       .get("http://localhost:5500/stabletest")
