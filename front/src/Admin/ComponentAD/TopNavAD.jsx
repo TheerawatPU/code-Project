@@ -3,9 +3,9 @@ import "../CSS/ComponentAD.css";
 
 function TopNavAD() {
   return (
-    <div className="topnav-AD">
-      <div className="name-logo-AD">Food4Skin Thailand</div>
-      <div className="profile-AD">นายกำลังทำงาน</div>
+    <div className="topnav-EM">
+      <div className="name-logo-EM">Food4Skin Thailand</div>
+      <div className="profile-EM">นายกำลังทำงาน</div>
     </div>
   );
 }

@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap');
+
+/* start sidebar */
+.mainMenu {
+  background: rgb(255, 255, 255);
+  min-width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  box-shadow: 10px 2px 10px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: 10px 2px 10px 0px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 10px 2px 10px 0px rgba(0, 0, 0, 0.13);
+}
+
+.top-sidebar-EM {
+  background: #22a699;
+  /* font-family: "Noto Serif Thai", serif; */
+  font-family: 'Montserrat Alternates', sans-serif;
+  color: white;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 19px;
+}
+
+.img-profile-AD {
+  width: 14%;
+}
+
+.side-item-EM {
+  background: #ffffff;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  color: #000000;
+  font-size: 20px;
+  gap: 20px;
+  padding: 0.75rem 30px;
+}
+
+.item-bar-EM a :hover {
+  background: #22a699;
+  color: #ffffff;
+}
+
+.All-sidebar-item-EM2 {
+  border-top: 1px solid #000000;
+  margin-bottom: 0px;
+}
+/* end sidebar */
+
+/* start Topnavbar */
+
+.topnav-EM {
+  background: #22a699;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  color: #ffffff;
+  font-family: 'Montserrat Alternates', sans-serif;
+  /* font-family: "Prompt", sans-serif; */
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.13);
+}
+
+.name-logo-EM {
+  padding-left: 30px;
+  font-size: 25px;
+}
+
+/* end Topnavbar */
+
+/* start page */
+.header {
+  grid-area: header-menu;
+  background: #000000;
+}
+
+.main {
+  margin-top: 0px;
+  grid-area: main-menu;
+  background: #ffffff;
+  overflow-y: scroll;
+}
+
+
+.aside {
+  z-index: 9;
+  grid-area: aside-menu;
+  background: #ffffff;
+}
+
+.all-page {
+  overflow: hidden;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 3fr;
+  grid-template-rows: 60px auto;
+  grid-template-areas:
+    "aside-menu header-menu"
+    "aside-menu main-menu ";
+}
+/* end page */

@@ -21,6 +21,8 @@ import Lot from "./page/StablePage/BuyStable/Lot";
 import LotNew from "./page/StablePage/BuyStable/LotNew";
 
 import EmployeeReadPage from "./Admin/EmployeeReadPage";
+import EmployeeAddPage from "./Admin/EmployeeAddPage"
+
 import StockReadPage from "./Admin/StockReadPage";
 import ReportReadPageEM from "./Admin/ReportReadPageEM";
 
@@ -29,6 +31,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/AD/EmployeeReadPage" element={<EmployeeReadPage />} />
+        <Route path="/AD/EmployeeReadPage/EmployeeAddPage" element={<EmployeeAddPage />} />
         <Route path="/AD/StockReadPage" element={<StockReadPage />} />
         <Route path="/AD/ReportReadPageEM" element={<ReportReadPageEM />} />
         <Route path="/EM/CustomerReadPage" element={<CustomerReadPage />} />
