@@ -5,12 +5,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@700&display=swap");
 
 /* start page */
-.header{
+.header {
   grid-area: header-menu;
   background: #000000;
 }
 
-.main{
+.main {
   margin-top: 0px;
   grid-area: main-menu;
   background: #ffffff;
@@ -31,8 +31,6 @@
     "aside-menu header-menu  "
     "aside-menu main-menu  ";
 }
-
-
 
 /* end page */
 
@@ -229,7 +227,9 @@ button.btnstableEdit {
 }
 ::-webkit-scrollbar {
   width: 6px;
+  height: 5px;
 }
+
 
 /* พื้นที่ทำงานนอกสุดของหน้าทั้งหมดรสมถึงการจัดตำแห่ง */
 .all-page-new {
@@ -313,7 +313,6 @@ button.btnstableEdit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 /* ฟอร์มเพื่อจัดตำแหน่ง */
 .form-row-new {
@@ -391,7 +390,7 @@ button.btnstableEdit {
 /* พื้นที่ของปุ่มด้านล่าง */
 /* พื้นที่ของปุ่มนอกสุด */
 .btn-submit-new {
-  margin-top: 50px  ;
+  margin-top: 50px;
   width: 100%;
   height: 80px;
   background: #ffffff;

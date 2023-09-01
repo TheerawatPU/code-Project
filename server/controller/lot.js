@@ -29,3 +29,17 @@ export const lotTable = (req, res) => {
     return res.json(result);
   });
 };
+
+//! lot หน้าโชว์ตาราง และแสดงรายชื่อผู้บันทึกเข้าสู่ระบบ
+// SELECT staple.Name_staple , lots.expiration_date,lots.cost,lots.amount,lots.amount_re,employees.id_employee,employees.name,employees.username FROM lots
+// INNER JOIN employees ON lots.id_employee = employees.id_employee
+// INNER JOIN staple ON lots.id_staple = staple.id_staple
+
+//lotShowTable
+// export const LotShowTable = (req, res) => {
+//   const sql = "";
+//   db.query(sql, (err, result) => {
+//     if (err) return res.json({ Message: "Error inside server" });
+//     return res.json(result);
+//   });
+// };
