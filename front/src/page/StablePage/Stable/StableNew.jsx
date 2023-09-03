@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 function StableNew() {
+  const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
+
   const navigate = useNavigate();
   const [values, setValues] = useState({
     Name_staple: "",
@@ -17,7 +19,11 @@ function StableNew() {
     saving: "",
     melting: "",
     reOrder: "",
+    
+    id_employee: `${userLoginData[0].id_employee}`,
   });
+
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -61,6 +67,7 @@ function StableNew() {
         <div className="box-big-bg-new">
           <div className="box-BG-area-new">
             <form className="form-stable-new" onSubmit={handleSubmit}>
+              
               <div className="form-row-new">
                 <label className="form-label-new">
                   <p>*</p>ชื่อวัตถุดิบ :

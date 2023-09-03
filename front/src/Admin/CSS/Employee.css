@@ -7,7 +7,18 @@
   padding: 0;
   margin: 0;
 }
-
+.img-AD{
+    display: flex;
+    width: 60%;
+}
+/* img */
+.form-row-img-AD {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    flex-direction: column;
+  }
 /* หน้าตาราง Customer */
 /* ตำแหน่งตาราง */
 .table-body-Customer {
@@ -206,7 +217,7 @@ label {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 50px 0px;
+  padding: 15px 0px;
   margin-bottom: 30px;
   box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
 }
@@ -219,11 +230,12 @@ label {
 /* ฟอร์มเพื่อจัดตำแหน่ง */
 .form-EM-new {
   display: flex;
-  align-items: center;
+  align-items: self-start;
   margin-top: 10px;
   margin-bottom: 25px;
   flex-direction: column;
 }
+
 /* ฟอร์มตัวเลือกเพื่อจัดตำแหน่ง */
 .form-row-new-select-EM {
   display: flex;

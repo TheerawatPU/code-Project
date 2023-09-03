@@ -6,29 +6,39 @@ import "./CSS/Employee.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import profileBG from "./img/profileBG.png";
+import logo from "./img/logo2.png";
 
 function EmployeeAddPage() {
+  const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
+
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    Name_staple: "",
-    Name_INCIname: "",
-    howUsing: "",
-    howMixing: "",
-    saving: "",
-    melting: "",
-    reOrder: "",
+    department: "",
+    status: "",
+    title: "",
+    name: "",
+    sex: "",
+    birthday: "",
+    phone: "",
+    line_id: "",
+    facebook_id: "",
+    username: "",
+    password: "",
+    image: "",
+    
   });
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     axios
-      .post("http://localhost:5500/stapleNew", {
+      .post("http://localhost:5500/employeeNew", {
         ...values,
       })
       .then((res) => {
         console.log(res);
-        navigate("/EM/StablePage");
+        navigate("/AD/EmployeeReadPage");
       })
       .catch((err) => console.log(err));
   };
@@ -38,6 +48,23 @@ function EmployeeAddPage() {
 
     setValues((prev) => ({ ...prev, [name]: value }));
   };
+  // จัดการเกี่ยวกับรูปภาพ
+  const [image, setImages] = useState([]);
+  const [imageURls, setImageURls] = useState([]);
+
+  useEffect(() => {
+    if (image.length < 1) return;
+    const newImageUrls = [];
+    image.forEach((images) => newImageUrls.push(URL.createObjectURL(images)));
+    setImageURls(newImageUrls);
+  }, [image]);
+
+  function onImageChange(e) {
+    setImages([...e.target.files]);
+  }
+
+  console.log(values);
+  console.log(image);
 
   return (
     <div className="all-page">
@@ -60,46 +87,42 @@ function EmployeeAddPage() {
           {/* //!ฟอร์มที่1 รูป */}
           <div className="box-BG-area-new-EM">
             <form className="form-EM-new" onSubmit={handleSubmit}>
-              <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>อีเมล :
-                </label>
-                <input
-                  name="reOrder"
-                  type="text"
-                  className="form-input-new-EM"
-                  onChange={handleInput}
-                />
+              <div className="form-row-img-AD">
+                {/* <img src={profileBG} alt="" className="img-AD" /> */}
+                {imageURls.map((imageSrc, index) => (
+                  <img key={index} src="{imageSrc}" />
+                ))}
               </div>
               <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>รหัสผ่าน :
-                </label>
                 <input
-                  name="reOrder"
-                  type="text"
-                  className="form-input-new-EM"
-                  onChange={handleInput}
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={onImageChange}
                 />
               </div>
-              
             </form>
           </div>
-
           {/* //!ฟอร์มที่2 ข้อมูลส่วนตัว */}
           <div className="box-BG-area-new-EM">
             <form className="form-EM-new" onSubmit={handleSubmit}>
               {/* เลือกตำแหน่ง และสถานะ */}
+              <h2 style={{ marginBottom: "20px" }}>ข้อมูลส่วนตัว</h2>
               <div className="form-row-new-select-EM">
                 <div className="select-row-C">
                   <label className="form-label-new-EM">
                     <p>*</p>ตำแหน่ง :
                   </label>
-                  <select className="form-input-select-EM" name="provinces">
+                  <select
+                    className="form-input-select-EM"
+                    name="department"
+                    value={values.department}
+                    onChange={handleInput}
+                  >
                     <option>เลือกตำแหน่ง</option>
-                    <option>พนักงานฝ่ายขาย</option>
-                    <option>พนักงานฝ่ายผลิต</option>
-                    <option>ผู้ดูแลระบบ</option>
+                    <option value="พนักงานฝ่ายขาย">พนักงานฝ่ายขาย</option>
+                    <option value="พนักงานฝ่ายผลิต">พนักงานฝ่ายผลิต</option>
+                    <option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>
                   </select>
                 </div>
 
@@ -107,10 +130,15 @@ function EmployeeAddPage() {
                   <label className="form-label-new-EM">
                     <p>*</p>สถานะการทำงาน :
                   </label>
-                  <select className="form-input-select-EM" name="provinces">
+                  <select
+                    className="form-input-select-EM"
+                    name="status"
+                    value={values.status}
+                    onChange={handleInput}
+                  >
                     <option>เลือกสถานะการทำงาน</option>
-                    <option>กำลังทำงาน</option>
-                    <option>พ้นสภาพการทำงาน</option>
+                    <option value="กำลังทำงาน">กำลังทำงาน</option>
+                    <option value="พ้นสภาพการทำงาน">พ้นสภาพการทำงาน</option>
                   </select>
                 </div>
               </div>
@@ -123,12 +151,14 @@ function EmployeeAddPage() {
                   </label>
                   <select
                     className="form-input-select-title-EM"
-                    name="provinces"
+                    name="title"
+                    value={values.title}
+                    onChange={handleInput}
                   >
                     <option>เลือกคำนำหน้า</option>
-                    <option>นาย</option>
-                    <option>นาง</option>
-                    <option>นางสาว</option>
+                    <option value="นาย">นาย</option>
+                    <option value="นาง">นาง</option>
+                    <option value="นางสาว">นางสาว</option>
                   </select>
                 </div>
 
@@ -137,7 +167,7 @@ function EmployeeAddPage() {
                     <p>*</p>ชื่อ-นามสกุล :
                   </label>
                   <input
-                    name="Name_staple"
+                    name="name"
                     type="text"
                     className="form-input-new-title-EM"
                     onChange={handleInput}
@@ -154,15 +184,19 @@ function EmployeeAddPage() {
                     </label>
                     <div className="radio-EM">
                       <input
-                        name="Name_staple"
+                        name="sex"
+                        value="ชาย"
                         type="radio"
                         className="form-input-new-title-Radio-EM"
+                        onChange={handleInput}
                       />
                       <span>ชาย</span>
                       <input
-                        name="Name_staple"
+                        name="sex"
+                        value="หญิง"
                         type="radio"
                         className="form-input-new-title-Radio-EM"
+                        onChange={handleInput}
                       />
                       <span>หญิง</span>
                     </div>
@@ -174,7 +208,7 @@ function EmployeeAddPage() {
                     <p>*</p>วันเดือนปีเกิด :
                   </label>
                   <input
-                    name="Name_staple"
+                    name="birthday"
                     type="date"
                     className="form-input-new-title-EM"
                     onChange={handleInput}
@@ -190,7 +224,7 @@ function EmployeeAddPage() {
                     <p>*</p>เบอร์โทรศัพท์ :
                   </label>
                   <input
-                    name="Name_staple"
+                    name="phone"
                     type="text"
                     className="form-input-new-3-EM"
                     onChange={handleInput}
@@ -201,7 +235,7 @@ function EmployeeAddPage() {
                     <p>*</p>ไอดีไลน์ :
                   </label>
                   <input
-                    name="Name_staple"
+                    name="line_id"
                     type="text"
                     className="form-input-new-3-EM"
                     onChange={handleInput}
@@ -212,7 +246,7 @@ function EmployeeAddPage() {
                     <p>*</p>เฟสบุ๊ค :
                   </label>
                   <input
-                    name="Name_staple"
+                    name="facebook_id"
                     type="text"
                     className="form-input-new-3-EM"
                     onChange={handleInput}
@@ -225,7 +259,7 @@ function EmployeeAddPage() {
                   <p>*</p>รหัสบัตรประชาชน :
                 </label>
                 <input
-                  name="reOrder"
+                  name="card_id"
                   type="text"
                   className="form-input-new-EM"
                   onChange={handleInput}
@@ -233,16 +267,16 @@ function EmployeeAddPage() {
               </div>
             </form>
           </div>
-
           {/* //!ฟอร์มที่3 บัญชีผู้ใช้ */}
           <div className="box-BG-area-new-EM">
             <form className="form-EM-new" onSubmit={handleSubmit}>
+              <h2 style={{ marginBottom: "20px" }}>บัญชีผู้ใช้</h2>
               <div className="form-row-new">
                 <label className="form-label-new">
                   <p>*</p>อีเมล :
                 </label>
                 <input
-                  name="reOrder"
+                  name="username"
                   type="text"
                   className="form-input-new-EM"
                   onChange={handleInput}
@@ -253,7 +287,7 @@ function EmployeeAddPage() {
                   <p>*</p>รหัสผ่าน :
                 </label>
                 <input
-                  name="reOrder"
+                  name="password"
                   type="text"
                   className="form-input-new-EM"
                   onChange={handleInput}
@@ -263,12 +297,7 @@ function EmployeeAddPage() {
                 <label className="form-label-new">
                   <p>*</p>ยืนยันรหัสผ่าน :
                 </label>
-                <input
-                  name="reOrder"
-                  type="text"
-                  className="form-input-new-EM"
-                  onChange={handleInput}
-                />
+                <input type="text" className="form-input-new-EM" />
               </div>
             </form>
           </div>

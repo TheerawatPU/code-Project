@@ -17,21 +17,33 @@ import StableNew from "./page/StablePage/Stable/StableNew.jsx";
 import StableEdit from "./page/StablePage/Stable/StableEdit";
 import Stabledetel from "./page/StablePage/Stable/Stabledetel";
 
+import AddLot from "./page/StablePage/BuyStable/AddLot";
 import Lot from "./page/StablePage/BuyStable/Lot";
 import LotNew from "./page/StablePage/BuyStable/LotNew";
 
 import EmployeeReadPage from "./Admin/EmployeeReadPage";
-import EmployeeAddPage from "./Admin/EmployeeAddPage"
+import EmployeeAddPage from "./Admin/EmployeeAddPage";
+import EmployeeUpdatePage from "./Admin/EmployeeUpdatePage";
 
 import StockReadPage from "./Admin/StockReadPage";
 import ReportReadPageEM from "./Admin/ReportReadPageEM";
+import Login from "./Admin/Login";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/AD/EmployeeReadPage" element={<EmployeeReadPage />} />
-        <Route path="/AD/EmployeeReadPage/EmployeeAddPage" element={<EmployeeAddPage />} />
+
+        <Route path="/" element={<Login />} />
+        <Route
+          path="/AD/EmployeeReadPage/EmployeeAddPage"
+          element={<EmployeeAddPage />}
+        />
+        <Route
+          path="/AD/EmployeeReadPage/EmployeeUpdatePage/:id"
+          element={<EmployeeUpdatePage />}
+        />
         <Route path="/AD/StockReadPage" element={<StockReadPage />} />
         <Route path="/AD/ReportReadPageEM" element={<ReportReadPageEM />} />
         <Route path="/EM/CustomerReadPage" element={<CustomerReadPage />} />
@@ -50,11 +62,15 @@ function App() {
 
         <Route path="/EM/StablePage" element={<StablePage />} />
         <Route path="/EM/StablePage/StableNew" element={<StableNew />} />
+
+        <Route path="/EM/StablePage/AddLot" element={<AddLot />} />
+
         <Route path="/EM/StablePage/StableEdit/:id" element={<StableEdit />} />
         <Route
           path="/EM/StablePage/Stabledetel/:id"
           element={<Stabledetel />}
         />
+
         <Route path="/EM/StablePage/Stabledetel/Lot" element={<Lot />} />
         <Route path="/EM/StablePage/LotNew" element={<LotNew />} />
 

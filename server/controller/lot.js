@@ -2,7 +2,7 @@ import db from "../db.js";
 
 // อ่านข้อมูลวัตถุดิบในselect
 export const lotReadSelect = (req, res) => {
-  const sql = "SELECT DISTINCT(Name_staple) FROM staple";
+  const sql = "SELECT DISTINCT(Name_staple), id_staple FROM staple";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);
@@ -21,7 +21,7 @@ export const lotReadSelect = (req, res) => {
 
 export const lotTable = (req, res) => {
   const sql =
-    "SELECT  lots.id_lot , DATE_FORMAT(lots.expiration_date, '%d/%m/%Y') AS expiration_date,lots.cost,lots.amount,lots.amount_re,lots.COA_name,lots.MSDS_name FROM `staple` INNER JOIN lots ON staple.id_staple = lots.id_staple WHERE staple.Name_staple = ?";
+    "SELECT  lots.id_lot , DATE_FORMAT(lots.expiration_date, '%d/%m/%Y') AS expiration_date,lots.cost,lots.amount,lots.amount_re,lots.COA_name,lots.MSDS_name ,employees.name FROM `staple` INNER JOIN lots ON staple.id_staple = lots.id_staple INNER JOIN employees ON lots.id_employee = employees.id_employee WHERE staple.id_staple = ? ORDER BY  lots.id_lot DESC";
   const id = req.params.id;
 
   db.query(sql, [id], (err, result) => {

@@ -3,14 +3,54 @@ import axios from "axios";
 import "../../../CSS/lot.css";
 import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
-import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import AddLot from "./AddLot";
+import { useNavigate } from "react-router-dom";
 
 function TabContent2() {
   const [itemss, setItemss] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [tableData, setTableData] = useState([]);
+
+  console.log("itemss", itemss);
+
+  // const select_nameStable = (e) => {
+  //   const selectedId = e.target.value;
+  //   setSelectedCategory(selectedId);
+  // };
+
+  const select_nameStable = (e) => {
+    const selectedId = e.target.value;
+    setSelectedCategory(selectedId);
+  };
+
+  console.log("selectedCategory", selectedCategory);
+
+  // function handleAddLotClick() {
+  //   // แก้ตรงนี้
+  //   // navigate(`/EM/StablePage/AddLot`, { state: { selectedCategory } });
+  //   navigate(`/EM/StablePage/AddLot`, { state: { selectedCategory, selectedCategoryName: e.target.options[e.target.selectedIndex].text } });
+  // }
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5500/lotReadSelect")
+  //     .then((res) => setItemss(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
+
+  function handleAddLotClick() {
+    // ส่งข้อมูลไปหน้า AddLot
+    navigate(`/EM/StablePage/AddLot`, {
+      state: {
+        selectedCategory,
+        selectedCategoryName: itemss.find(
+          (item) => item.id_staple === selectedCategory
+        )?.Name_staple,
+      },
+    });
+  }
 
   useEffect(() => {
     axios
@@ -19,6 +59,28 @@ function TabContent2() {
       .catch((err) => console.log(err));
   }, []);
 
+  // useEffect(() => {
+  //   if (selectedCategory) {
+  //     fetch(`http://localhost:5500/lotTable/${selectedCategory}`)
+  //       .then((response) => response.json())
+  //       .then((data) => setTableData(data))
+  //       .catch((error) => console.error("Error fetching table data:", error));
+  //   } else {
+  //     setTableData([]); // รีเซ็ตข้อมูลเมื่อไม่มี category ที่ถูกเลือก
+  //   }
+  // }, [selectedCategory]);
+
+  // useEffect(() => {
+  //   if (selectedCategory) {
+  //     fetch(`http://localhost:5500/lotTable/${selectedCategory}`)
+  //       .then((response) => response.json())
+  //       .then((data) => setTableData(data))
+  //       .catch((error) => console.error("Error fetching table data:", error));
+  //   } else {
+  //     setTableData([]);
+  //   }
+  // }, [selectedCategory]);
+
   useEffect(() => {
     if (selectedCategory) {
       fetch(`http://localhost:5500/lotTable/${selectedCategory}`)
@@ -26,12 +88,11 @@ function TabContent2() {
         .then((data) => setTableData(data))
         .catch((error) => console.error("Error fetching table data:", error));
     } else {
-      setTableData([]); // รีเซ็ตข้อมูลเมื่อไม่มี category ที่ถูกเลือก
+      setTableData([]);
     }
   }, [selectedCategory]);
 
-  console.log(selectedCategory);
-  console.log(tableData);
+  console.log("tableData", tableData);
 
   const navigate = useNavigate();
   //next page555555
@@ -61,6 +122,8 @@ function TabContent2() {
     }
   }
 
+  // console.log("Data" , )
+
   return (
     <div>
       <main className="main-stable ">
@@ -71,20 +134,21 @@ function TabContent2() {
             <div style={{ color: "black" }}>เลือกวัตถุดิบ : </div>
             <select
               className="select-stable-showtable"
+              // value={selectedCategory}
+              // onChange={(e) => setSelectedCategory(e.target.value)}
+              // onChange={(e) => select_nameStable(e)}
               value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => select_nameStable(e)}
             >
               <option value="">เลือกวัตถุดิบ</option>
               {itemss.map((item) => (
-                <option key={item.id} value={item.Name_staple}>
+                <option key={item.id} value={item.id_staple}>
                   {item.Name_staple}
                 </option>
               ))}
             </select>
           </div>
-          <p>
-            ปริมาณที่มีทั้งหมด
-          </p>
+          <p>ปริมาณที่มีทั้งหมด</p>
           <div className="numberSUM">
             <input
               type="text"
@@ -107,7 +171,12 @@ function TabContent2() {
             </button>
           </div>
 
-          <button className="btnstable" onClick={() => navigate(`StableNew`)}>
+          {/* <button className="btnstable" onClick={() => navigate(`StableNew`)}>
+            <h2>
+              <BiPlus />
+            </h2>
+          </button> */}
+          <button className="btnstable" onClick={handleAddLotClick}>
             <h2>
               <BiPlus />
             </h2>
@@ -123,10 +192,11 @@ function TabContent2() {
                 <th>ราคา</th>
                 <th>ปริมาณ</th>
                 <th>ปริมาณคงเหลือ </th>
-                <th>ผลรวม </th>
+                {/* <th>ผลรวม </th> */}
 
                 <th>COA</th>
                 <th>MSDS</th>
+                <th>ผู้บันทึก</th>
               </tr>
             </thead>
             <tbody>
@@ -142,7 +212,7 @@ function TabContent2() {
                   <td>{data.cost}</td>
                   <td>{data.amount}</td>
                   <td>{data.amount_re}</td>
-                  <td>{data.amount_re - data.amount}</td>
+                  {/* <td>{data.amount_re - data.amount}</td> */}
                   <td className="td-lot">
                     <button className="btnstableRead">
                       <h3>
@@ -157,6 +227,7 @@ function TabContent2() {
                       </h3>
                     </button>
                   </td>
+                  <td>{data.name }</td>
 
                   {/* <td className="TDStable">{data.cost}</td>
                   <td className="TDStable">{data.cost}</td> */}

@@ -4,11 +4,14 @@ import TopNavAD from "./ComponentAD/TopNavAD";
 import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
 import "./CSS/ComponentAD.css";
-import "./CSS/Employee.css"
+import "./CSS/Employee.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 function EmployeeReadPage() {
+  const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +42,9 @@ function EmployeeReadPage() {
           item.birthday.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.phone.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.line_id.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.facebook_id.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.facebook_id
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
           item.username.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.password.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.card_id.toLowerCase().includes(e.target.value.toLowerCase())
@@ -128,10 +133,7 @@ function EmployeeReadPage() {
             value={filterVal}
             onInput={(e) => handleFilter(e)}
           />
-          <button
-            className="btn1"
-            onClick={() => navigate(`EmployeeAddPage`)}
-          >
+          <button className="btn1" onClick={() => navigate(`EmployeeAddPage`)}>
             <h2>
               <BiPlus />
             </h2>
@@ -154,6 +156,7 @@ function EmployeeReadPage() {
                 <th>ชื่อเฟสบุ๊ค</th>
                 <th>ชื่อบัญชี</th>
                 <th>รหัสผ่าน</th>
+                <th>ผู้บันทึก</th>
                 <th>แก้ไข</th>
               </tr>
             </thead>
@@ -178,13 +181,14 @@ function EmployeeReadPage() {
                     <td>{item.facebook_id}</td>
                     <td>{item.username}</td>
                     <td>{item.password}</td>
+                    <td>{userLoginData[0].name}</td>
 
                     <td>
                       <div className="TDB">
                         <button
                           className="btn2"
                           onClick={() =>
-                            navigate(`CustomerReadIDPage/${item.id_employee}`)
+                            navigate(`EmployeeUpdatePage/${item.id_employee}`)
                           }
                         >
                           <h3>
@@ -193,7 +197,7 @@ function EmployeeReadPage() {
                         </button>
                         <button
                           onClick={() =>
-                            navigate(`CustomerUpdatePage/${item.id_employee}`)
+                            navigate(`EmployeeUpdatePage/${item.id_employee}`)
                           }
                           className="btn3"
                         >

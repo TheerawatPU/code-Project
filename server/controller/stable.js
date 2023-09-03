@@ -50,7 +50,7 @@ export const buylist = (req, res) => {
 //เพิ่มข้อมูลวัตถุดิบ
 export const stapleNew = (req, res) => {
   const sql =
-    "INSERT INTO staple (`Name_staple`,`Name_INCIname`,`howUsing`,`howMixing`,`saving`,`melting`,`reOrder`) VALUES (?)";
+    "INSERT INTO staple (`Name_staple`,`Name_INCIname`,`howUsing`,`howMixing`,`saving`,`melting`,`reOrder`,`id_employee`) VALUES (?)";
   const vlaues = [
     req.body.Name_staple,
     req.body.Name_INCIname,
@@ -59,6 +59,29 @@ export const stapleNew = (req, res) => {
     req.body.saving,
     req.body.melting,
     req.body.reOrder,
+    req.body.id_employee,
+  ];
+
+  db.query(sql, [vlaues], (err, result) => {
+    if (err) return res.json(err);
+    return res.json(result);
+  });
+};
+
+
+//เพิ่มข้อมูลLot
+export const LotNew = (req, res) => {
+  const sql =
+    "INSERT INTO lots (`expiration_date`,`cost`,`amount`,`amount_re`,`COA_name`,`MSDS_name`,`id_staple`,`id_employee`) VALUES (?)";
+  const vlaues = [
+    req.body.expiration_date,
+    req.body.cost,
+    req.body.amount,
+    req.body.amount_re,
+    req.body.COA_name,
+    req.body.MSDS_name,
+    req.body.id_staple,
+    req.body.id_employee,
   ];
 
   db.query(sql, [vlaues], (err, result) => {
@@ -79,7 +102,6 @@ export const stableID = (req, res) => {
   });
 };
 
-
 //อ่านข้อมูลที่จะแก้ไข
 export const stableIdUpdate = (req, res) => {
   const sql = "SELECT * FROM `staple`  WHERE id_staple = ?";
@@ -90,8 +112,6 @@ export const stableIdUpdate = (req, res) => {
     return res.json(result);
   });
 };
-
-
 
 //อัพเดตข้อมูลวัตถุดิบ
 export const stableUpdate = (req, res) => {

@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&family=Oswald:wght@500&family=Rubik+Iso&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap');
 
 /* start sidebar */
 .mainMenu {
@@ -74,6 +76,7 @@
 .name-logo-EM {
   padding-left: 30px;
   font-size: 25px;
+  
 }
 
 /* end Topnavbar */

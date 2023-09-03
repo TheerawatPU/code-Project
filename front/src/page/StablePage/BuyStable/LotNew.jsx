@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
 import "../../../CSS/Stable.css";
@@ -43,19 +43,23 @@ function LotNew() {
                 <label className="form-label-new">
                   <p>*</p>COA :
                 </label>
-                <input type="text" className="form-input-new" placeholder='เพิ่มไฟล์ COA' />
+                <input
+                  type="text"
+                  className="form-input-new"
+                  placeholder="เพิ่มไฟล์ COA"
+                />
               </div>
 
               <div className="form-row-new">
                 <label className="form-label-new">
                   <p>*</p>MSDS :
                 </label>
-                <input type="text" className="form-input-new" placeholder='เพิ่มไฟล์ MSDS' />
+                <input
+                  type="text"
+                  className="form-input-new"
+                  placeholder="เพิ่มไฟล์ MSDS"
+                />
               </div>
-
-             
-
-              
             </form>
           </div>
         </div>
@@ -64,4 +68,4 @@ function LotNew() {
   );
 }
 
-export default LotNew
+export default LotNew;

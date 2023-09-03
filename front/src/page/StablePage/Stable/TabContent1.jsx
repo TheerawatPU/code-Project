@@ -24,7 +24,7 @@ function TabContent1() {
   useEffect(() => {
     const fetchData = () => {
       axios
-        .get("http://localhost:5500/stable")
+        .get("http://localhost:5500/stapleRead")
         .then((res) => {
           setData(res.data);
           setSearchApiData(res.data);
