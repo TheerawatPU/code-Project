@@ -1,0 +1,409 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Prompt&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* หน้าตาราง Customer */
+/* ตำแหน่งตาราง */
+.table-body-Unit {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+button.dalete-Unit {
+  background: #ed0000;
+  color: #ffffff;
+}
+
+/* ขนาดตาราง */
+.styled-table-Unit {
+  border-collapse: collapse;
+  margin: 15px 0;
+  font-size: 14px;
+  font-family: sans-serif;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  padding-bottom: 30px;
+  
+}
+/* สีของหัวตาราง */
+.styled-table-Unit thead tr {
+  background-color: #22a699;
+  color: #ffffff;
+  text-align: left;
+  font-size: 15px;
+}
+/* ระยะขอบของแต่ละช่องหัวตาราง */
+.styled-table-Unit th,
+.styled-table-Unit td {
+  padding: 13px 15px;
+  white-space: pre-line;
+  word-wrap: break-word;
+  /* border: 1px solid #000000; */
+}
+/* สีเส้นคั่นแต่ละช่อง */
+.styled-table-Unit tbody tr {
+  border-bottom: 1px solid #efefef;
+}
+/* สีคั่นระหว่างช่องสีเทา */
+.styled-table-Unit tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+/* เส้นค้นสุดท้ายของตาราง */
+.styled-table-Unit tbody tr:last-of-type {
+  border-bottom: 2px solid #12e2b8;
+}
+/* คอลัมฝั่งปุ่มช่องแก้ไข */
+.TDB {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+/* สีปุ่มเพิ่มข้อมูล */
+.btn1 {
+  display: flex;
+  background: #22a699;
+  color: WHITE;
+}
+/* สีปุ่มดูรายละเอียด */
+.btn2 {
+  display: flex;
+  background: #22a699;
+  color: WHITE;
+}
+/* สีปุ่มแก้ไข */
+.btn3 {
+  display: flex;
+  background: #fdd835;
+  color: WHITE;
+}
+
+/* จัดระยะห่างของเลขเพจของคำว่าก่อน */
+li.page-item-Customer {
+  margin: 10px;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* จัดตำแหน่งเลขเพจ */
+.pagination-Customer {
+  display: flex;
+  list-style: none;
+}
+/* เลขเพจเวลาเอาเมาส์ไปชี้ */
+.pagination-Customer .page-item-Customer:hover a {
+  background: #b0b0b0;
+  color: rgb(0, 0, 0);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+/* แสดงสีเวลากดไปหน้านั้นๆ ของเลขเพจ */
+.pagination-Customer .active a {
+  background: #22a699;
+  color: rgb(255, 255, 255);
+  display: flex;
+  list-style: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+/* ตัวหนังสือเลขเพจ */
+.pagination-Customer a {
+  color: black;
+}
+
+/* ตัวหนังสือที่ใช้แท็ก p */
+p {
+  color: red;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+/* จัดหน้าของตัวหนังสือที่ใช้แท็ก label */
+label {
+  display: flex;
+}
+
+/* พื้นที่ทำงานนอกสุดของหน้าทั้งหมดร;มถึงการจัดตำแห่ง */
+.all-page-stable {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 3fr;
+  grid-template-rows: 60px auto;
+  grid-template-areas:
+    "aside-menu header-menu  "
+    "aside-menu main-menu  ";
+}
+
+/* พื้นที่ทำงานนอกสุดของ header */
+.header-stable {
+  grid-area: header-menu;
+  background: #000000;
+}
+/* พื้นที่ทำงานนอกสุดของ aside */
+.aside-stable {
+  z-index: 9;
+  grid-area: aside-menu;
+  background: #ffffff;
+}
+/* พื้นที่ทำงานนอกสุดของ main */
+.main-stable {
+  margin-top: 0px;
+  grid-area: main-menu;
+  background: #ffffff;
+}
+/* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
+.top-text-new-EM {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #efefef;
+}
+/* ตกแต่งตัวหนังสือบอกหน้าเพจ */
+.text-new-EM {
+  padding-left: 250px;
+  font-size: 35px;
+  font-family: "Noto Serif Thai", serif;
+  font-weight: 700;
+  color: #000000;
+  justify-content: center;
+  background: #efefef;
+  padding: 30px 250px 4px;
+}
+/* ตกแต่งตัวหนังสือบอกรายละเอียดรองลงมา */
+.text-new-lg-C {
+  font-family: "Noto Serif Thai", serif;
+  padding-left: 250px;
+  font-size: 14px;
+  color: #ed0000;
+  justify-content: center;
+  background: #efefef;
+  padding-bottom: 20px;
+}
+/* พื้นหลังสุดพื้นที่ทำงานสีเทา */
+.box-big-bg-new-Unit {
+  display: flex;
+  background: #efefef;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+}
+/* พื้นหลังสุดพื้นที่ทำงานสีขาวรองลงมา */
+.box-BG-area-new-Unit {
+  background: #ffffff;
+  width: 60%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 15px 0px;
+  margin-bottom: 30px;
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ฟอร์มเพื่อจัดตำแหน่ง */
+.form-new-Unit {
+  display: flex;
+  align-items: self-start;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  flex-direction: column;
+}
+
+/* ฟอร์มตัวหนังสือบนฟอร์ม */
+.form-label-new-Unit {
+  width: 190px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.form-row-2-input-Unit {
+  margin-right: 20px;
+}
+
+.form-row-new-Unit {
+  width: 50%;
+  display: flex;
+}
+
+.form-row-Unit {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  margin-right: 85px;
+  /* margin-left: 40px; */
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* add new */
+button.btnAddUnit-stable {
+  display: flex;
+  background: #22a699;
+  color: WHITE;
+  width: 60px;
+  margin-top: 25px;
+  border-radius: 5px;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
+}
+
+/*  ฟอร์มแสดงerror */
+.form-error-C {
+  width: 100%;
+  display: flex;
+  margin-bottom: 50px;
+}
+
+/* ช่องกรอกข้อมูลของฟอร์ม */
+.form-input-new-Unit {
+  width: 800px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+}
+
+/* ช่องกรอกข้อมูลของฟอร์มแบบสั้นมากๆ */
+.form-input-new-Unit-short {
+  width: 320px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+}
+
+/* ช่องกรอกข้อมูลของฟอร์มแบบสั้น */
+.form-input-new2-Unit {
+  width: 380px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+}
+
+/* select ช่องยาว */
+.form-input-select-Unit {
+  width: 820px;
+  height: 45px;
+  border-radius: 5px;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+}
+
+/* หน้า Stabledetel ตรงช่อง input ของ form */
+/* input เล็ก */
+.form-input-new-read-C {
+  width: 1000px;
+  height: 40px;
+  /* border-radius: 5px; */
+  border: 1px solid #ffffff;
+  border-bottom: 1px solid #cbcbcb;
+  padding-left: 0px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+  /* border: none; */
+  background: white;
+  color: #000000;
+  margin-bottom: 20px;
+}
+/* input ใหญ่ */
+.form-input-new2-read-C {
+  min-width: 1000px;
+  max-width: 1000px;
+  min-height: 60px;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  border-bottom: 1px solid #cbcbcb;
+  padding-left: 0px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+  padding-top: 10px;
+  font-weight: 300;
+  /* border: none; */
+  background: white;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+/* พื้นที่ของปุ่มด้านล่าง */
+/* พื้นที่ของปุ่มนอกสุด */
+.btn-submit-new-C {
+  margin-top: 50px;
+  width: 100%;
+  height: 80px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  align-content: center;
+  box-shadow: 1px -6px 6px -2px rgba(0, 0, 0, 0.13);
+  -webkit-box-shadow: 1px -6px 6px -2px rgba(0, 0, 0, 0.13);
+  -moz-box-shadow: 1px -6px 6px -2px rgba(0, 0, 0, 0.13);
+}
+/* พื้นที่รองลงมาเพื่อจัดตำแหน่งปุ่ม */
+.btn-area-new-Unit {
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+/* ปุ่มยกเลิก */
+.cancle-new-C {
+  color: #22a699;
+  font-size: 1rem;
+  border: 1px solid #22a699;
+}
+/* ตัวหนังสือปุ่มยกเลิก */
+.cancle-new-C span {
+  padding-left: 5px;
+  color: #22a699;
+}
+/* ปุ่มบันทึก */
+.submit-new-C {
+  background: #22a699;
+  color: white;
+  font-size: 1rem;
+  border: none;
+}
+/* ตัวหนังสือปุ่มบันทึก */
+.submit-new-C span {
+  padding-left: 5px;
+  color: #ffffff;
+}

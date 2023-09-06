@@ -2,10 +2,14 @@ import { useState } from "react";
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Topnav from "./component/Topnav";
 
 import Report from "./page/ReportPage/Repoet";
+
 import Unit from "./page/UnitPage/Unit";
-import Topnav from "./component/Topnav";
+import UnitNew from "./page/UnitPage/UnitNew";
+import UnitEdit from "./page/UnitPage/UnitEdit";
+import UnitReadID from "./page/UnitPage/UnitReadID";
 
 import CustomerReadPage from "./page/CustomerPage/CustomerReadPage";
 import CustomerReadIDPage from "./page/CustomerPage/CustomerReadIDPage";
@@ -35,7 +39,6 @@ function App() {
       <Routes>
         <Route path="/AD/EmployeeReadPage" element={<EmployeeReadPage />} />
 
-        <Route path="/" element={<Login />} />
         <Route
           path="/AD/EmployeeReadPage/EmployeeAddPage"
           element={<EmployeeAddPage />}
@@ -46,6 +49,10 @@ function App() {
         />
         <Route path="/AD/StockReadPage" element={<StockReadPage />} />
         <Route path="/AD/ReportReadPageEM" element={<ReportReadPageEM />} />
+
+        <Route path="/" element={<Login />} />
+
+
         <Route path="/EM/CustomerReadPage" element={<CustomerReadPage />} />
         <Route
           path="/EM/CustomerReadPage/CustomerCreatePage"
@@ -76,6 +83,7 @@ function App() {
 
         <Route path="/EM/Report" element={<Report />} />
         <Route path="/EM/Unit" element={<Unit />} />
+        <Route path="/EM/Unit/UnitNew" element={<UnitNew />} />
       </Routes>
       {/* <AddEM/> */}
     </BrowserRouter>

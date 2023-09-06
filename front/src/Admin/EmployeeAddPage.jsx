@@ -63,7 +63,7 @@ function EmployeeAddPage() {
     setImages([...e.target.files]);
   }
 
-  console.log(values);
+  console.log("values",values);
   console.log(image);
 
   return (

@@ -10,13 +10,14 @@ import { useNavigate } from "react-router-dom";
 
 function AddLot() {
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
-  //   const location = useLocation();
-  //   const selectedCategory = location.state.selectedCategory;
-  //   const { selectedCategory, selectedCategoryName } = location.state;
 
   const location = useLocation();
-  const { selectedCategory, selectedCategoryName } = location.state; // รับข้อมูลที่ส่งมาจากหน้า TabContent2
+  // const selectedCategory = location.state.selectedCategory;
+  const selectedCategory = location.state.selectedCategory; // Correctly access selectedCategory
+
   const navigate = useNavigate();
+
+  console.log("selectedCategory2", selectedCategory);
 
   const [values, setValues] = useState({
     expiration_date: "",
@@ -26,7 +27,6 @@ function AddLot() {
     COA_name: "",
     MSDS_name: "",
     id_staple: selectedCategory,
-    // id_staple: selectedCategory ? selectedCategory.id_staple : "",
 
     id_employee: `${userLoginData[0].id_employee}`,
   });
@@ -37,7 +37,6 @@ function AddLot() {
     axios
       .post("http://localhost:5500/LotNew", {
         ...values,
-        // id_staple: selectedCategory,
       })
       .then((res) => {
         console.log(res);
@@ -46,11 +45,6 @@ function AddLot() {
       .catch((err) => console.log(err));
   };
 
-  //   const handleInput = (event) => {
-  //     const { name, value } = event.target;
-
-  //     setValues((prev) => ({ ...prev, [name]: value }));
-  //   };
   const handleInput = (event) => {
     const { name, value } = event.target;
 
@@ -74,8 +68,8 @@ function AddLot() {
         <main className="main">
           <div className="top-text-new">
             <div className="text-new">
-              {/* เพิ่มข้อมูลล็อตของ {selectedCategory.Name_staple} */}
-              เพิ่มข้อมูลล็อต
+              <h2>ไอดีของวัตถุดิบ: {selectedCategory.id_staple}</h2>
+              <h2>ชื่อของวัตถุดิบ: {selectedCategory.Name_staple}</h2>
             </div>
           </div>
 
@@ -154,18 +148,6 @@ function AddLot() {
                     onChange={handleInput}
                   />
                 </div>
-
-                {/* <div className="form-row-new">
-                  <label className="form-label-new">
-                    <p>*</p>จุดสั่งซื้อ :
-                  </label>
-                  <input
-                    name="reOrder"
-                    type="text"
-                    className="form-input-new"
-                    onChange={handleInput}
-                  />
-                </div> */}
               </form>
             </div>
 

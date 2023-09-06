@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Itim&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&family=Oswald:wght@500&family=Rubik+Iso&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&family=Oswald:wght@500&family=Rubik+Iso&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap");
 
 /* start sidebar */
 .mainMenu {
@@ -21,7 +21,7 @@
 .top-sidebar-EM {
   background: #22a699;
   /* font-family: "Noto Serif Thai", serif; */
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: "Montserrat Alternates", sans-serif;
   color: white;
   height: 60px;
   display: flex;
@@ -64,7 +64,7 @@
   height: 100%;
   display: flex;
   color: #ffffff;
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: "Montserrat Alternates", sans-serif;
   /* font-family: 'Montserrat Alternates', sans-serif; */
   /* font-family: "Prompt", sans-serif; */
   justify-content: space-between;
@@ -77,7 +77,11 @@
 .name-logo-EM {
   padding-left: 30px;
   font-size: 25px;
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+.profile-EM {
+  padding-right: 20px;
 }
 
 /* end Topnavbar */
@@ -94,7 +98,6 @@
   background: #ffffff;
   overflow-y: scroll;
 }
-
 
 .aside {
   z-index: 9;
@@ -113,3 +116,65 @@
     "aside-menu main-menu ";
 }
 /* end page */
+
+/* รูปแบบ Navbar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+/* รูปแบบ Navbar ทางซ้าย */
+.navbar-left {
+  float: left;
+}
+
+/* รูปแบบ Navbar ทางขวา */
+.navbar-right {
+  float: right;
+}
+
+/* รูปแบบปุ่ม Dropdown */
+.dropbtn {
+  background: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* รูปแบบ Dropdown เมนู */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 140px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  
+  /* border-radius: 5px; */
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  
+}
+
+/* เมื่อ Hover ที่ Dropdown ให้แสดงเมนู */
+.dropdown:hover .dropdown-content {
+  display: block;
+}

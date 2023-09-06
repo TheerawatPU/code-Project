@@ -5,7 +5,6 @@ import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import AddLot from "./AddLot";
 import { useNavigate } from "react-router-dom";
 
 function TabContent2() {
@@ -13,44 +12,11 @@ function TabContent2() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [tableData, setTableData] = useState([]);
 
-  console.log("itemss", itemss);
+  // console.log("itemss", itemss);
 
-  // const select_nameStable = (e) => {
-  //   const selectedId = e.target.value;
-  //   setSelectedCategory(selectedId);
-  // };
+  // console.log("selectedCategory", selectedCategory);
 
-  const select_nameStable = (e) => {
-    const selectedId = e.target.value;
-    setSelectedCategory(selectedId);
-  };
-
-  console.log("selectedCategory", selectedCategory);
-
-  // function handleAddLotClick() {
-  //   // แก้ตรงนี้
-  //   // navigate(`/EM/StablePage/AddLot`, { state: { selectedCategory } });
-  //   navigate(`/EM/StablePage/AddLot`, { state: { selectedCategory, selectedCategoryName: e.target.options[e.target.selectedIndex].text } });
-  // }
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5500/lotReadSelect")
-  //     .then((res) => setItemss(res.data))
-  //     .catch((err) => console.log(err));
-  // }, []);
-
-  function handleAddLotClick() {
-    // ส่งข้อมูลไปหน้า AddLot
-    navigate(`/EM/StablePage/AddLot`, {
-      state: {
-        selectedCategory,
-        selectedCategoryName: itemss.find(
-          (item) => item.id_staple === selectedCategory
-        )?.Name_staple,
-      },
-    });
-  }
+  //ใช้ก่อนหน้านี้
 
   useEffect(() => {
     axios
@@ -59,42 +25,41 @@ function TabContent2() {
       .catch((err) => console.log(err));
   }, []);
 
-  // useEffect(() => {
-  //   if (selectedCategory) {
-  //     fetch(`http://localhost:5500/lotTable/${selectedCategory}`)
-  //       .then((response) => response.json())
-  //       .then((data) => setTableData(data))
-  //       .catch((error) => console.error("Error fetching table data:", error));
-  //   } else {
-  //     setTableData([]); // รีเซ็ตข้อมูลเมื่อไม่มี category ที่ถูกเลือก
-  //   }
-  // }, [selectedCategory]);
+  const onChangeProvince = (e) => {
+    let index = e.nativeEvent.target.selectedIndex;
+    let label = e.nativeEvent.target[index].text;
+    setSelectedCategory(label);
+    console.log("วัตถุดิบ1", selectedCategory);
 
-  // useEffect(() => {
-  //   if (selectedCategory) {
-  //     fetch(`http://localhost:5500/lotTable/${selectedCategory}`)
-  //       .then((response) => response.json())
-  //       .then((data) => setTableData(data))
-  //       .catch((error) => console.error("Error fetching table data:", error));
-  //   } else {
-  //     setTableData([]);
-  //   }
-  // }, [selectedCategory]);
+    const selectedCategoryId = e.target.value;
 
-  useEffect(() => {
-    if (selectedCategory) {
-      fetch(`http://localhost:5500/lotTable/${selectedCategory}`)
+    if (selectedCategoryId) {
+      fetch(`http://localhost:5500/lotTable/${selectedCategoryId}`)
         .then((response) => response.json())
         .then((data) => setTableData(data))
         .catch((error) => console.error("Error fetching table data:", error));
+        console.log("วัตถุดิบ", label);
     } else {
       setTableData([]);
     }
-  }, [selectedCategory]);
+  };
+  const navigateToAddLot = () => {
+    if (selectedCategory) {
+      const categoryInfo = {
+        id_staple: selectedCategory.e.target.value, // Replace 'value' with the correct property
+        Name_staple: selectedCategory.label, // Replace 'label' with the correct property
+      };
+      navigate("AddLot", { state: { selectedCategory: categoryInfo } });
+    }
+  };
+
+  console.log("selectedCategory.value", selectedCategory);
 
   console.log("tableData", tableData);
 
   const navigate = useNavigate();
+
+  
   //next page555555
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 9;
@@ -122,8 +87,6 @@ function TabContent2() {
     }
   }
 
-  // console.log("Data" , )
-
   return (
     <div>
       <main className="main-stable ">
@@ -134,11 +97,8 @@ function TabContent2() {
             <div style={{ color: "black" }}>เลือกวัตถุดิบ : </div>
             <select
               className="select-stable-showtable"
-              // value={selectedCategory}
-              // onChange={(e) => setSelectedCategory(e.target.value)}
-              // onChange={(e) => select_nameStable(e)}
-              value={selectedCategory}
-              onChange={(e) => select_nameStable(e)}
+              name="selectedCategory"
+              onChange={(e) => onChangeProvince(e)}
             >
               <option value="">เลือกวัตถุดิบ</option>
               {itemss.map((item) => (
@@ -160,23 +120,18 @@ function TabContent2() {
               )}
             />
           </div>
-          <div className="seact-lot">
-            <input
-              className="inputsearch-lot"
-              type="text"
-              placeholder="ช่องค้นหา...."
-            />
-            <button className="btn-lot-seact">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </div>
 
           {/* <button className="btnstable" onClick={() => navigate(`StableNew`)}>
             <h2>
               <BiPlus />
             </h2>
           </button> */}
-          <button className="btnstable" onClick={handleAddLotClick}>
+          <button
+            className="btnstable"
+            onClick={() => {
+              navigateToAddLot();
+            }}
+          >
             <h2>
               <BiPlus />
             </h2>
@@ -227,10 +182,7 @@ function TabContent2() {
                       </h3>
                     </button>
                   </td>
-                  <td>{data.name }</td>
-
-                  {/* <td className="TDStable">{data.cost}</td>
-                  <td className="TDStable">{data.cost}</td> */}
+                  <td>{data.name}</td>
                 </tr>
               ))}
             </tbody>

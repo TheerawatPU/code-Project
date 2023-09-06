@@ -9,6 +9,17 @@ export const lotReadSelect = (req, res) => {
   });
 };
 
+// อ่านข้อมูลวัตถุดิบในselect
+export const lotReadSelectID = (req, res) => {
+  const sql =
+    "SELECT DISTINCT(Name_staple), id_staple FROM staple WHERE id_staple = ?";
+  const id = req.params.id;
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
 //อ่านข้อมูลทั้งหมดของlot ตามชื่อวัตถุดิบที่เลือก
 // app.get('/tableData/:category', (req, res) => {
 //     const category = req.params.category;

@@ -8,7 +8,6 @@ import "./CSS/Employee.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 function EmployeeReadPage() {
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
 
@@ -125,7 +124,7 @@ function EmployeeReadPage() {
       <main className="main">
         <div className="area main C"></div>
         <div className="grup_btn">
-          <p>ลูกค้า</p>
+          <p>พนักงาน</p>
           <input
             className="inputsearch"
             type="text"
@@ -156,7 +155,7 @@ function EmployeeReadPage() {
                 <th>ชื่อเฟสบุ๊ค</th>
                 <th>ชื่อบัญชี</th>
                 <th>รหัสผ่าน</th>
-                <th>ผู้บันทึก</th>
+
                 <th>แก้ไข</th>
               </tr>
             </thead>
@@ -181,7 +180,6 @@ function EmployeeReadPage() {
                     <td>{item.facebook_id}</td>
                     <td>{item.username}</td>
                     <td>{item.password}</td>
-                    <td>{userLoginData[0].name}</td>
 
                     <td>
                       <div className="TDB">
