@@ -20,12 +20,7 @@ function Login() {
   //ฟังก์ชั่นการเข้าสู่ระบบ
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const validationErrors = Validation(values);
-    // setErrors(validationErrors);
 
-    // const noErrors = Object.values(validationErrors).every(
-    //   (error) => error === ""
-    // );
     console.log(values);
 
     try {
@@ -33,10 +28,6 @@ function Login() {
         "http://localhost:5500/loginadmin",
         values
       );
-      // const salesResponse = await axios.post(
-      //   "http://localhost:2001/loginsales",
-      //   values
-      // );
 
       if (adminResponse.data[0].Success === "เข้าสู่ระบบได้") {
         const userLoginData = sessionStorage.getItem("userlogin");
@@ -59,12 +50,11 @@ function Login() {
   };
 
   const handleInput = (event) => {
-    //showpass
-    // const { name, value } = event.target;
+  
 
     setValues((prev) => ({
       ...prev,
-      [event.target.name]: event.target.value, // Remove square brackets
+      [event.target.name]: event.target.value, 
     }));
   };
 

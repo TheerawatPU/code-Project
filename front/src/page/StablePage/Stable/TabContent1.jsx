@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
+import { CgBox } from "react-icons/cg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../../../CSS/Stable.css";
 import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 
 function TabContent1() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5500/stabletest")
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
-  }, []);
 
   const [filterVal, setFilterVal] = useState("");
   const [searchApiData, setSearchApiData] = useState([]);
@@ -152,6 +148,7 @@ function TabContent1() {
                     >
                       {item.id_staple}
                     </td>
+
                     <td style={{ color: item.textColor }}>
                       {item.Name_staple}
                     </td>
@@ -180,6 +177,17 @@ function TabContent1() {
                       >
                         <h3>
                           <FaPen />
+                        </h3>
+                      </button>
+                      <button
+                        className="btnstableLot"
+                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
+                        onClick={() => navigate(`TableLot/${item.id_staple}`)}
+
+                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
+                      >
+                        <h3>
+                          <FontAwesomeIcon icon={faBoxArchive} />
                         </h3>
                       </button>
                     </td>

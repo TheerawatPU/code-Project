@@ -179,7 +179,7 @@ label {
   background: #efefef;
 }
 /* ตกแต่งตัวหนังสือบอกหน้าเพจ */
-.text-new-EM {
+.text-new-EM-Unit {
   padding-left: 250px;
   font-size: 35px;
   font-family: "Noto Serif Thai", serif;
@@ -187,12 +187,12 @@ label {
   color: #000000;
   justify-content: center;
   background: #efefef;
-  padding: 30px 250px 4px;
+  padding: 30px 325px 4px;
 }
 /* ตกแต่งตัวหนังสือบอกรายละเอียดรองลงมา */
-.text-new-lg-C {
+.text-new-lg-Unit {
   font-family: "Noto Serif Thai", serif;
-  padding-left: 250px;
+  padding-left: 325px;
   font-size: 14px;
   color: #ed0000;
   justify-content: center;

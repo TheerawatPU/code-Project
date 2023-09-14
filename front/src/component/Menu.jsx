@@ -31,7 +31,7 @@ function Menu() {
                 {/* <FontAwesomeIcon icon={faStar} /> */}
                 <FontAwesomeIcon icon={faListCheck} />
                 {/* <BsBoxes /> */}
-                <span>สั่งซื้อ</span>
+                <span>สั่งผลิต</span>
               </div>
             </a>
             <a href="/EM/StablePage">

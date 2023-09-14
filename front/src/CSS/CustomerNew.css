@@ -18,6 +18,7 @@
 }
 /* ขนาดตาราง */
 .styled-table-Customer {
+  text-align: center;
   border-collapse: collapse;
   margin: 15px 0;
   font-size: 14px;
@@ -28,6 +29,7 @@
 }
 /* สีของหัวตาราง */
 .styled-table-Customer thead tr {
+  text-align: center;
   background-color: #22a699;
   color: #ffffff;
   text-align: left;
@@ -36,6 +38,7 @@
 /* ระยะขอบของแต่ละช่องหัวตาราง */
 .styled-table-Customer th,
 .styled-table-Customer td {
+  text-align: center;
   padding: 13px 15px;
   /* border: 1px solid #000000; */
 }

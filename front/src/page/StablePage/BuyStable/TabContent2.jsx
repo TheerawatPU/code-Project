@@ -3,70 +3,79 @@ import axios from "axios";
 import "../../../CSS/lot.css";
 import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 
 function TabContent2() {
-  const [itemss, setItemss] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [tableData, setTableData] = useState([]);
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
 
-  // console.log("itemss", itemss);
-
-  // console.log("selectedCategory", selectedCategory);
-
-  //ใช้ก่อนหน้านี้
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5500/lotReadSelect")
-      .then((res) => setItemss(res.data))
-      .catch((err) => console.log(err));
+    const fetchData = () => {
+      axios
+        .get("http://localhost:5500/stapleRead")
+        .then((res) => {
+          setData(res.data);
+          setSearchApiData(res.data);
+        })
+        .catch((err) => console.log(err));
+    };
+    fetchData();
   }, []);
 
-  const onChangeProvince = (e) => {
-    let index = e.nativeEvent.target.selectedIndex;
-    let label = e.nativeEvent.target[index].text;
-    setSelectedCategory(label);
-    console.log("วัตถุดิบ1", selectedCategory);
-
-    const selectedCategoryId = e.target.value;
-
-    if (selectedCategoryId) {
-      fetch(`http://localhost:5500/lotTable/${selectedCategoryId}`)
-        .then((response) => response.json())
-        .then((data) => setTableData(data))
-        .catch((error) => console.error("Error fetching table data:", error));
-        console.log("วัตถุดิบ", label);
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
     } else {
-      setTableData([]);
+      const filterResult = searchApiData.filter(
+        (item) =>
+          //   item.id_staple
+          //     .toLowerCase()
+          //     .includes(e.target.value.toLowerCase()) ||
+          item.Name_staple.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.Name_INCIname.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.reOrder.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.cost.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.amount.toLowerCase().includes(e.target.value.toLowerCase())
+
+        // item.id_customer.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            id_staple: "ไม่มีข้อมูล",
+            Name_staple: "ไม่มีข้อมูล",
+            Name_INCIname: "ไม่มีข้อมูล",
+            reOrder: "ไม่มีข้อมูล",
+            cost: "ไม่มีข้อมูล",
+            amount: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
     }
-  };
-  const navigateToAddLot = () => {
-    if (selectedCategory) {
-      const categoryInfo = {
-        id_staple: selectedCategory.e.target.value, // Replace 'value' with the correct property
-        Name_staple: selectedCategory.label, // Replace 'label' with the correct property
-      };
-      navigate("AddLot", { state: { selectedCategory: categoryInfo } });
-    }
+    setFilterVal(e.target.value);
   };
 
-  console.log("selectedCategory.value", selectedCategory);
-
-  console.log("tableData", tableData);
-
-  const navigate = useNavigate();
-
-  
   //next page555555
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 9;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = tableData.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(tableData.length / recordsPerPage);
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recordsPerPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
   function prePage() {
@@ -86,105 +95,104 @@ function TabContent2() {
       setCurrentPage(currentPage + 1);
     }
   }
-
   return (
     <div>
       <main className="main-stable ">
-        <div className="lot-text-header">ล็อตวัตถุดิบ</div>
-
-        <div className="grup_btn-lot">
-          <div className="select-show">
-            <div style={{ color: "black" }}>เลือกวัตถุดิบ : </div>
-            <select
-              className="select-stable-showtable"
-              name="selectedCategory"
-              onChange={(e) => onChangeProvince(e)}
-            >
-              <option value="">เลือกวัตถุดิบ</option>
-              {itemss.map((item) => (
-                <option key={item.id} value={item.id_staple}>
-                  {item.Name_staple}
-                </option>
-              ))}
-            </select>
-          </div>
-          <p>ปริมาณที่มีทั้งหมด</p>
-          <div className="numberSUM">
-            <input
-              type="text"
-              style={{ width: "100px", height: "50px" }}
-              disabled
-              value={tableData.reduce(
-                (sum, student) => sum + student.amount,
-                0
-              )}
-            />
-          </div>
-
-          {/* <button className="btnstable" onClick={() => navigate(`StableNew`)}>
-            <h2>
-              <BiPlus />
-            </h2>
-          </button> */}
-          <button
-            className="btnstable"
-            onClick={() => {
-              navigateToAddLot();
-            }}
-          >
+        <div className="grup_btn">
+          <p>รายการสั่งซื้อวัตถุดิบ</p>
+          <input
+            className="inputsearch"
+            type="text"
+            placeholder="ช่องค้นหา...."
+            value={filterVal}
+            onInput={(e) => handleFilter(e)}
+          />
+          <button className="btnstable" onClick={() => navigate(`BuyStableNew`)}>
             <h2>
               <BiPlus />
             </h2>
           </button>
         </div>
 
-        <div class="table-body-lot">
-          <table class="styled-table-lot">
+        <div class="table-body">
+          <table class="styled-table">
             <thead>
               <tr>
-                <th>รหัสล็อต</th>
-                <th>วันหมดอายุ</th>
-                <th>ราคา</th>
-                <th>ปริมาณ</th>
-                <th>ปริมาณคงเหลือ </th>
-                {/* <th>ผลรวม </th> */}
+                <th>รหัสรายการสั่งซื้อ</th>
+                <th>ร้านที่สั่งซื้อ</th>
+                <th>วันที่สั่งซื้อ</th>
+                <th>วันที่รับวัตถุดิบ</th>
+                <th>รหัสอ้างอิง</th>
+                <th>ยอดรวม</th>
+                <th>ยืนยันวัตถุดิบ</th>
 
-                <th>COA</th>
-                <th>MSDS</th>
-                <th>ผู้บันทึก</th>
+                <th
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "10px",
+                  }}
+                >
+                  ชื่อผู้บันทึก
+                </th>
               </tr>
             </thead>
             <tbody>
-              {records.map((data) => (
-                <tr>
-                  <td
-                    style={{ color: "blue", cursor: "pointer" }}
-                    // onClick={() => navigate(`Stabledetel/${item.id_staple}`)}
-                  >
-                    {data.id_lot}
-                  </td>
-                  <td>{data.expiration_date}</td>
-                  <td>{data.cost}</td>
-                  <td>{data.amount}</td>
-                  <td>{data.amount_re}</td>
-                  {/* <td>{data.amount_re - data.amount}</td> */}
-                  <td className="td-lot">
-                    <button className="btnstableRead">
-                      <h3>
-                        <FaEye />
-                      </h3>
-                    </button>
-                  </td>
-                  <td className="td-lot">
-                    <button className="btnstableRead">
-                      <h3>
-                        <FaEye />
-                      </h3>
-                    </button>
-                  </td>
-                  <td>{data.name}</td>
-                </tr>
-              ))}
+              {records.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => navigate(`Stabledetel/${item.id_staple}`)}
+                    >
+                      {item.id_staple}
+                    </td>
+
+                    <td style={{ color: item.textColor }}>
+                      {item.Name_staple}
+                    </td>
+                    {/* <td>{item.Name_INCIname}</td> */}
+                    <td style={{ color: item.textColor }}>
+                      {item.Name_INCIname}
+                    </td>
+                    <td style={{ color: item.textColor }}>{item.reOrder}</td>
+                    <td style={{ color: item.textColor }}>{item.cost}</td>
+                    <td style={{ color: item.textColor }}>{item.amount}</td>
+
+                    <td className="TDStable">
+                      <button
+                        className="btnstableRead"
+                        onClick={() =>
+                          navigate(`Stabledetel/${item.id_staple}`)
+                        }
+                      >
+                        <h3>
+                          <FaEye />
+                        </h3>
+                      </button>
+                      <button
+                        onClick={() => navigate(`StableEdit/${item.id_staple}`)}
+                        className="btnstableEdit"
+                      >
+                        <h3>
+                          <FaPen />
+                        </h3>
+                      </button>
+                      <button
+                        className="btnstableLot"
+                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
+                        onClick={() => navigate(`TableLot/${item.id_staple}`)}
+
+                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
+                      >
+                        <h3>
+                          <FontAwesomeIcon icon={faBoxArchive} />
+                        </h3>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
 

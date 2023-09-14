@@ -216,9 +216,23 @@ button.btnstableEdit {
   height: 39px;
   align-items: center;
   justify-content: center;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+button.btnstableLot {
+  display: flex;
+  background: #353ffd;
+  color: WHITE;
+  width: 52px;
+  border-radius: 10px;
+  height: 39px;
+  align-items: center;
+  justify-content: center;
   font-size: 15px;
   margin-left: 10px;
 }
+
+
 
 /* StableCreatePage */
 
@@ -229,7 +243,6 @@ button.btnstableEdit {
   width: 6px;
   height: 5px;
 }
-
 
 /* พื้นที่ทำงานนอกสุดของหน้าทั้งหมดรสมถึงการจัดตำแห่ง */
 .all-page-new {

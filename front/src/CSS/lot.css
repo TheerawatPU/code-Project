@@ -48,7 +48,7 @@
   margin: 0 0px;
 }
 
-.tabsgrubs button {
+/* .tabsgrubs button {
   background-color: #f1f1f1;
   border: 1px solid #ccc;
   padding: 8px 16px;
@@ -57,7 +57,7 @@
   width: 170px;
   height: 45px;
   font-size: 1.2rem;
-}
+} */
 
 /* CSS สำหรับแท็บที่เลือก */
 .tabsgrubs button.active {

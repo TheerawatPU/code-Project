@@ -27,7 +27,7 @@ function TabUnit1() {
 
   //ตัวแปรสำหรับใช้การกดเลขถัดไปของหน้าจอ
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 9;
+  const recordsPerPage = 8;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = data.slice(firstIndex, lastIndex);
@@ -107,7 +107,9 @@ function TabUnit1() {
                     >
                       {item.id_unit}
                     </td>
-                    <td>{item.unit_name}</td>
+                    <td>
+                      <b>{item.unit_name}</b>
+                    </td>
                     <td>{item.day_admit_list}</td>
                     <td>{item.notification_num}</td>
                     <td>{item.date_notification_num}</td>

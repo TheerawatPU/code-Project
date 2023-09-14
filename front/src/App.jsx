@@ -24,6 +24,8 @@ import Stabledetel from "./page/StablePage/Stable/Stabledetel";
 import AddLot from "./page/StablePage/BuyStable/AddLot";
 import Lot from "./page/StablePage/BuyStable/Lot";
 import LotNew from "./page/StablePage/BuyStable/LotNew";
+import TableLot from "./page/StablePage/Stable/TableLot";
+import BuyStableNew from "./page/StablePage/BuyStable/BuyStableNew";
 
 import EmployeeReadPage from "./Admin/EmployeeReadPage";
 import EmployeeAddPage from "./Admin/EmployeeAddPage";
@@ -32,6 +34,7 @@ import EmployeeUpdatePage from "./Admin/EmployeeUpdatePage";
 import StockReadPage from "./Admin/StockReadPage";
 import ReportReadPageEM from "./Admin/ReportReadPageEM";
 import Login from "./Admin/Login";
+import LoginForm from "./Admin/LoginForm";
 
 function App() {
   return (
@@ -51,7 +54,7 @@ function App() {
         <Route path="/AD/ReportReadPageEM" element={<ReportReadPageEM />} />
 
         <Route path="/" element={<Login />} />
-
+        <Route path="/LoginForm" element={<LoginForm />} />
 
         <Route path="/EM/CustomerReadPage" element={<CustomerReadPage />} />
         <Route
@@ -68,6 +71,11 @@ function App() {
         />
 
         <Route path="/EM/StablePage" element={<StablePage />} />
+
+        <Route path="/EM/StablePage/TableLot/:id" element={<TableLot />} />
+
+        <Route path="/EM/StablePage/BuyStableNew" element={<BuyStableNew />} />
+        
         <Route path="/EM/StablePage/StableNew" element={<StableNew />} />
 
         <Route path="/EM/StablePage/AddLot" element={<AddLot />} />
