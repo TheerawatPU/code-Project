@@ -72,7 +72,7 @@ function TabContent1() {
 
   //next page555555
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 9;
+  const recordsPerPage = 8;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = data.slice(firstIndex, lastIndex);
@@ -158,7 +158,7 @@ function TabContent1() {
                     </td>
                     <td style={{ color: item.textColor }}>{item.reOrder}</td>
                     <td style={{ color: item.textColor }}>{item.cost}</td>
-                    <td style={{ color: item.textColor }}>{item.amount}</td>
+                    <td style={{ color: item.textColor }}>{item.amount_re}</td>
 
                     <td className="TDStable">
                       <button

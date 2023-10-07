@@ -27,6 +27,8 @@ function CustomerCreatePage() {
         console.log(err);
       });
   }, []);
+
+  
   const onChangeProvince = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
@@ -57,6 +59,8 @@ function CustomerCreatePage() {
         console.log(err);
       });
   };
+
+  
   const onChangeSubdistricts = (e) => {
     // let index = e.nativeEvent.target.selectedIndex;
     // let label = e.nativeEvent.target[index].text;

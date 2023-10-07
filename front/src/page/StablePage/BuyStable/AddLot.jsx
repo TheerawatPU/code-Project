@@ -6,18 +6,21 @@ import TabContent2 from "./TabContent2";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
 function AddLot() {
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
 
   const location = useLocation();
+
+
+  const { id } = useParams();
   // const selectedCategory = location.state.selectedCategory;
-  const selectedCategory = location.state.selectedCategory; // Correctly access selectedCategory
+  // const selectedCategory = location.state.selectedCategory; 
 
   const navigate = useNavigate();
 
-  console.log("selectedCategory2", selectedCategory);
+  // console.log("selectedCategory2", selectedCategory);
 
   const [values, setValues] = useState({
     expiration_date: "",
@@ -26,7 +29,7 @@ function AddLot() {
     amount_re: "",
     COA_name: "",
     MSDS_name: "",
-    id_staple: selectedCategory,
+    id_staple: id,
 
     id_employee: `${userLoginData[0].id_employee}`,
   });
@@ -68,8 +71,8 @@ function AddLot() {
         <main className="main">
           <div className="top-text-new">
             <div className="text-new">
-              <h2>ไอดีของวัตถุดิบ: {selectedCategory.id_staple}</h2>
-              <h2>ชื่อของวัตถุดิบ: {selectedCategory.Name_staple}</h2>
+              {/* <h2>ไอดีของวัตถุดิบ: {selectedCategory.id_staple}</h2> */}
+              {/* <h2>ชื่อของวัตถุดิบ: {selectedCategory.Name_staple}</h2> */}
             </div>
           </div>
 

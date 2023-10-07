@@ -4,7 +4,7 @@ import TabContent1 from "./Stable/TabContent1";
 import TabContent2 from "./BuyStable/TabContent2";
 import Topnav from "../../component/Topnav";
 import Menu from "../../component/Menu";
-
+import CutStable from "./CutStable/CutStable";
 
 function StablePage() {
   const [activeTab, setActiveTab] = useState(1);
@@ -22,9 +22,7 @@ function StablePage() {
         <Menu />
       </section>
 
-
       <main className="main-stable ">
-        
         <div className="tabsgrubs">
           <ul>
             <li>
@@ -43,9 +41,25 @@ function StablePage() {
                 สั่งซื้อวัตถุดิบ
               </button>
             </li>
+            <li>
+              <button
+                onClick={() => handleTabChange(3)}
+                className={activeTab === 3 ? "active" : ""}
+              >
+                ปรับสต๊อก
+              </button>
+            </li>
           </ul>
 
-          {activeTab === 1 ? <TabContent1 /> : <TabContent2 />}
+          {/* {activeTab === 1 ? <TabContent1 /> : <TabContent2 />} */}
+
+          {activeTab === 1 ? (
+            <TabContent1 />
+          ) : activeTab === 2 ? (
+            <TabContent2 />
+          ) : (
+            <CutStable />
+          )}
         </div>
       </main>
     </div>

@@ -6,6 +6,7 @@ import "../../../CSS/Stable.css";
 import { BiPlus } from "react-icons/bi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleDown } from "@fortawesome/free-solid-svg-icons";
+import { FaArrowLeftLong } from "react-icons/fa6";
 function Lot() {
   useEffect(() => {
     axios
@@ -56,7 +57,10 @@ function Lot() {
       </section>
       <main className="main-new">
         <div className="grup_btn">
+
           <p>ล็อต</p>
+
+          
           <input
             className="inputsearch"
             type="text"

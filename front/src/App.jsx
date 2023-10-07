@@ -10,6 +10,10 @@ import Unit from "./page/UnitPage/Unit";
 import UnitNew from "./page/UnitPage/UnitNew";
 import UnitEdit from "./page/UnitPage/UnitEdit";
 import UnitReadID from "./page/UnitPage/UnitReadID";
+import Utest from "./page/UnitPage/Utest";
+
+import ProductNew from "./page/UnitPage/ProductNew";
+import ProductID from "./page/UnitPage/productID";
 
 import CustomerReadPage from "./page/CustomerPage/CustomerReadPage";
 import CustomerReadIDPage from "./page/CustomerPage/CustomerReadIDPage";
@@ -35,6 +39,9 @@ import StockReadPage from "./Admin/StockReadPage";
 import ReportReadPageEM from "./Admin/ReportReadPageEM";
 import Login from "./Admin/Login";
 import LoginForm from "./Admin/LoginForm";
+
+import CutStable from "./page/StablePage/CutStable/CutStable";
+import CusStableNew from "./page/StablePage/CutStable/CusStableNew";
 
 function App() {
   return (
@@ -74,13 +81,22 @@ function App() {
 
         <Route path="/EM/StablePage/TableLot/:id" element={<TableLot />} />
 
+        <Route path="/EM/StablePage/TableLot/:id/AddLot" element={<AddLot />} />
+
+        <Route path="/EM/StablePage/TableLot/:id/CusStableNew/:id" element={<CusStableNew />} />
+
         <Route path="/EM/StablePage/BuyStableNew" element={<BuyStableNew />} />
-        
+
         <Route path="/EM/StablePage/StableNew" element={<StableNew />} />
 
-        <Route path="/EM/StablePage/AddLot" element={<AddLot />} />
+        <Route path="/EM/CutStable" element={<CutStable />} />
+
+        <Route path="/EM/StablePage/CusStableNew" element={<CusStableNew />} />
+
+        {/* <Route path="/EM/StablePage/AddLot" element={<AddLot />} /> */}
 
         <Route path="/EM/StablePage/StableEdit/:id" element={<StableEdit />} />
+
         <Route
           path="/EM/StablePage/Stabledetel/:id"
           element={<Stabledetel />}
@@ -90,8 +106,15 @@ function App() {
         <Route path="/EM/StablePage/LotNew" element={<LotNew />} />
 
         <Route path="/EM/Report" element={<Report />} />
+
         <Route path="/EM/Unit" element={<Unit />} />
         <Route path="/EM/Unit/UnitNew" element={<UnitNew />} />
+        <Route path="/EM/Unit/UnitReadID/:id" element={<UnitReadID />} />
+        <Route path="/EM/Unit/Utest/:id" element={<Utest />} />
+        <Route path="/EM/Unit/UnitEdit/:id" element={<UnitEdit />} />
+
+        <Route path="/EM/Unit/ProductNew" element={<ProductNew />} />
+        <Route path="/EM/Unit/ProductID/:id" element={<ProductID />} />
       </Routes>
       {/* <AddEM/> */}
     </BrowserRouter>

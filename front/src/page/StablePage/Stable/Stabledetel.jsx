@@ -9,6 +9,9 @@ import "../../../CSS/Stable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
+import { FaArrowLeftLong } from "react-icons/fa6";
+
+
 function Stabledetel() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -21,6 +24,8 @@ function Stabledetel() {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log("Data = ",  Data);
+
   return (
     <div className="all-page-new">
       <header className="header-new">
@@ -31,6 +36,7 @@ function Stabledetel() {
       </section>
       <main className="main-new">
         <div className="top-text-new">
+          <div className="text-new" style={{cursor:"pointer"}} onClick={() => navigate(-1)}><FaArrowLeftLong /></div>
           <div className="text-new">รายละเอียดวัตถุดิบ</div>
         </div>
 
@@ -123,7 +129,7 @@ function Stabledetel() {
                 </div>
               </form>
             </div>
-            
+
             <div className="btn-submit-new">
               <div className="btn-area-new">
                 <button
@@ -138,9 +144,7 @@ function Stabledetel() {
                   type="submit"
                   className="submit-new"
                   onClick={() =>
-                    navigate(
-                      `/EM/StablePage/StableEdit/${d.id_staple}`
-                    )
+                    navigate(`/EM/StablePage/StableEdit/${d.id_staple}`)
                   }
                 >
                   <FontAwesomeIcon icon={faPenToSquare} />

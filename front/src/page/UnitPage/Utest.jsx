@@ -16,12 +16,29 @@ import { AiFillDelete } from "react-icons/ai";
 
 import "../../CSS/Unit.css";
 
-function UnitEdit() {
+function Utest() {
   const navigate = useNavigate();
 
   const { id } = useParams();
+
   const [unit, setUnit] = useState({});
+
   const [detail_unit, setDetail_unit] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5500/UreadID/${id}`)
+      .then((response) => {
+        setUnit(response.data.unitResults);
+        setDetail_unit(response.data.detail_unit);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
+
+  // Calculate the sum of the "รวมปริมาณสาร %" (Total Percentage) column
+  const totalPercentage = detail_unit.reduce((sum, detail) => {
+    return sum + parseFloat(detail.AmountP);
+  }, 0);
 
   return (
     <>
@@ -43,7 +60,7 @@ function UnitEdit() {
                 >
                   <FaArrowLeftLong />
                 </div>
-                <div className="titleText">แก้ไขข้อมูลสูตร</div>
+                <div className="titleText">รายละเอียดสูตร</div>
               </div>
             </div>
             <div className="all-btn-0">
@@ -98,24 +115,33 @@ function UnitEdit() {
                   <label className="form-label1-1">รหัสสูตร :</label>
                   <input
                     type="text"
-                    className="Uinput1"
+                    className="Uinput1Read"
                     name="unit_id"
+                    value={id}
                     disabled
                   />
                 </div>
 
                 <div className="Ubox1-1-1">
                   <label className="form-label1-1">ชื่อสูตร :</label>
-                  <input type="text" className="Uinput1" name="unit_name" />
+                  <input
+                    type="text"
+                    className="Uinput1Read"
+                    name="unit_name"
+                    value={unit.unit_name}
+                    disabled
+                  />
                 </div>
 
                 <div className="Ubox1-1-1D">
                   <div className="doubleU">
                     <label className="form-label1-1">วันที่รับรายการ :</label>
                     <input
-                      className="form-date"
-                      type="date"
+                      className="form-dateRead"
+                      type="text"
                       name="day_admit_list"
+                      value={unit.day_admit_list}
+                      disabled
                     />
                   </div>
                   <div className="doubleU">
@@ -123,9 +149,11 @@ function UnitEdit() {
                       วันที่เลขจดแจ้งสิ้นสุด :
                     </label>
                     <input
-                      className="form-date"
-                      type="date"
+                      className="form-dateRead"
                       name="date_notification_num"
+                      type="text"
+                      value={unit.date_notification_num}
+                      disabled
                     />
                   </div>
                 </div>
@@ -134,16 +162,22 @@ function UnitEdit() {
                   <label className="form-label1-1">เลขที่จดแจ้ง :</label>
                   <input
                     type="text"
-                    className="Uinput1"
+                    className="Uinput1Read"
                     name="notification_num"
+                    value={unit.notification_num}
+                    disabled
                   />
                 </div>
 
                 <div className="Ubox1-1-1">
                   <label className="form-label1-1">ลูกค้า :</label>
-                  <select className="Uinput1s" name="id_customer">
-                    <option value="">เลือกชื่อลูกค้า</option>
-                  </select>
+                  <input
+                    type="text"
+                    className="Uinput1Read"
+                    name="notification_num"
+                    value={unit.name_cus}
+                    disabled
+                  />
                 </div>
               </div>
             </div>
@@ -153,84 +187,26 @@ function UnitEdit() {
                 <h2 style={{ marginBottom: "25px" }}>ตารางวัตถุดิบ</h2>
 
                 <div className="Ubox2-1-1">
-                  <div className="UboxS-1">
-                    <label className="form-label1-1">วัตถุดิบ :</label>
-                    <select className="Uinput1s" name="id_staple">
-                      <option value="">เลือกวัตถุดิบ</option>
-                    </select>
-                  </div>
-
-                  <div className="UboxS-2">
-                    <div className="UboxS-2-1">
-                      <label className="form-label1-1">ปริมาณสาร :</label>
-                      <input type="number" className="Uinput1" name="AmountP" />
-                    </div>
-
-                    <div className="UboxS-2-1">
-                      <button
-                        type="submit"
-                        style={{ background: "blue", color: "white" }}
-                      >
-                        <h3>
-                          <BiPlus />
-                        </h3>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="Ubox2-1-2">
-                  <div className="UboxS-3">
-                    <div className="UboxS-2-1s">
-                      <label className="form-label1-1">รวมปริมาณสาร :</label>
-                      <input className="Uinput1ss" disabled />
-                      <label>%</label>
-                    </div>
-                  </div>
-
-                  <div className="UboxS-4">
-                    <div className="UboxS-2-1s">
-                      <label className="form-label1-1">ปริมาณคงเหลือ :</label>
-                      <input className="Uinput1ss" disabled />
-                      <label>%</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="Ubox2-1-1">
                   <div class="table-body-Unit">
                     <table class="styled-table-Unit">
                       <thead>
                         <tr>
                           <th>รหัส</th>
                           <th>ชื่อวัตถุดิบ</th>
-                          <th>รวมปริมาณสาร %</th>
-
-                          <th
-                            style={{
-                              display: "flex",
-                              justifyContent: "center",
-                              marginTop: "10px",
-                            }}
-                          >
-                            แก้ไข
-                          </th>
+                          <th>INCIname</th>
+                          <th>รวมปริมาณสาร {totalPercentage} %</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>2</td>
-                          <td>3</td>
-                          <td className="TDStable">
-                            <button className="dalete-Unit">
-                              <h3>
-                                <AiFillDelete />
-                              </h3>
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
+                      {detail_unit.map((detail, index) => (
+                        <tbody key={index}>
+                          <tr>
+                            <td>{index + 1}</td>
+                            <td>{detail.Name_staple}</td>
+                            <td>{detail.Name_INCIname}</td>
+                            <td>{detail.AmountP}</td>
+                          </tr>
+                        </tbody>
+                      ))}
                     </table>
                   </div>
                 </div>
@@ -243,4 +219,4 @@ function UnitEdit() {
   );
 }
 
-export default UnitEdit;
+export default Utest;

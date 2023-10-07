@@ -7,6 +7,8 @@ import "../../../CSS/Stable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
+import { FaArrowLeftLong } from "react-icons/fa6";
+
 function StableEdit() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -65,6 +67,9 @@ function StableEdit() {
       </section>
       <main className="main-new">
         <div className="top-text-new">
+          <div className="text-new" style={{cursor:"pointer"}} onClick={() => navigate(-1)}>
+            <FaArrowLeftLong />
+          </div>
           <div className="text-new">แก้ไขข้อมูลวัตถุดิบ</div>
         </div>
 
@@ -75,9 +80,7 @@ function StableEdit() {
           <div className="box-BG-area-new">
             <form className="form-stable-new" onSubmit={handleUpdate}>
               <div className="form-row-new">
-                <label className="form-label-new">
-                  รหัสวัตถุดิบ :
-                </label>
+                <label className="form-label-new">รหัสวัตถุดิบ :</label>
                 <input
                   style={{ background: "#e5e5e5", border: "none" }}
                   type="text"
@@ -90,7 +93,7 @@ function StableEdit() {
                   }
                 />
               </div>
-              
+
               <div className="form-row-new">
                 <label className="form-label-new">
                   <p>*</p>ชื่อวัตถุดิบ :

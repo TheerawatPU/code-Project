@@ -73,6 +73,7 @@ function TabUnit1() {
             </h2>
           </button>
         </div>
+        
 
         <div class="table-body">
           <table class="styled-table">
@@ -103,7 +104,7 @@ function TabUnit1() {
                   <tr key={index}>
                     <td
                       style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => navigate(`Stabledetel/${item.id_unit}`)}
+                      onClick={() => navigate(`Utest/${item.id_unit}`)}
                     >
                       {item.id_unit}
                     </td>
@@ -114,19 +115,19 @@ function TabUnit1() {
                     <td>{item.notification_num}</td>
                     <td>{item.date_notification_num}</td>
                     <td>{item.name_cus}</td>
-                    <td>{userLoginData[0].name}</td>
+                    <td>{item.name}</td>
 
                     <td className="TDStable">
                       <button
                         className="btnstableRead"
-                        onClick={() => navigate(`Stabledetel/${item.id_unit}`)}
+                        onClick={() => navigate(`Utest/${item.id_unit}`)}
                       >
                         <h3>
                           <FaEye />
                         </h3>
                       </button>
                       <button
-                        onClick={() => navigate(`StableEdit/${item.id_unit}`)}
+                        onClick={() => navigate(`UnitEdit/${item.id_unit}`)}
                         className="btnstableEdit"
                       >
                         <h3>

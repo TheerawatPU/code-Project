@@ -1,0 +1,218 @@
+.back-0 {
+  background: #9b9a9a;
+  height: 100vh;
+}
+
+.back01 {
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7%;
+}
+.back1 {
+  /* background: #e08989; */
+  height: 100%;
+  width: 95%;
+  display: flex;
+  /* align-items: center; */
+  align-items: flex-end;
+}
+
+.Rbox1 {
+  width: 40%;
+  height: 70%;
+  display: flex;
+  align-items: end;
+}
+
+.Rbox2 {
+  width: 60%;
+  height: 70%;
+
+  display: flex;
+
+  justify-content: end;
+}
+.Rbox2-2 {
+  height: 100%;
+  width: 80%;
+  display: flex;
+}
+.Rbox2-2-2-1 {
+  height: 100%;
+  width: 30%;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+}
+.input-select-Report {
+  height: 38px;
+  width: 90%;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  padding-left: 10px;
+}
+
+.Rbox2-2-2-2 {
+  height: 100%;
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.input-date-Report {
+  height: 38px;
+  width: 30%;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 1px solid #d0d0d0;
+}
+
+.Rbox2-2-2-3 {
+  height: 100%;
+  width: 15%;
+
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+.Report_search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.Report_search_input {
+  height: 40px;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid #d0d0d0;
+  padding-left: 20px;
+}
+
+button.Report_search_btn {
+  height: 42px;
+  width: 100px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #191D88;
+  color: #ffffff;
+}
+
+.back02 {
+  background: #ffffff;
+  width: 100%;
+  height: 93%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back2 {
+  background: #f5f5f5;
+  /* border: 1px solid; */
+  height: 95%;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.back2-2 {
+  width: 98%;
+  height: 100%;
+}
+
+.boxR2-1 {
+  background: #f5f5f5;
+  /* border: 1px solid; */
+  height: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boxR2-2 {
+  /* background: #ffffff; */
+
+  height: 70%;
+}
+
+.boxRSM2-1-1 {
+  background: #ffffff;
+  padding: 7px;
+  width: 20%;
+  height: 60%;
+  -webkit-box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48);
+  box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48);
+}
+
+.title-boxRSM {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+
+}
+.title-boxRSM1 {
+  font-size: 1.4rem;
+  padding-bottom: 9px;
+  /* font-weight: bold; */
+}
+.title-list-boxRSM {
+  display: flex;
+  align-items: end;
+}
+.title-boxRSM2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #22a699;
+}
+
+.titleR {
+  /* border: 1px solid; */
+  border-top: 2px solid #d0d0d0;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.titleR-Table {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.btn-R-chart {
+  width: 10%;
+  display: flex;
+  justify-content: space-between;
+}
+
+button.btn-R-0 {
+  width: 30%;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  /* -webkit-box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48);
+  -moz-box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48);
+  box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48); */
+}
+
+.mainR {
+  /* border: 1px solid; */
+  height: 100%;
+}

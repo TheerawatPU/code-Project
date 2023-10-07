@@ -1,0 +1,366 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "../../CSS/Ptoduct.css";
+import Menu from "../../component/Menu";
+import Topnav from "../../component/Topnav";
+import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { FaPen, FaEye } from "react-icons/fa";
+import { BiPlus } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
+import { ImCancelCircle } from "react-icons/im";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
+
+function ProductNew() {
+
+  // เรียกใช้ navigate เพื่อใช้สำหรับ การกดข้ามคอมโพเน้น
+  const navigate = useNavigate();
+
+  
+
+  return (
+    <div className="all-page">
+      <header className="header">
+        <Topnav />
+      </header>
+      <section className="aside">
+        <Menu />
+      </section>
+      <main className="main">
+        
+        <div className="title-Text">
+          <div className="top-text-new-EM">
+            <div className="text-new-EM-Unit">
+              <div
+                className="titleText"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(-1)}
+              >
+                <FaArrowLeftLong />
+              </div>
+              <div className="titleText">เพิ่มข้อมูลการผลิต</div>
+            </div>
+          </div>
+          <div className="all-btn-0">
+            <button
+              className="btn01"
+              type="submit"
+              style={{
+                background: "rgb(221 62 62)",
+                color: "white",
+                width: "auto",
+                height: "auto",
+                marginRight: "20px",
+                marginBottom: "10px",
+              }}
+            >
+              <div className="btn-save01">
+                <ImCancelCircle />
+                <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
+              </div>
+            </button>
+            <button
+              className="btn01"
+              type="submit"
+              style={{
+                background: "#22a699",
+                color: "white",
+                width: "auto",
+                height: "auto",
+                marginRight: "50px",
+                marginBottom: "10px",
+              }}
+            >
+              <div className="btn-save01">
+                <FontAwesomeIcon icon={faFloppyDisk} />
+                <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+              </div>
+            </button>
+          </div>
+
+          {/* <div className="text-new-lg-Unit">
+            กรุณากรอกข้อมูลใน * ให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
+          </div> */}
+
+        </div>
+
+        <div className="backZERO">
+          <div className="box0">
+
+            {/* //!ฟอร์มที่1 ข้อมูลสูตร */}
+            <div className="box1-1">
+              <div className="form0">
+                <h2 style={{ marginBottom: "25px" }}>ข้อมูลการผลิต</h2>
+
+                <div className="form1-3">
+                  <div className="form1-1">
+                    <label className="form-label1-1">วันที่ผลิต :</label>
+                    <input className="form-input1-1" type="date" />
+                  </div>
+
+                  <div className="form1-1-2">
+                    <label className="form-label1-1">วันที่ส่งมอบ :</label>
+                    <input className="form-input1-1" type="date" />
+                  </div>
+                </div>
+
+                <div className="form1">
+                  <div className="form1-1">
+                    <label className="form-label1-1">สูตรผลิต :</label>
+                    <select name="" id="" className="form-input1-2">
+                      <option value="">เลือกสูตรผลิต</option>
+                      <option value="">สูตรน้ำยาล้างเล็บ</option>
+                      <option value="">2</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form1">
+                  <div className="form1-1">
+                    <label className="form-label1-1">วันหมดอายุ :</label>
+                    <input className="form-input1-1" type="date" />
+                  </div>
+                </div>
+
+                <div className="form1">
+                  <div className="form1-1">
+                    <label className="form-label1-1">ปริมาณที่ผลิต :</label>
+                    <div className="form1-1-1">
+                      <input className="form-input1-1" type="text" />
+                      <label
+                        className="form-label1-1"
+                        style={{ marginLeft: "10px" }}
+                      >
+                        กรัม
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form1">
+                  <div className="form1-1">
+                    <label className="form-label1-1">ค่าแพ็คเกจ :</label>
+                    <div className="form1-1-1">
+                      <input className="form-input1-1" type="text" />
+                      <label
+                        // className="form-label1-1"
+                        style={{ marginLeft: "5px" }}
+                      >
+                        <b>บาท</b>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="form1-1">
+                    <label className="form-label1-1">ค่าขนส่ง :</label>
+                    <div className="form1-1-1">
+                      <input className="form-input1-1" type="text" />
+                      <label
+                        // className="form-label1-1"
+                        style={{ marginLeft: "5px" }}
+                      >
+                        <b>บาท</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form1">
+                  <div className="form1-1">
+                    <label className="form-label1-1">ค่าใช้จ่ายอื่นๆ :</label>
+                    <div className="form1-1-1">
+                      <input className="form-input1-1" type="text" />
+                      <label
+                        // className="form-label1-1"
+                        style={{ marginLeft: "5px" }}
+                      >
+                        <b>บาท</b>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="form1-1">
+                    <label className="form-label1-1" style={{color:"red"}}>ยอดรวมทั้งหมด :</label>
+                    <div className="form1-1-1">
+                      <input
+                        className="form-input1-1"
+                        type="text"
+                        disabled
+                        style={{ border: "none" , background:"#c7c7c7" , fontWeight:"bold" }}
+                        value={"2,530,000"}
+                      />
+                      <label
+                        // className="form-label1-1"
+                        style={{ marginLeft: "5px" }}
+                      >
+                        <b>บาท</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form1-3">
+                  <div className="form1-1">
+                    <label className="form-label1-1">วันที่ชำระ :</label>
+                    <div className="form1-1-1">
+                      <input className="form-input1-1" type="date" />
+                    </div>
+                  </div>
+                  <div className="form1-1-2">
+                    <label className="form-label1-1">หลักฐานการชำระ :</label>
+                    <div className="form1-1-1">
+                      <input
+                        className="form-input1-1"
+                        type="text"
+                        value={"แนบไฟล์"}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* //!ฟอร์มที่2 รายละเอียดสูตร */}
+            <div className="box1-2">
+              <div className="form0-2">
+                <h2 style={{ marginBottom: "20px" }}>ตารางสูตร</h2>
+
+                <div className="form1">
+                  <div class="table-body-Unit">
+                    <table class="styled-table-Unit">
+                      <thead>
+                        <tr>
+                          <th>รหัส</th>
+                          <th>ชื่อวัตถุดิบ</th>
+                          <th>ปริมาณสาร (กรัม)</th>
+                          <th>ราคาต้นทุน (บาท)</th>
+
+                          <th
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              marginTop: "10px",
+                            }}
+                          >
+                            ล็อต
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td>Zinc PCA</td>
+                          <td>4,950</td>
+                          <td>2,475,000</td>
+                          <td className="TDStable">
+                            <button className="btnstableLot">
+                              <h3>
+                                <FontAwesomeIcon icon={faBoxArchive} />
+                              </h3>
+                            </button>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td>2</td>
+                          <td>Alpha Arbutin (Switzerland)</td>
+                          <td>550 </td>
+                          <td>55,000 </td>
+                          <td className="TDStable">
+                            <button className="btnstableLot">
+                              <h3>
+                                <FontAwesomeIcon icon={faBoxArchive} />
+                              </h3>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div className="form-new-Unit">
+              <h2 style={{ marginBottom: "20px" }}>ข้อมูลสูตร</h2>
+
+              <div class="table-body-Unit">
+                <table class="styled-table-Unit">
+                  <thead>
+                    <tr>
+                      <th>รหัส</th>
+                      <th>ชื่อวัตถุดิบ</th>
+                      <th>ปริมาณสาร (กรัม)</th>
+                      <th>ราคาต้นทุน (บาท)</th>
+
+                      <th
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          marginTop: "10px",
+                        }}
+                      >
+                        ล็อต
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Zinc PCA</td>
+                      <td>500</td>
+                      <td>5000</td>
+                      <td className="TDStable">
+                        <button className="btnstableLot">
+                          <h3>
+                            <FontAwesomeIcon icon={faBoxArchive} />
+                          </h3>
+                        </button>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>2</td>
+                      <td>Alpha Arbutin (Switzerland)</td>
+                      <td>30</td>
+                      <td>3000</td>
+                      <td className="TDStable">
+                        <button className="btnstableLot">
+                          <h3>
+                            <FontAwesomeIcon icon={faBoxArchive} />
+                          </h3>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div> */}
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="btn-submit-new">
+          <div className="btn-area-new-Unit">
+            <button
+              type="cancle"
+              className="cancle-new"
+              onClick={() => navigate(-1)}
+            >
+              <FontAwesomeIcon icon={faXmark} />
+              <span>ยกเลิก</span>
+            </button>
+            <button type="submit" className="submit-new">
+              <FontAwesomeIcon icon={faFloppyDisk} />
+              <span>บันทึก</span>
+            </button>
+          </div>
+        </div> */}
+      </main>
+    </div>
+  );
+}
+
+export default ProductNew;

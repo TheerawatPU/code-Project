@@ -12,6 +12,10 @@ import Menu from "../../../component/Menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
+import { FaArrowLeftLong } from "react-icons/fa6";
+
+import CusStableNew from "../CutStable/CusStableNew";
 
 function TableLot() {
   const navigate = useNavigate();
@@ -23,8 +27,6 @@ function TableLot() {
 
   console.log("Data", Data);
   console.log("stapleName", stapleName);
-
-
 
   useEffect(() => {
     // ดึงชื่อวัตถุดิบจาก API โดยใช้ไอดี
@@ -45,7 +47,7 @@ function TableLot() {
       .catch((err) => console.log(err));
   }, [id]);
 
-  //next page555555
+  //next page
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 9;
   const lastIndex = currentPage * recordsPerPage;
@@ -83,27 +85,34 @@ function TableLot() {
       <main className="main-new">
         <div className="grup_btn-lot">
           <div className="select-show">
+            <div
+              className="lot-text-header"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate(-1)}
+            >
+              <FaArrowLeftLong />
+            </div>
             <div className="lot-text-header">ล็อตวัตถุดิบ {stapleName}</div>
           </div>
+
           <p>ปริมาณที่มีทั้งหมด</p>
           <div className="numberSUM">
             <input
               type="text"
               style={{ width: "100px", height: "50px" }}
               disabled
-              value={Data.reduce((sum, student) => sum + student.amount, 0)}
+              // value={ (Data.reduce((sum, student) => sum + student.amount, 0))  }
+              value={`จำนวน ${Data.reduce(
+                (sum, student) => sum + student.amount,
+                0
+              )}  ชิ้น`}
             />
           </div>
 
-          {/* <button className="btnstable" onClick={() => navigate(`StableNew`)}>
-            <h2>
-              <BiPlus />
-            </h2>
-          </button> */}
           <button
             className="btnstable"
             onClick={() => {
-              navigateToAddLot();
+              navigate("AddLot");
             }}
           >
             <h2>
@@ -124,6 +133,7 @@ function TableLot() {
                 <th>COA</th>
                 <th>MSDS</th>
                 <th>ผู้บันทึก</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -141,7 +151,7 @@ function TableLot() {
                         <button
                           className="btn2"
                           onClick={() =>
-                            navigate(`CustomerReadIDPage/${item.id_customer}`)
+                            navigate(`CustomerReadIDPage/${item.id_lot}`)
                           }
                         >
                           <h3>
@@ -155,7 +165,7 @@ function TableLot() {
                         <button
                           className="btn2"
                           onClick={() =>
-                            navigate(`CustomerReadIDPage/${item.id_customer}`)
+                            navigate(`CustomerReadIDPage/${item.id_lot}`)
                           }
                         >
                           <h3>
@@ -166,6 +176,10 @@ function TableLot() {
                     </td>
 
                     <td>{item.name}</td>
+
+                   
+                    
+
                   </tr>
                 );
               })}

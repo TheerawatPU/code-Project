@@ -58,16 +58,7 @@ function Menu() {
           </div>
         </div>
 
-        {/* <div className="All-sidebar-item-EM2">
-          <div className="item-bar-EM">
-            <a href="#">
-              <div className="side-item-EM">
-                <FontAwesomeIcon icon={faArrowRightFromBracket} />
-                <span>ออกจากระบบ</span>
-              </div>
-            </a>
-          </div>
-        </div> */}
+        
       </div>
     </>
   );

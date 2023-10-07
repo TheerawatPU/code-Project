@@ -273,7 +273,7 @@ function EmployeeAddPage() {
               <h2 style={{ marginBottom: "20px" }}>บัญชีผู้ใช้</h2>
               <div className="form-row-new">
                 <label className="form-label-new">
-                  <p>*</p>อีเมล :
+                  <p>*</p>บัญชีผู้ใช้ :
                 </label>
                 <input
                   name="username"

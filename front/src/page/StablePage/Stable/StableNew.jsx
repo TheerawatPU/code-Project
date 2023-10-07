@@ -38,7 +38,6 @@ function StableNew() {
 
   const handleInput = (event) => {
     const { name, value } = event.target;
-
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 

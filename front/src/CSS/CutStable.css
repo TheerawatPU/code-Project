@@ -48,7 +48,7 @@
   margin: 0 0px;
 }
 
-.tabsgrubs button {
+/* .tabsgrubs button {
   background-color: #f1f1f1;
   border: 1px solid #ccc;
   padding: 8px 16px;
@@ -57,7 +57,7 @@
   width: 170px;
   height: 45px;
   font-size: 1.2rem;
-}
+} */
 
 /* CSS สำหรับแท็บที่เลือก */
 .tabsgrubs button.active {
@@ -67,46 +67,47 @@
 }
 
 /* //todo Stable */
-.table-body {
+.table-body-lot {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.styled-table {
+.styled-table-lot {
   border-collapse: collapse;
   margin: 15px 0;
   font-size: 14px;
   font-family: sans-serif;
-  width: 1650px;
+  width: 95%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   padding-bottom: 30px;
 }
 
-.styled-table thead tr {
+.styled-table-lot thead tr {
   background-color: #22a699;
   color: #ffffff;
   text-align: left;
   font-size: 15px;
 }
 
-.styled-table th,
-.styled-table td {
+.styled-table-lot th,
+.styled-table-lot td {
   padding: 11px 10px 5px 14px;
 }
 
-.styled-table tbody tr {
+.styled-table-lot tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.styled-table tbody tr:nth-of-type(even) {
+.styled-table-lot tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.styled-table tbody tr:last-of-type {
+.styled-table-lot tbody tr:last-of-type {
   border-bottom: 2px solid #12e2b8;
 }
 
-.grup_btn {
+/* จัดตำแหน่งช่องจักการรายละเอียด */
+.grup_btn-lot {
   display: flex;
   color: red;
   flex-direction: row;
@@ -114,7 +115,7 @@
   justify-content: space-between;
   margin-left: 30px;
   margin-right: 50px;
-  margin-top: 45px;
+  margin-top: 5px;
 }
 
 .inputsearch {
@@ -176,6 +177,65 @@ ul.pagination-stable {
 .pagination-stable a {
   color: black;
 }
+/* หัวข้อล็อตวัตถุดิบ */
+.lot-text-header {
+  padding-left: 38px;
+  padding-top: 20px;
+  font-size: 2rem;
+  font-family: "Noto Serif Thai", serif;
+  color: #000000;
+  display: flex;
+}
+/* จัดตำแหน่งselect */
+.select-show {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  /* margin-top: 40px; */
+}
+.select-show span {
+  font-size: 20px;
+  font-family: "Noto Serif Thai", serif;
+}
+.seact-lot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* selectเลือกวัตถุดิบ */
+.select-stable-showtable {
+  /* width: 20%; */
+  height: 40px;
+  border-radius: 5px;
+  font-family: "Noto Serif Thai", serif;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  margin-left: 10px;
+}
+/* ปุ่มค้นหา */
+button.btn-lot-seact {
+  background: #22a699;
+  width: 15%;
+  border: none;
+  color: white;
+  border-radius: 0px 10px 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* ช่องกรอกค้นหา */
+.inputsearch-lot {
+  width: 450px;
+  border-radius: 10px 0px 0px 10px;
+  height: 40px;
+  padding-left: 20px;
+  border: 1px solid #a1a1a1;
+  font-size: 15px;
+  margin-left: -100px;
+}
 
 td.TDStable {
   display: flex;
@@ -184,7 +244,11 @@ td.TDStable {
   align-items: center;
   justify-content: center;
 }
-
+/* ช่องตรงปุ่ม */
+td.td-lot {
+  padding-bottom: 12px;
+}
+/* ปุ่มเพิ่มข้อมูล */
 button.btnstable {
   display: flex;
   background: #22a699;
@@ -195,6 +259,7 @@ button.btnstable {
   align-items: center;
   justify-content: center;
 }
+
 button.btnstableRead {
   display: flex;
   background: #22a699;
@@ -216,23 +281,9 @@ button.btnstableEdit {
   height: 39px;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  margin-left: 10px;
-}
-button.btnstableLot {
-  display: flex;
-  background: #353ffd;
-  color: WHITE;
-  width: 52px;
-  border-radius: 10px;
-  height: 39px;
-  align-items: center;
-  justify-content: center;
   font-size: 15px;
   margin-left: 10px;
 }
-
-
 
 /* StableCreatePage */
 
@@ -241,7 +292,6 @@ button.btnstableLot {
 }
 ::-webkit-scrollbar {
   width: 6px;
-  height: 5px;
 }
 
 /* พื้นที่ทำงานนอกสุดของหน้าทั้งหมดรสมถึงการจัดตำแห่ง */
@@ -276,7 +326,7 @@ button.btnstableLot {
 /* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
 .top-text-new {
   display: flex;
-  justify-content:flex-start;
+  justify-content: space-between;
   align-items: center;
   background: #efefef;
 }
@@ -305,10 +355,10 @@ button.btnstableLot {
 .box-big-bg-new {
   display: flex;
   background: #efefef;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   flex-direction: column;
-  height: auto;
+  height: 84.8vh;
 }
 /* พื้นหลังสุดพื้นที่ทำงานสีขาวรองลงมา */
 .box-BG-area-new {
@@ -332,8 +382,15 @@ button.btnstableLot {
   display: flex;
   align-items: flex-start;
   margin-top: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   flex-direction: column;
+}
+.row2-new {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
 }
 /* ฟอร์มตัวหนังสือบนฟอร์ม */
 .form-label-new {
@@ -344,7 +401,7 @@ button.btnstableLot {
 }
 /* ช่องกรอกข้อมูลของฟอร์ม */
 .form-input-new {
-  width: 1000px;
+  width: 440px;
   height: 40px;
   border-radius: 5px;
   border: 1px solid #979797;
@@ -356,7 +413,7 @@ button.btnstableLot {
 .form-input-new2 {
   min-width: 1000px;
   max-width: 1000px;
-  min-height: 60px;
+  min-height: 250px;
   border-radius: 5px;
   border: 1px solid #979797;
   padding-left: 10px;
@@ -443,4 +500,44 @@ button.btnstableLot {
 .submit-new span {
   padding-left: 5px;
   color: #ffffff;
+}
+
+.title-Text {
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  background: #efefef;
+}
+
+/* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
+.top-text-new-EM {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #efefef;
+  margin-right: 56px;
+}
+.btn01 {
+  box-shadow: 0px 3px 8px 4px rgba(0, 0, 0, 0.11);
+}
+
+.btn-save01 {
+  display: flex;
+  align-items: center;
+}
+
+/* ตกแต่งตัวหนังสือบอกหน้าเพจ */
+.text-new-EM-Unit {
+  padding-left: 250px;
+  font-size: 35px;
+  font-family: "Noto Serif Thai", serif;
+  font-weight: 700;
+  color: #000000;
+  justify-content: center;
+  /* background: #efefef; */
+  background: #efefef;
+  padding: 30px 25px 4px;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
 }

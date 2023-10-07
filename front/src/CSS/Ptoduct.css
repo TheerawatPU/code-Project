@@ -15,6 +15,8 @@
   align-items: center;
   width: 100%;
   flex-direction: column;
+  overflow-y: auto;
+  max-height: 590px;
 }
 
 button.dalete-Unit {
@@ -170,13 +172,6 @@ label {
   grid-area: main-menu;
   background: #ffffff;
 }
-/* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
-.top-text-new-EM {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #efefef;
-}
 
 .title-Text {
   display: flex;
@@ -185,6 +180,22 @@ label {
   background: #efefef;
 }
 
+.btn01 {
+  box-shadow: 0px 3px 8px 4px rgba(0, 0, 0, 0.11);
+}
+
+.btn-save01 {
+  display: flex;
+  align-items: center;
+}
+
+/* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
+.top-text-new-EM {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #efefef;
+}
 /* ตกแต่งตัวหนังสือบอกหน้าเพจ */
 .text-new-EM-Unit {
   padding-left: 250px;
@@ -193,8 +204,9 @@ label {
   font-weight: 700;
   color: #000000;
   justify-content: center;
-  background: #efefef;
-  padding: 30px 325px 4px;
+  /* background: #efefef; */
+  background: whitesmoke;
+  padding: 30px 25px 4px;
   display: flex;
   align-items: center;
   padding-right: 20px;
@@ -214,7 +226,7 @@ label {
 /* ตกแต่งตัวหนังสือบอกรายละเอียดรองลงมา */
 .text-new-lg-Unit {
   font-family: "Noto Serif Thai", serif;
-  padding-left: 325px;
+  padding-left: 25px;
   font-size: 14px;
   color: #ed0000;
   justify-content: center;
@@ -222,223 +234,97 @@ label {
   padding-bottom: 20px;
 }
 
+.backZERO {
+  margin: 15px 20px;
+}
+
 /* พื้นหลังสุดพื้นที่ทำงานสีเทา */
-.Ubox0 {
+.box0 {
   display: flex;
+  background: #ffffff;
   justify-content: center;
-  align-items: center;
-}
-
-.Ubox1 {
-  border-right: 2px solid #b3b3b3;
-  width: 60%;
-  height: 75vh;
-  padding: 40px;
-}
-.Ubox2 {
-  width: 100%;
-  height: 75vh;
-  padding: 40px;
-}
-
-.Ubox1-1 {
-  padding: 15px;
-  height: inherit;
-}
-
-.Ubox2-1 {
-  padding: 15px;
-  height: inherit;
-}
-
-.Ubox1-1-1 {
-  margin-bottom: 35px;
-}
-
-.Ubox2-1-1 {
-  margin-bottom: 35px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.Ubox2-1-2 {
-  margin-bottom: 35px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.UboxS-1 {
-  width: 60%;
-}
-
-.UboxS-2 {
-  width: 40%;
-  display: flex;
-  align-items: end;
-  justify-content: space-evenly;
-}
-
-.UboxS-2-1s {
-  display: flex;
-  align-items: flex-end;
-}
-
-.UboxS-2-1 {
-}
-
-.UboxS-3 {
-  width: 40%;
-}
-
-.UboxS-4 {
-  width: 40%;
-}
-
-/* .UboxS-3 {
-  border: 1px solid #000000;
-  width: 10%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-} */
-
-.Ubox1-1-1D {
-  margin-bottom: 35px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.Ubox2-1-1D {
-  margin-bottom: 35px;
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-}
-.doubleU {
-}
-
-.Uinput1 {
-  width: -webkit-fill-available;
-  height: 35px;
-  border-radius: 5px;
-  border: 1px solid #979797;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: "Noto Serif Thai", serif;
-  font-size: 14px;
-}
-
-.Uinput1Read {
-  width: -webkit-fill-available;
-  height: 35px;
-  border: none;
-  background: white;
-  color: #000000;
-  border-bottom: 1px solid #c0c0c0;
-  padding-right: 10px;
-  font-family: "Noto Serif Thai", serif;
-  font-size: 17px;
-}
-
-.Uinput1ss {
-  width: -webkit-fill-available;
-  height: 35px;
-  border: none;
-  border-bottom: 1px solid #979797;
-  background: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: "Noto Serif Thai", serif;
-  font-size: 15px;
-  font-weight: bold;
-  text-align: center;
-  color: #000000;
-}
-
-.Uinput1s {
-  width: -webkit-fill-available;
-  height: 38px;
-  border-radius: 5px;
-  border: 1px solid #979797;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: "Noto Serif Thai", serif;
-  font-size: 14px;
-}
-
-.Uinput2 {
-  width: -webkit-fill-available;
-  height: 35px;
-  border-radius: 5px;
-  border: 1px solid #979797;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: "Noto Serif Thai", serif;
-  font-size: 14px;
-}
-
-/* อินพุทสำหรับวันที่ */
-.form-date {
-  width: 11rem;
-  height: 35px;
-  border-radius: 5px;
-  border: 1px solid #979797;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-family: "Noto Serif Thai", serif;
-  font-size: 14px;
-}
-
-.form-dateRead {
-  width: 11rem;
-  height: 35px;
-  border: none;
-  background: white;
-  color: #000000;
-  border-bottom: 1px solid #c0c0c0;
-  padding-right: 10px;
-  font-family: "Noto Serif Thai", serif;
-  font-size: 17px;
+  align-items: flex-start;
+  height: auto;
+  margin: 30px 12px;
 }
 
 /* พื้นหลังสุดพื้นที่ทำงานสีขาวรองลงมา */
-.box-BG-area-new-Unit {
+.box1-1 {
   background: #ffffff;
-  width: 60%;
+  width: 55%;
+  border-right: 2px solid #969696;
   height: auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
-  padding: 15px 0px;
-  margin-bottom: 30px;
-  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px 30px;
+}
+
+/* พื้นหลังสุดพื้นที่ทำงานสีขาวรองลงมา */
+.box1-2 {
+  background: #ffffff;
+  width: 100%;
+  /* border-right: 2px solid #969696; */
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 17px 30px 0px;
 }
 
 /* ฟอร์มเพื่อจัดตำแหน่ง */
-.form-new-Unit {
+.form0 {
   display: flex;
   align-items: self-start;
   margin-top: 10px;
   margin-bottom: 25px;
   flex-direction: column;
+  width: 100%;
+}
+
+/* ฟอร์มเพื่อจัดตำแหน่ง */
+.form0-2 {
+  display: flex;
+  align-items: self-start;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  flex-direction: column;
+  width: 100%;
 }
 
 /* ฟอร์มตัวหนังสือบนฟอร์ม */
-.form-label-new-Unit {
+.form-label1-1 {
   width: 190px;
   font-family: "Noto Serif Thai", serif;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
 }
 
-.form-row-2-input-Unit {
-  margin-right: 20px;
+.form1-1 {
+  /* margin-right: 20px; */
 }
 
-.form-row-new-Unit {
-  width: 50%;
+.form1-1-2 {
+  margin-right: 36px;
+}
+
+.form1 {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.form1-3 {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.form1-1-1 {
+  display: flex;
+  align-items: end;
 }
 
 .form-row-Unit {
@@ -498,9 +384,21 @@ button.btnAddUnit-stable {
 }
 
 /* ช่องกรอกข้อมูลของฟอร์มแบบสั้น */
-.form-input-new2-Unit {
-  width: 380px;
-  height: 40px;
+.form-input1-1 {
+  width: 170px;
+  height: 32px;
+  border-radius: 5px;
+  border: 1px solid #979797;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 14px;
+}
+
+/* ช่องกรอกข้อมูลของฟอร์มแบบสั้น */
+.form-input1-2 {
+  width: 260%;
+  height: 35px;
   border-radius: 5px;
   border: 1px solid #979797;
   padding-left: 10px;
