@@ -4,15 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
 import "../../../CSS/Stable.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { ImCancelCircle } from "react-icons/im";
 
 function StableEdit() {
+  // ! การนำทางข้าม component และ ดึง ID จาก URL
   const navigate = useNavigate();
   const { id } = useParams();
+  // ! ........................
 
+  // ! ดึงข้อมูลมาจาก api ของ iD เพื่อมาแสดงก่อน
   useEffect(() => {
     axios
       //อัพเดตข้อมูล
@@ -33,7 +37,9 @@ function StableEdit() {
       })
       .catch((err) => console.log(err));
   }, []);
+  // ! ........................
 
+  // ! เก็บข้อมูลลง state values เพื่อเตรียมอัพเดตข้อมูลผ่าน api
   const [values, setValues] = useState({
     Name_staple: "",
     Name_INCIname: "",
@@ -43,7 +49,9 @@ function StableEdit() {
     melting: "",
     reOrder: "",
   });
+  // ! ........................
 
+  // ! สร้างฟังก์ชั่น อัพเดตข้อมูลโดย ส่งไอดีที่จะอัพเดตจาก id  และข้อมูลที่จะอัพเดตจาก values
   const handleUpdate = (event) => {
     event.preventDefault();
     axios
@@ -54,8 +62,7 @@ function StableEdit() {
       })
       .catch((err) => console.log(err));
   };
-
-  console.log(values);
+  // ! ........................
 
   return (
     <div className="all-page-new">
@@ -66,16 +73,60 @@ function StableEdit() {
         <Menu />
       </section>
       <main className="main-new">
-        <div className="top-text-new">
-          <div className="text-new" style={{cursor:"pointer"}} onClick={() => navigate(-1)}>
-            <FaArrowLeftLong />
+        
+        <div className="title-Text">
+          <div className="top-text-new-EM">
+            <div className="text-new-EM-Unit">
+              <div
+                className="titleText"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(-1)}
+              >
+                <FaArrowLeftLong />
+              </div>
+              <div className="titleText">แก้ไขวัตถุดิบ</div>
+            </div>
           </div>
-          <div className="text-new">แก้ไขข้อมูลวัตถุดิบ</div>
+
+          <div className="all-btn-0">
+            <button
+              className="btn01"
+              type="submit"
+              style={{
+                background: "rgb(221 62 62)",
+                color: "white",
+                width: "auto",
+                height: "auto",
+                marginLeft: "20px",
+                marginBottom: "10px",
+              }}
+              onClick={() => navigate(-1)}
+            >
+              <div className="btn-save01">
+                <ImCancelCircle />
+                <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
+              </div>
+            </button>
+            <button
+              className="btn01"
+              type="submit"
+              style={{
+                background: "#22a699",
+                color: "white",
+                width: "auto",
+                height: "auto",
+                marginLeft: "20px",
+                marginBottom: "10px",
+              }}
+            >
+              <div className="btn-save01" onClick={handleUpdate}>
+                <FontAwesomeIcon icon={faFloppyDisk} />
+                <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+              </div>
+            </button>
+          </div>
         </div>
 
-        <div className="text-new-lg">
-          กรุณากรอกข้อมูลให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
-        </div>
         <div className="box-big-bg-new">
           <div className="box-BG-area-new">
             <form className="form-stable-new" onSubmit={handleUpdate}>
@@ -94,41 +145,38 @@ function StableEdit() {
                 />
               </div>
 
-              <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>ชื่อวัตถุดิบ :
-                </label>
-                <input
-                  type="text"
-                  className="form-input-new"
-                  name="Name_staple"
-                  value={values.Name_staple}
-                  onChange={(e) =>
-                    setValues({ ...values, Name_staple: e.target.value })
-                  }
-                />
+              <div className="row2form">
+                <div className="form-row-new">
+                  <label className="form-label-new">ชื่อวัตถุดิบ :</label>
+                  <input
+                    type="text"
+                    className="form-input-new"
+                    name="Name_staple"
+                    value={values.Name_staple}
+                    onChange={(e) =>
+                      setValues({ ...values, Name_staple: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="form-row-new">
+                  <label className="form-label-new">INCI Name :</label>
+                  <input
+                    type="text"
+                    className="form-input-new"
+                    name="Name_INCIname"
+                    value={values.Name_INCIname}
+                    onChange={(e) =>
+                      setValues({ ...values, Name_INCIname: e.target.value })
+                    }
+                  />
+                </div>
               </div>
+
               <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>INCI Name :
-                </label>
-                <input
-                  type="text"
-                  className="form-input-new"
-                  name="Name_INCIname"
-                  value={values.Name_INCIname}
-                  onChange={(e) =>
-                    setValues({ ...values, Name_INCIname: e.target.value })
-                  }
-                />
-              </div>
-              <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>การใช้ :
-                </label>
+                <label className="form-label-new">การใช้ :</label>
                 <textarea
                   type="text"
-                  className="form-input-new2"
+                  className="stable_input2"
                   name="howUsing"
                   value={values.howUsing}
                   onChange={(e) =>
@@ -137,12 +185,10 @@ function StableEdit() {
                 />
               </div>
               <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>การผสม :
-                </label>
+                <label className="form-label-new">การผสม :</label>
                 <textarea
                   type="text"
-                  className="form-input-new2"
+                  className="stable_input2"
                   name="howMixing"
                   value={values.howMixing}
                   onChange={(e) =>
@@ -152,12 +198,10 @@ function StableEdit() {
               </div>
 
               <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>การรักษา :
-                </label>
+                <label className="form-label-new">การรักษา :</label>
                 <textarea
                   type="text"
-                  className="form-input-new2"
+                  className="stable_input2"
                   name="saving"
                   value={values.saving}
                   onChange={(e) =>
@@ -167,12 +211,10 @@ function StableEdit() {
               </div>
 
               <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>การละลาย :
-                </label>
+                <label className="form-label-new">การละลาย :</label>
                 <textarea
                   type="text"
-                  className="form-input-new2"
+                  className="stable_input2"
                   name="melting"
                   value={values.melting}
                   onChange={(e) =>
@@ -182,9 +224,7 @@ function StableEdit() {
               </div>
 
               <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>จุดสั่งซื้อ :
-                </label>
+                <label className="form-label-new">จุดสั่งซื้อ :</label>
                 <input
                   type="text"
                   className="form-input-new"
@@ -196,26 +236,6 @@ function StableEdit() {
                 />
               </div>
             </form>
-          </div>
-          <div className="btn-submit-new">
-            <div className="btn-area-new">
-              <button
-                type="cancle"
-                className="cancle-new"
-                onClick={() => navigate(-1)}
-              >
-                <FontAwesomeIcon icon={faXmark} />
-                <span>ยกเลิก</span>
-              </button>
-              <button
-                type="submit"
-                className="submit-new"
-                onClick={handleUpdate}
-              >
-                <FontAwesomeIcon icon={faFloppyDisk} />
-                <span>บันทึก</span>
-              </button>
-            </div>
           </div>
         </div>
       </main>

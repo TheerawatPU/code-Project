@@ -6,25 +6,23 @@ import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
 import "../../../CSS/Stable.css";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-
 function Stabledetel() {
+  // ! การนำทางข้าม component และ ดึง ID จาก URL
   const navigate = useNavigate();
   const { id } = useParams();
-  const [Data, setdata] = useState([]);
+  // ! ........................
 
+  // ! นำข้อมูลใน api มาแสดง
+  const [Data, setdata] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:5500/stableID/" + id)
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
-
-  console.log("Data = ",  Data);
+  // ! ........................
 
   return (
     <div className="all-page-new">
@@ -35,9 +33,19 @@ function Stabledetel() {
         <Menu />
       </section>
       <main className="main-new">
-        <div className="top-text-new">
-          <div className="text-new" style={{cursor:"pointer"}} onClick={() => navigate(-1)}><FaArrowLeftLong /></div>
-          <div className="text-new">รายละเอียดวัตถุดิบ</div>
+        <div className="title-Text">
+          <div className="top-text-stable">
+            <div className="text-new-EM-Unit">
+              <div
+                className="titleText"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(-1)}
+              >
+                <FaArrowLeftLong />
+              </div>
+              <div className="titleText">รายละเอีดยวัตถุดิบ</div>
+            </div>
+          </div>
         </div>
 
         {Data.map((d, index) => (
@@ -48,7 +56,7 @@ function Stabledetel() {
                   <label className="form-label-new">รหัสวัตถุดิบ :</label>
                   <input
                     type="text"
-                    className="form-input-new-read"
+                    className="stable_input1-read"
                     name="id_staple"
                     value={d.id_staple}
                     disabled
@@ -76,9 +84,9 @@ function Stabledetel() {
                 </div>
                 <div className="form-row-new">
                   <label className="form-label-new">การใช้ :</label>
-                  <textarea
+                  <input
                     type="text"
-                    className="form-input-new2-read"
+                    className="stable_input2-read"
                     name="howUsing"
                     value={d.howUsing}
                     disabled
@@ -86,9 +94,9 @@ function Stabledetel() {
                 </div>
                 <div className="form-row-new">
                   <label className="form-label-new">การผสม :</label>
-                  <textarea
+                  <input
                     type="text"
-                    className="form-input-new2-read"
+                    className="stable_input2-read"
                     name="howMixing"
                     value={d.howMixing}
                     disabled
@@ -97,9 +105,9 @@ function Stabledetel() {
 
                 <div className="form-row-new">
                   <label className="form-label-new">การรักษา :</label>
-                  <textarea
+                  <input
                     type="text"
-                    className="form-input-new2-read"
+                    className="stable_input2-read"
                     name="saving"
                     value={d.saving}
                     disabled
@@ -108,49 +116,26 @@ function Stabledetel() {
 
                 <div className="form-row-new">
                   <label className="form-label-new">การละลาย :</label>
-                  <textarea
+                  <input
                     type="text"
-                    className="form-input-new2-read"
+                    className="stable_input2-read"
                     name="melting"
                     value={d.melting}
                     disabled
                   />
                 </div>
 
-                <div className="form-row-new">
+                <div className="form-row-new" style={{ marginBottom: "20px" }}>
                   <label className="form-label-new">จุดสั่งซื้อ :</label>
                   <input
                     type="text"
-                    className="form-input-new-read"
+                    className="stable_input1-read"
                     name="reOrder"
                     value={d.reOrder}
                     disabled
                   />
                 </div>
               </form>
-            </div>
-
-            <div className="btn-submit-new">
-              <div className="btn-area-new">
-                <button
-                  type="cancle"
-                  className="cancle-new"
-                  onClick={() => navigate(-1)}
-                >
-                  <FontAwesomeIcon icon={faArrowLeft} />
-                  <span>ย้อนกลับ</span>
-                </button>
-                <button
-                  type="submit"
-                  className="submit-new"
-                  onClick={() =>
-                    navigate(`/EM/StablePage/StableEdit/${d.id_staple}`)
-                  }
-                >
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                  <span>แก้ไข</span>
-                </button>
-              </div>
             </div>
           </div>
         ))}

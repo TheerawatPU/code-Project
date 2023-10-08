@@ -9,6 +9,18 @@ export const lotReadSelect = (req, res) => {
   });
 };
 
+// อ่าน id  ของ lot วัตถุดิบนั้น
+export const lot_ID = (req, res) => {
+  const sql =
+    "SELECT lots.id_lot , staple.Name_staple FROM lots INNER JOIN staple ON lots.id_staple = staple.id_staple WHERE lots.id_staple = ?  ORDER BY id_lot DESC";
+  const id = req.params.id;
+
+  db.query(sql, [id], (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
 // อ่านข้อมูลวัตถุดิบในselect
 export const lotReadSelectID = (req, res) => {
   const sql =
@@ -62,8 +74,6 @@ export const lotTable_Unit = (req, res) => {
     return res.json(products); // ส่งผลลัพธ์กลับให้ client
   });
 };
-
-
 
 // export const lotTable_Unit = (req, res) => {
 //   const sql =

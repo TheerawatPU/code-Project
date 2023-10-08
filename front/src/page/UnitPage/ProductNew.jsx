@@ -151,7 +151,6 @@ function ProductNew() {
   // เพื่อสส่งค่าไปหน้า Modal
   const [selectedGrams, setSelectedGrams] = useState(0);
 
-
   return (
     <div className="all-page">
       <header className="header">
@@ -223,6 +222,19 @@ function ProductNew() {
             <div className="box1-1">
               <div className="form0">
                 <h2 style={{ marginBottom: "25px" }}>ข้อมูลการผลิต</h2>
+
+                <div className="form1">
+                  <div className="form1-1">
+                    <label className="form-label1-1">รหัสการผลิต :</label>
+                    <input
+                      className="form-input1-1"
+                      type="text"
+                      disabled
+                      style={{ background: "#cfcfcf", color: "#000" , border:"#cfcfcf"}}
+                      value={1}
+                    />
+                  </div>
+                </div>
 
                 <div className="form1-3">
                   <div className="form1-1">

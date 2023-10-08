@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { FaPen, FaEye } from "react-icons/fa";
-import { BiPlus } from "react-icons/bi";
-import { CgBox } from "react-icons/cg";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../../CSS/Stable.css";
-import Topnav from "../../../component/Topnav";
-import Menu from "../../../component/Menu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBoxArchive,
+  faPenToSquare,
+  faEye,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 function TabContent1() {
+  //! การนำทางข้าม component
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  //! ..........................................
 
-  const [filterVal, setFilterVal] = useState("");
-  const [searchApiData, setSearchApiData] = useState([]);
+  //! โหลดข้อมูลจาก api เข้ามา
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = () => {
@@ -29,7 +30,11 @@ function TabContent1() {
     };
     fetchData();
   }, []);
+  //! ..........................................
 
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
   const handleFilter = (e) => {
     if (e.target.value == "") {
       setData(searchApiData);
@@ -69,8 +74,9 @@ function TabContent1() {
     }
     setFilterVal(e.target.value);
   };
+  //! ..........................................
 
-  //next page555555
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
   const lastIndex = currentPage * recordsPerPage;
@@ -78,7 +84,7 @@ function TabContent1() {
   const records = data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data.length / recordsPerPage);
   const number = [...Array(npage + 1).keys()].slice(1);
-
+  // todo1 ฟังก์ชั่นเลขเพจก่อนหน้าแรก
   function prePage() {
     if (currentPage < firstIndex) {
       setCurrentPage(currentPage - 1);
@@ -86,16 +92,17 @@ function TabContent1() {
       setCurrentPage(changeCPage + 0);
     }
   }
-
+  // todo1 ฟังก์ชั่นเลขเพจทั้งหมด
   function changeCPage(id) {
     setCurrentPage(id);
   }
-
+  // todo1 ฟังก์ชั่นเลขเพจสุดท้าย
   function nextPage() {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
     }
   }
+  //! ..................
 
   return (
     <div>
@@ -109,10 +116,11 @@ function TabContent1() {
             value={filterVal}
             onInput={(e) => handleFilter(e)}
           />
-          <button className="btnstable" onClick={() => navigate(`StableNew`)}>
-            <h2>
-              <BiPlus />
-            </h2>
+          <button className="btnstable2" onClick={() => navigate(`StableNew`)}>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
           </button>
         </div>
 
@@ -134,7 +142,7 @@ function TabContent1() {
                     marginTop: "10px",
                   }}
                 >
-                  แก้ไข
+                  จัดการ
                 </th>
               </tr>
             </thead>
@@ -162,29 +170,28 @@ function TabContent1() {
 
                     <td className="TDStable">
                       <button
-                        className="btnstableRead"
+                        className="btnstableRead2"
                         onClick={() =>
                           navigate(`Stabledetel/${item.id_staple}`)
                         }
                       >
-                        <h3>
-                          <FaEye />
-                        </h3>
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faEye} />
+                        </div>
+                        {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                       </button>
                       <button
                         onClick={() => navigate(`StableEdit/${item.id_staple}`)}
-                        className="btnstableEdit"
+                        className="btnstableEdit2"
                       >
-                        <h3>
-                          <FaPen />
-                        </h3>
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faPenToSquare} />
+                        </div>
+                        {/* <div className="test-icon-edit">แก้ไข</div> */}
                       </button>
                       <button
-                        className="btnstableLot"
-                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
+                        className="btnstableLot2"
                         onClick={() => navigate(`TableLot/${item.id_staple}`)}
-
-                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
                       >
                         <h3>
                           <FontAwesomeIcon icon={faBoxArchive} />

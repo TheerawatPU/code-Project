@@ -31,40 +31,27 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
   const thirtyDaysFromNow = new Date();
   thirtyDaysFromNow.setDate(currentDate.getDate() + 30);
 
-  // todo
-  // ฟังก์ชั่น การกดปุ่มเพิ่มในตารางเพื่อนำไปตัดสต๊อก
-  const [selectedAmount, setSelectedAmount] = useState(0);
+  // -----------
+  // const [selectedAmount, setSelectedAmount] = useState(0);
   // const handleSelectQuantity = (item, quantity) => {
   //   // อัปเดต item.selectedAmount เมื่อกดปุ่มเพื่อเก็บค่าปริมาณที่เลือก
   //   item.selectedAmount = quantity;
   //   // ทำอื่นๆ ที่คุณต้องการในฟังก์ชันนี้
   //   console.log(`เลือกปริมาณสาร ${quantity} ของรหัส ${item.id_lot}`);
   // };
+  const [selectedAmounts, setSelectedAmounts] = useState({});
+
   const handleSelectQuantity = (item, quantity) => {
-    // อัปเดต item.selectedAmount เมื่อกดปุ่มเพื่อเก็บค่าปริมาณที่เลือก
-    item.selectedAmount = quantity;
-
-    // ทำอื่นๆ ที่คุณต้องการในฟังก์ชันนี้
-    console.log(`เลือกปริมาณสาร ${quantity} ของรหัส ${item.id_lot}`);
-
-    // คำนวณค่ารวมของปริมาณที่เลือกทั้งหมด
-    const totalSelectedAmount = dataFromApi.reduce(
-      (total, currentItem) => total + (currentItem.selectedAmount || 0),
-      0
-    );
-
-    // อัปเดตค่ารวมใน state
-    setSelectedAmount(totalSelectedAmount);
+    // อัปเดต selectedAmounts ให้มี key เป็น id_lot และ value เป็นปริมาณที่เลือก
+    setSelectedAmounts((prevSelectedAmounts) => ({
+      ...prevSelectedAmounts,
+      [item.id_lot]: quantity,
+    }));
   };
 
-  const [remainingAmount, setRemainingAmount] = useState(0);
-
-  useEffect(() => {
-    // คำนวณค่าเหลือ
-    const remainingAmount = grams - selectedAmount;
-    // อัปเดต state ของค่าเหลือ
-    setRemainingAmount(remainingAmount);
-  }, [selectedAmount, dataFromApi]);
+  const handleShowArray = () => {
+    console.log(selectedAmounts);
+  };
 
   return (
     <div>
@@ -85,7 +72,7 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                     ยกเลิก
                   </button>
                   <button style={{ background: "blue", color: "white" }}>
-                    ตกลง
+                    บันทึก
                   </button>
                 </div>
               </div>
@@ -103,38 +90,23 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                   </div>
                   <div className="form1-1-2">
                     <label className="form-label1-1">รวมปริมาณสาร :</label>
-                    <input
-                      type="text"
-                      className="form-input1-1-R"
-                      disabled
-                      value={`${selectedAmount} กรัม`}
-                      // value={`${totalAmount} กรัม`}
-                    />
+                    <input type="text" className="form-input1-1-R" disabled />
                   </div>
                   <div className="form1-1-2">
                     <label className="form-label1-1">เหลืออีกปริมาณสาร :</label>
-                    <input
-                      type="text"
-                      className="form-input1-1-R"
-                      disabled
-                      value={`${remainingAmount} กรัม`}
-                    />
+                    <input type="text" className="form-input1-1-R" disabled />
                   </div>
+                  <button
+                    style={{
+                      background: "blue",
+                      color: "white",
+                      marginLeft: "5px",
+                    }}
+                    onClick={handleShowArray}
+                  >
+                    แสดง Array
+                  </button>
                 </div>
-                {/* <div className="input-Modal2">
-                  <div className="form1-1-2">
-                    <label className="form-label1-1">กรอกปริมาณสาร :</label>
-                    <input type="text" className="form-input1-1" />
-                  </div>
-
-                  <div className="form1-1-2">
-                    <button style={{ background: "#191D88", color: "white" }}>
-                      <h3>
-                        <BsPlusLg />
-                      </h3>
-                    </button>
-                  </div>
-                </div> */}
               </div>
 
               <div class="table-body-Unit">
@@ -187,13 +159,13 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                           <td>{item.amount_re}</td>
                           <td>
                             <input
-                              type="number"
                               style={{
                                 width: "100px",
                                 height: "30px",
                                 paddingLeft: "5px",
                               }}
-                              value={item.selectedAmount || 0}
+                              type="number"
+                              value={selectedAmounts[item.id_lot] || 0}
                               onChange={(e) => {
                                 const quantity = parseFloat(e.target.value);
                                 handleSelectQuantity(item, quantity);
@@ -205,16 +177,9 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                                 color: "white",
                                 marginLeft: "5px",
                               }}
-                              // value={setTotalAmount}
-
-                              onClick={() =>
-                                handleSelectQuantity(
-                                  item,
-                                  item.selectedAmount || 0
-                                )
-                              }
+                              onClick={() => handleSelectQuantity(item, 0)}
                             >
-                              เลือก
+                              ตกลง
                             </button>
                           </td>
                         </tr>

@@ -5,6 +5,7 @@ import {
   lotTable,
   lotReadSelectID,
   lotTable_Unit,
+  lot_ID
 } from "../controller/lot.js";
 
 //@End Point อ่านข้อมูล  localhost:5500/lotReadSelect
@@ -12,6 +13,9 @@ router.get("/lotReadSelect", lotReadSelect);
 
 //@End Point อ่านข้อมูล  http://localhost:5500/lotTable/:id
 router.get("/lotTable/:id", lotTable);
+
+//@End Point อ่านข้อมูล  http://localhost:5500/lot_ID/:id
+router.get("/lot_ID/:id", lot_ID);
 
 //@End Point อ่านข้อมูล  http://localhost:5500/lotTable_Unit/:id
 router.get("/lotTable_Unit/:id", lotTable_Unit);

@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../CSS/lot.css";
-import { FaPen, FaEye } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useParams } from "react-router-dom";
-
 import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
+
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFloppyDisk,
+  faXmark,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
-import { FaArrowLeftLong } from "react-icons/fa6";
 
-import CusStableNew from "../CutStable/CusStableNew";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 function TableLot() {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ function TableLot() {
         console.log("API Response:", res.data[0].Name_staple); // Log the API response
         if (res.data[0].Name_staple) {
           setStapleName(res.data[0].Name_staple); // ตั้งค่าชื่อวัตถุดิบ
-          console.log("stapleName:", res.data.Name_staple); // Log the value being set to stapleName
+          console.log("stapleName:", res.data.Name_staple);
         }
       })
       .catch((err) => console.log(err));
@@ -133,7 +135,6 @@ function TableLot() {
                 <th>COA</th>
                 <th>MSDS</th>
                 <th>ผู้บันทึก</th>
-                
               </tr>
             </thead>
             <tbody>
@@ -149,13 +150,13 @@ function TableLot() {
                     <td>
                       <div className="TDB">
                         <button
-                          className="btn2"
+                          className="lot-download"
                           onClick={() =>
                             navigate(`CustomerReadIDPage/${item.id_lot}`)
                           }
                         >
                           <h3>
-                            <FaEye />
+                            <FontAwesomeIcon icon={faDownload} />
                           </h3>
                         </button>
                       </div>
@@ -163,23 +164,19 @@ function TableLot() {
                     <td>
                       <div className="TDB">
                         <button
-                          className="btn2"
+                          className="lot-download"
                           onClick={() =>
                             navigate(`CustomerReadIDPage/${item.id_lot}`)
                           }
                         >
                           <h3>
-                            <FaEye />
+                            <FontAwesomeIcon icon={faDownload} />
                           </h3>
                         </button>
                       </div>
                     </td>
 
                     <td>{item.name}</td>
-
-                   
-                    
-
                   </tr>
                 );
               })}
