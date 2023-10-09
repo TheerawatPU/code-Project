@@ -90,10 +90,9 @@ function AddLot() {
         </section>
 
         <main className="main">
-          
-          <div className="title-Text">
+          {/* <div className="title-Text-AddLot">
             <div className="top-text-new-EM">
-              <div className="text-new-EM-Unit">
+              <div className="text-new-EM-AddLot">
                 <div
                   className="titleText"
                   style={{ cursor: "pointer" }}
@@ -147,19 +146,77 @@ function AddLot() {
                 </div>
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* <h2>ไอดีของวัตถุดิบ: {selectedCategory.id_staple}</h2> */}
           {/* <h2>ชื่อของวัตถุดิบ: {selectedCategory.Name_staple}</h2> */}
 
-          <div className="box-big-bg-new">
-            <div className="box-BG-area-new">
+          <div className="box-big-bg-new-addlot">
+            <div className="box-BG-area-new-addlot">
+              <div className="title-Text-AddLot">
+                <div className="top-text-new-EM">
+                  <div className="text-new-EM-AddLot">
+                    <div
+                      className="titleText"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(-1)}
+                    >
+                      <FaArrowLeftLong />
+                    </div>
+                    <div className="titleText">เพิ่มล็อต {data}</div>
+                  </div>
+                </div>
+
+                <div className="all-btn-0">
+                  <button
+                    className="btn01"
+                    type="submit"
+                    style={{
+                      background: "rgb(221 62 62)",
+                      color: "white",
+                      width: "auto",
+                      height: "auto",
+                      marginLeft: "20px",
+                      marginBottom: "10px",
+                    }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <div className="btn-save01">
+                      <ImCancelCircle />
+                      <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
+                    </div>
+                  </button>
+                  <button
+                    className="btn01"
+                    type="submit"
+                    style={{
+                      background: "#22a699",
+                      color: "white",
+                      width: "auto",
+                      height: "auto",
+                      marginLeft: "20px",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <div
+                      className="btn-save01"
+                      onClick={(e) => {
+                        handleSubmit(e);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faFloppyDisk} />
+                      <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
               <form className="form-stable-new" onSubmit={handleSubmit}>
                 <div className="row2-new">
                   <div className="form-row-new">
                     <label className="form-label-new">รหัสล็อต :</label>
                     <input
-                      style={{ background: "#B4B4B3", color: "black" }}
+                      style={{ background: "#e5e5e5", border: "none" }}
                       type="text"
                       className="form-input-new"
                       value={id_lot + 1}
@@ -251,11 +308,11 @@ function AddLot() {
                     className="form-input-new"
                     style={{
                       width: "1025px",
-                      // paddingTop: "10px",
+                      background: "#e5e5e5",
+                      border: "none",
                       height: "40px",
-                      background: "#B4B4B3",
-                      color: "black",
                     }}
+                    disabled
                     name="MSDS_name"
                     value={userLoginData[0].name}
                   />

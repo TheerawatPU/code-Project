@@ -160,7 +160,7 @@ ul.pagination-stable {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 .pagination-stable .active a {
   background: #22a699;
@@ -172,7 +172,7 @@ ul.pagination-stable {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 .pagination-stable a {
   color: black;
@@ -399,6 +399,9 @@ button.btnstableEdit {
   font-size: 16px;
   font-weight: bold;
 }
+
+
+
 /* ช่องกรอกข้อมูลของฟอร์ม */
 .form-input-new {
   width: 440px;
@@ -409,6 +412,18 @@ button.btnstableEdit {
   font-family: "Noto Serif Thai", serif;
   font-size: 14px;
 }
+
+.input-read_cut {
+  width: 440px;
+  height: 40px;
+  border: 1px solid #ffffff;
+  border-bottom: 1px solid #737373;
+  background: white;
+  color: #424242;
+  font-family: "Noto Serif Thai", serif;
+  font-size: 15px;
+}
+
 /* ฟอร์มกรอกข้อมูลใหญ่ */
 .form-input-new2 {
   min-width: 1000px;
@@ -422,6 +437,15 @@ button.btnstableEdit {
   font-size: 14px;
   padding-top: 10px;
   font-weight: 300;
+}
+
+.text-cutstable {
+  width: 100%;
+  border-radius: 17px;
+  padding: 2px;
+  background: rgb(221 62 62);
+  color: #ffffff;
+  text-align: center;
 }
 
 /* หน้า Stabledetel ตรงช่อง input ของ form */
@@ -502,20 +526,27 @@ button.btnstableEdit {
   color: #ffffff;
 }
 
-.title-Text {
+.title-Text-new {
   display: flex;
   justify-content: space-around;
   align-items: end;
   background: #efefef;
 }
 
+.title-Text-cutstable {
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  background: #efefef;
+}
+
 /* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
-.top-text-new-EM {
+.top-text-cutstable {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: #efefef;
-  margin-right: 56px;
+  margin-left: 220px;
 }
 .btn01 {
   box-shadow: 0px 3px 8px 4px rgba(0, 0, 0, 0.11);

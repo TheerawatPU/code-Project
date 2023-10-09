@@ -230,7 +230,11 @@ function ProductNew() {
                       className="form-input1-1"
                       type="text"
                       disabled
-                      style={{ background: "#cfcfcf", color: "#000" , border:"#cfcfcf"}}
+                      style={{
+                        background: "#e5e5e5",
+                        border: "none",
+                        border: "#cfcfcf",
+                      }}
                       value={1}
                     />
                   </div>
@@ -363,11 +367,12 @@ function ProductNew() {
                         type="text"
                         disabled
                         style={{
+                          background: "#e5e5e5",
                           border: "none",
-                          background: "#c7c7c7",
+                          border: "#cfcfcf",
                           fontWeight: "bold",
-                          color: "#000",
                         }}
+                        
                         value={
                           totalCost !== null ? numberWithCommas(totalCost) : ""
                         }

@@ -59,8 +59,7 @@ function StableNew() {
         <Menu />
       </section>
       <main className="main">
-
-        <div className="title-Text">
+        <div className="title-Text-stable">
           <div className="top-text-new-EM">
             <div className="text-new-EM-Unit">
               <div
@@ -121,7 +120,19 @@ function StableNew() {
         <div className="box-big-bg-new">
           <div className="box-BG-area-new">
             <form className="form-stable-new" onSubmit={handleSubmit}>
-              
+              <div className="form-row-new">
+                <label className="form-label-new">
+                  <p>*</p>รหัสวัตถุดิบ :
+                </label>
+                <input
+                  name="id"
+                  type="text"
+                  className="form-input-new"
+                  style={{ background: "#e5e5e5", border: "none" }}
+                  disabled
+                />
+              </div>
+
               <div className="row2form">
                 <div className="form-row-new">
                   <label className="form-label-new">

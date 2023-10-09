@@ -159,7 +159,7 @@ ul.pagination-stable {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 .pagination-stable .active a {
   background: #22a699;
@@ -171,7 +171,7 @@ ul.pagination-stable {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 .pagination-stable a {
   color: black;
@@ -184,8 +184,6 @@ td.TDStable {
   align-items: center;
   justify-content: center;
 }
-
-
 
 /* ปุ่ม + เพิ่ม */
 button.btnstable2 {
@@ -307,13 +305,35 @@ button.btnstableLot2 {
   padding: 30px 250px 4px;
 }
 
+.title-Text {
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  background: #efefef;
+}
+.title-Text-stable {
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+  background: #efefef;
+}
+
 .top-text-stable {
-  width: 70%;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   background: #efefef;
   margin-right: 56px;
+}
+
+.top-text-stable-read {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #efefef;
+  margin-left: 220px;
 }
 /* ตกแต่งตัวหนังสือบอกรายละเอียดรองลงมา */
 .text-new-lg {

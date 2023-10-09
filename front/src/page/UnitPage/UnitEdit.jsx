@@ -101,6 +101,7 @@ function UnitEdit() {
                     className="Uinput1"
                     name="unit_id"
                     disabled
+                    style={{ background: "#e5e5e5", border: "none" }}
                   />
                 </div>
 

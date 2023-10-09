@@ -154,7 +154,7 @@ function CusStableNew() {
           <Menu />
         </section>
         <main className="main">
-          <div className="title-Text">
+          <div className="title-Text-new">
             <div className="top-text-new-EM">
               <div className="text-new-EM-Unit">
                 <div
@@ -219,7 +219,7 @@ function CusStableNew() {
                   <div className="form-row-new">
                     <label className="form-label-new">รหัสการปรับ :</label>
                     <input
-                      style={{ background: "#B4B4B3", color: "black" }}
+                      style={{ background: "#e5e5e5", border: "none" }}
                       type="text"
                       className="form-input-new"
                       value={oldestIdUnit + 1}
@@ -229,7 +229,7 @@ function CusStableNew() {
                   <div className="form-row-new">
                     <label className="form-label-new">วันที่ทำรายการ :</label>
                     <input
-                      style={{ background: "#B4B4B3", color: "black" }}
+                      style={{ background: "#e5e5e5", border: "none" }}
                       name="date_cutStock"
                       type="text"
                       className="form-input-new"
@@ -285,7 +285,7 @@ function CusStableNew() {
                       name="amount_old"
                       type="text"
                       className="form-input-new"
-                      style={{ background: "#B4B4B3", color: "black" }}
+                      style={{ background: "#e5e5e5", border: "none" }}
                       value={values.amount_old}
                     />
                   </div>

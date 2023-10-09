@@ -103,7 +103,7 @@ li.page-item-Customer {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 /* แสดงสีเวลากดไปหน้านั้นๆ ของเลขเพจ */
 .pagination-Customer .active a {
@@ -116,7 +116,7 @@ li.page-item-Customer {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 /* ตัวหนังสือเลขเพจ */
 .pagination-Customer a {
@@ -170,6 +170,21 @@ label {
   align-items: center;
   background: #efefef;
 }
+
+.title-Text-customer {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  background: #efefef;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.row-customer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 /* ตกแต่งตัวหนังสือบอกหน้าเพจ */
 .text-new-C {
   padding-left: 250px;
@@ -198,10 +213,10 @@ label {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: auto;
+  height: 93.8vh;
 }
 /* พื้นหลังสุดพื้นที่ทำงานสีขาวรองลงมา */
-.box-BG-area-new-C {
+.box-BG-area-new-Customer {
   background: #ffffff;
   width: 70%;
   height: auto;
@@ -209,7 +224,8 @@ label {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 50px 0px;
+  padding-bottom: 20px;
+  flex-direction: column;
 }
 /* ฟอร์มของหน้า stable */
 .form-stable-new-C {
@@ -217,12 +233,17 @@ label {
   flex-direction: column;
   align-items: center;
 }
+.form-customer-new-C {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 /* ฟอร์มเพื่อจัดตำแหน่ง */
 .form-row-new-C {
   display: flex;
   align-items: flex-start;
   margin-top: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
   flex-direction: column;
 }
 /* ฟอร์มตัวเลือกเพื่อจัดตำแหน่ง */
@@ -262,7 +283,7 @@ label {
 .form-error-C {
   width: 100%;
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 /* ช่องกรอกข้อมูลของฟอร์ม */
 .form-input-new-C {

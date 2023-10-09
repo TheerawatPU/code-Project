@@ -8,6 +8,8 @@ import {
   faPenToSquare,
   faEye,
   faPlus,
+  faAnglesLeft,
+  faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabContent1() {
@@ -180,6 +182,7 @@ function TabContent1() {
                         </div>
                         {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                       </button>
+
                       <button
                         onClick={() => navigate(`StableEdit/${item.id_staple}`)}
                         className="btnstableEdit2"
@@ -189,6 +192,7 @@ function TabContent1() {
                         </div>
                         {/* <div className="test-icon-edit">แก้ไข</div> */}
                       </button>
+
                       <button
                         className="btnstableLot2"
                         onClick={() => navigate(`TableLot/${item.id_staple}`)}
@@ -208,7 +212,7 @@ function TabContent1() {
             <ul className="pagination-stable">
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={prePage}>
-                  ก่อน
+                  <FontAwesomeIcon icon={faAnglesLeft} />
                 </a>
               </li>
               {number.map((n, i) => (
@@ -229,7 +233,7 @@ function TabContent1() {
               ))}
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={nextPage}>
-                  ต่อไป
+                  <FontAwesomeIcon icon={faAnglesRight} />
                 </a>
               </li>
             </ul>

@@ -6,6 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Topnav from "../../component/Topnav";
 import Menu from "../../component/Menu";
 import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBoxArchive,
+  faPenToSquare,
+  faEye,
+  faPlus,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 function TabUnit1() {
   // ดึงข้อมูลผู้บันทึกที่เข้าระบบตอนนั้น
@@ -67,13 +76,19 @@ function TabUnit1() {
             // value={filterVal}
             // onInput={(e) => handleFilter(e)}
           />
-          <button className="btnstable" onClick={() => navigate(`UnitNew`)}>
+          <button className="btnstable2" onClick={() => navigate(`UnitNew`)}>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
+          </button>
+
+          {/* <button className="btnstable" onClick={() => navigate(`UnitNew`)}>
             <h2>
               <BiPlus />
             </h2>
-          </button>
+          </button> */}
         </div>
-        
 
         <div class="table-body">
           <table class="styled-table">
@@ -119,20 +134,23 @@ function TabUnit1() {
 
                     <td className="TDStable">
                       <button
-                        className="btnstableRead"
+                        className="btnstableRead2"
                         onClick={() => navigate(`Utest/${item.id_unit}`)}
                       >
-                        <h3>
-                          <FaEye />
-                        </h3>
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faEye} />
+                        </div>
+                        {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                       </button>
+
                       <button
                         onClick={() => navigate(`UnitEdit/${item.id_unit}`)}
-                        className="btnstableEdit"
+                        className="btnstableEdit2"
                       >
-                        <h3>
-                          <FaPen />
-                        </h3>
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faPenToSquare} />
+                        </div>
+                        {/* <div className="test-icon-edit">แก้ไข</div> */}
                       </button>
                     </td>
                   </tr>
@@ -145,7 +163,7 @@ function TabUnit1() {
             <ul className="pagination-stable">
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={prePage}>
-                  ก่อน
+                  <FontAwesomeIcon icon={faAnglesLeft} />
                 </a>
               </li>
               {number.map((n, i) => (
@@ -166,7 +184,7 @@ function TabUnit1() {
               ))}
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={nextPage}>
-                  ต่อไป
+                  <FontAwesomeIcon icon={faAnglesRight} />
                 </a>
               </li>
             </ul>

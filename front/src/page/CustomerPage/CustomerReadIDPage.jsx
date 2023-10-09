@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import "../../CSS/Customer.css";
+
 import Topnav from "../../component/Topnav";
 import Menu from "../../component/Menu";
 import "../../CSS/CustomerNew.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenToSquare,
+  faArrowLeft,
+  faFloppyDisk,
+} from "@fortawesome/free-solid-svg-icons";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { ImCancelCircle } from "react-icons/im";
 
 function CustomerReadIDPage() {
   const { id } = useParams();
@@ -30,12 +36,66 @@ function CustomerReadIDPage() {
         <Menu />
       </section>
       <main className="main">
-        <div className="top-text-new-C">
-          <div className="text-new-C">รายละเอียดข้อมูลลูกค้า</div>
-        </div>
         {Data.map((d, index) => (
           <div className="box-big-bg-new-C" key={index}>
-            <div className="box-BG-area-new-C">
+            <div className="box-BG-area-new-Customer">
+
+              <div className="title-Text-customer">
+                <div className="top-text-new-EM">
+                  <div className="text-new-EM-Unit">
+                    <div
+                      className="titleText"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(-1)}
+                    >
+                      <FaArrowLeftLong />
+                    </div>
+                    <div className="titleText">แก้ไขข้อมูลลูกค้า</div>
+                  </div>
+                </div>
+
+                <div className="all-btn-0">
+                  <button
+                    className="btn01"
+                    type="submit"
+                    style={{
+                      background: "rgb(221 62 62)",
+                      color: "white",
+                      width: "auto",
+                      height: "auto",
+                      marginLeft: "20px",
+                      marginBottom: "10px",
+                    }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <div className="btn-save01">
+                      <ImCancelCircle />
+                      <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
+                    </div>
+                  </button>
+                  <button
+                    className="btn01"
+                    type="submit"
+                    style={{
+                      background: "#22a699",
+                      color: "white",
+                      width: "auto",
+                      height: "auto",
+                      marginLeft: "20px",
+                      marginBottom: "10px",
+                    }}
+                    onClick={(e) => {
+                      handleUpdate(e);
+                    }}
+                  >
+                    <div className="btn-save01">
+                      <FontAwesomeIcon icon={faFloppyDisk} />
+                      <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
               <form className="form-stable-new-C">
                 <div className="form-row-new-C">
                   <label className="form-label-new-C">รหัสลูกค้า :</label>
@@ -118,7 +178,7 @@ function CustomerReadIDPage() {
               </form>
             </div>
 
-            <div className="btn-submit-new-C">
+            {/* <div className="btn-submit-new-C">
               <div className="btn-area-new-C">
                 <button
                   type="cancle"
@@ -141,7 +201,7 @@ function CustomerReadIDPage() {
                   <span>แก้ไข</span>
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         ))}
       </main>

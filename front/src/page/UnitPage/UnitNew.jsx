@@ -311,6 +311,7 @@ function UnitNew() {
                   name="unit_id"
                   value={oldestIdUnit + 1} // รับค่า ID จาก state หรือ props ตามที่คุณเก็บ
                   disabled
+                  style={{ background: "#e5e5e5", border: "none" }}
                 />
               </div>
 

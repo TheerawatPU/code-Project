@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { FaPen, FaEye } from "react-icons/fa";
-import { BiPlus } from "react-icons/bi";
-import { CgBox } from "react-icons/cg";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../../CSS/Stable.css";
-import Topnav from "../../../component/Topnav";
-import Menu from "../../../component/Menu";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faEye,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { FaEye } from "react-icons/fa";
 
 function CutStable() {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-
-  // ไอดีการเพิ่มสต๊อก
-  // const [oldestIdUnit, setOldestIdUnit] = useState(null);
 
   useEffect(() => {
     const fetchData = () => {
@@ -29,8 +27,6 @@ function CutStable() {
     };
     fetchData();
   }, []);
-
-  // console.log("ID" , oldestIdUnit)
 
   //next page555555
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,13 +65,15 @@ function CutStable() {
             type="text"
             placeholder="ช่องค้นหา...."
           />
+
           <button
-            className="btnstable"
+            className="btnstable2"
             onClick={() => navigate(`CusStableNew`)}
           >
-            <h2>
-              <BiPlus />
-            </h2>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
           </button>
         </div>
 
@@ -107,7 +105,7 @@ function CutStable() {
 
             <tbody>
               {records.map((item, index) => (
-                <tr>
+                <tr key={index}>
                   <td style={{ color: "blue", cursor: "pointer" }}>
                     {item.id_cutStock}
                   </td>
@@ -116,15 +114,23 @@ function CutStable() {
                   <td>{item.id_lot}</td>
                   <td>{item.amount_old}</td>
                   <td>{item.amount_total}</td>
-                  <td><p>{item.cause}</p></td>
+                  <td>
+                    <div className="text-cutstable">{item.cause}</div>
+                  </td>
                   <td>{item.details_cutStock}</td>
                   <td>{item.name}</td>
 
                   <td className="TDStable">
-                    <button className="btnstableRead">
-                      <h3>
-                        <FaEye />
-                      </h3>
+                    <button
+                      className="btnstableRead2"
+                      onClick={() =>
+                        navigate(`CusStableReadID/${item.id_cutStock}`)
+                      }
+                    >
+                      <div className="icon_edit">
+                        <FontAwesomeIcon icon={faEye} />
+                      </div>
+                      {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                     </button>
                   </td>
                 </tr>
@@ -136,7 +142,7 @@ function CutStable() {
             <ul className="pagination-stable">
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={prePage}>
-                  ก่อน
+                  <FontAwesomeIcon icon={faAnglesLeft} />
                 </a>
               </li>
               {number.map((n, i) => (
@@ -157,7 +163,7 @@ function CutStable() {
               ))}
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={nextPage}>
-                  ต่อไป
+                  <FontAwesomeIcon icon={faAnglesRight} />
                 </a>
               </li>
             </ul>

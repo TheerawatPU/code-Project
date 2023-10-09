@@ -4,10 +4,14 @@ import "../../../CSS/lot.css";
 import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
 
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBoxArchive,
+  faPlus,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 function TabContent2() {
   const navigate = useNavigate();
@@ -107,11 +111,23 @@ function TabContent2() {
             value={filterVal}
             onInput={(e) => handleFilter(e)}
           />
-          <button className="btnstable" onClick={() => navigate(`BuyStableNew`)}>
+          <button
+            className="btnstable2"
+            onClick={() => navigate(`BuyStableNew`)}
+          >
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
+          </button>
+          {/* <button
+            className="btnstable"
+            onClick={() => navigate(`BuyStableNew`)}
+          >
             <h2>
               <BiPlus />
             </h2>
-          </button>
+          </button> */}
         </div>
 
         <div class="table-body">
@@ -200,7 +216,7 @@ function TabContent2() {
             <ul className="pagination-stable">
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={prePage}>
-                  ก่อน
+                  <FontAwesomeIcon icon={faAnglesLeft} />
                 </a>
               </li>
               {number.map((n, i) => (
@@ -221,7 +237,7 @@ function TabContent2() {
               ))}
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={nextPage}>
-                  ต่อไป
+                  <FontAwesomeIcon icon={faAnglesRight} />
                 </a>
               </li>
             </ul>

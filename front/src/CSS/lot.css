@@ -66,11 +66,19 @@
   border: none;
 }
 
+.table-body-Customer {
+  display: flex;
+  align-items: center;
+  margin: 20px 40px;
+  flex-direction: column;
+}
+
 /* //todo Stable */
 .table-body-lot {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin: 10px 40px;
 }
 .styled-table-lot {
   border-collapse: collapse;
@@ -107,15 +115,54 @@
 }
 
 /* จัดตำแหน่งช่องจักการรายละเอียด */
-.grup_btn-lot {
+.top-lot-0 {
   display: flex;
   color: red;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   margin-left: 30px;
   margin-right: 50px;
-  margin-top: 5px;
+  margin-top: 20px;
+}
+
+.amount_lot_all {
+  display: flex;
+  align-items: flex-end;
+}
+
+.text-new-EM-AddLot {
+  padding-left: 250px;
+  font-size: 30px;
+  font-family: "Noto Serif Thai", serif;
+  color: #000000;
+  justify-content: center;
+  background: #efefef;
+  padding: 30px 25px 4px;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.title-Text-AddLot {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  background: #efefef;
+  margin-bottom: 20px;
+}
+
+.numberSUM2 {
+  display: flex;
+  justify-content: space-between;
+  height: 30px;
+  width: 8.7rem;
+  border: 1px solid #f3f3f3;
+  border-bottom: 1px solid #000000;
+  font-weight: bold;
+  color: #000000;
+  font-size: 17px;
 }
 
 .inputsearch {
@@ -160,7 +207,7 @@ ul.pagination-stable {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 .pagination-stable .active a {
   background: #22a699;
@@ -172,18 +219,18 @@ ul.pagination-stable {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 .pagination-stable a {
   color: black;
 }
 /* หัวข้อล็อตวัตถุดิบ */
-.lot-text-header {
+.lot-header {
   padding-left: 38px;
   padding-top: 20px;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-family: "Noto Serif Thai", serif;
-  color: #000000;
+  color: #030303;
   display: flex;
 }
 /* จัดตำแหน่งselect */
@@ -352,16 +399,16 @@ button.btnstableEdit {
   padding-bottom: 20px;
 }
 /* พื้นหลังสุดพื้นที่ทำงานสีเทา */
-.box-big-bg-new {
+.box-big-bg-new-addlot {
   display: flex;
   background: #efefef;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: auto;
+  height: 93.5vh;
 }
 /* พื้นหลังสุดพื้นที่ทำงานสีขาวรองลงมา */
-.box-BG-area-new {
+.box-BG-area-new-addlot {
   background: #ffffff;
   width: 70%;
   height: auto;
@@ -369,7 +416,8 @@ button.btnstableEdit {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  padding: 50px 0px;
+  padding-bottom: 50px;
+  flex-direction: column;
 }
 /* ฟอร์มของหน้า stable */
 .form-stable-new {

@@ -6,6 +6,7 @@ import {
   cutStock_New,
   cutStock_Up,
   cutStock_ID,
+  cutStock_ID_read,
 } from "../controller/cutStable.js";
 
 //@End Point อ่านข้อมูล  http://localhost:5500/Lot_Stable1/:id
@@ -22,5 +23,8 @@ router.put("/cutStock_Up/:id", cutStock_Up);
 
 //@End Point อ่านข้อมูล  http://localhost:5500/cutStock_ID/:id
 router.get("/cutStock_ID/:id", cutStock_ID);
+
+//@End Point อ่านข้อมูล  http://localhost:5500/cutStock_ID_read/:id
+router.get("/cutStock_ID_read/:id", cutStock_ID_read);
 
 export default router;

@@ -111,7 +111,7 @@ li.page-item-Customer {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 /* แสดงสีเวลากดไปหน้านั้นๆ ของเลขเพจ */
 .pagination-Customer .active a {
@@ -124,7 +124,7 @@ li.page-item-Customer {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 50px;
 }
 /* ตัวหนังสือเลขเพจ */
 .pagination-Customer a {
@@ -299,7 +299,7 @@ label {
 .form-error-C {
   width: 100%;
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 /* ช่องกรอกข้อมูลของฟอร์ม */
 .form-input-new-EM {

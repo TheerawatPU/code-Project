@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 
 function Report1Chart1() {
   const [data, setData] = useState([]);
@@ -68,10 +70,17 @@ function Report1Chart1() {
       </table>
 
       <nav>
-        <ul className="pagination-stable" style={{display:"flex" , justifyContent:"center" , background:"none"}}>
+        <ul
+          className="pagination-stable"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            background: "none",
+          }}
+        >
           <li className="page-item-stable">
             <a href="#" className="page-link" onClick={prePage}>
-              ก่อน
+              <FontAwesomeIcon icon={faAnglesLeft} />
             </a>
           </li>
           {number.map((n, i) => (
@@ -88,7 +97,7 @@ function Report1Chart1() {
           ))}
           <li className="page-item-stable">
             <a href="#" className="page-link" onClick={nextPage}>
-              ต่อไป
+              <FontAwesomeIcon icon={faAnglesRight} />
             </a>
           </li>
         </ul>

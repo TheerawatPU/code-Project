@@ -8,6 +8,8 @@ import Menu from "../../component/Menu";
 import "../../CSS/CustomerNew.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { ImCancelCircle } from "react-icons/im";
 
 function CustomerCreatePage() {
   const [province, setProvince] = useState([]);
@@ -28,7 +30,6 @@ function CustomerCreatePage() {
       });
   }, []);
 
-  
   const onChangeProvince = (e) => {
     let index = e.nativeEvent.target.selectedIndex;
     let label = e.nativeEvent.target[index].text;
@@ -60,7 +61,6 @@ function CustomerCreatePage() {
       });
   };
 
-  
   const onChangeSubdistricts = (e) => {
     // let index = e.nativeEvent.target.selectedIndex;
     // let label = e.nativeEvent.target[index].text;
@@ -177,43 +177,106 @@ function CustomerCreatePage() {
         <Menu />
       </section>
       <main className="main">
-        <div className="top-text-new-C">
-          <div className="text-new-C">เพิ่มข้อมูลข้อมูลลูกค้า</div>
-        </div>
-
-        <div className="text-new-lg-C">
-          กรุณากรอกข้อมูลให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
-        </div>
-
         <div className="box-big-bg-new-C">
-          <div className="box-BG-area-new-C">
-            <form className="form-stable-new-C" onSubmit={handleSubmit}>
+          <div className="box-BG-area-new-Customer">
+
+            <div className="title-Text-customer">
+              <div className="top-text-new-EM">
+                <div className="text-new-EM-Unit">
+                  <div
+                    className="titleText"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <FaArrowLeftLong />
+                  </div>
+                  <div className="titleText">เพิ่มข้อมูลข้อมูลลูกค้า</div>
+                </div>
+              </div>
+
+              <div className="all-btn-0">
+                <button
+                  className="btn01"
+                  type="submit"
+                  style={{
+                    background: "rgb(221 62 62)",
+                    color: "white",
+                    width: "auto",
+                    height: "auto",
+                    marginLeft: "20px",
+                    marginBottom: "10px",
+                  }}
+                  onClick={() => navigate(-1)}
+                >
+                  <div className="btn-save01">
+                    <ImCancelCircle />
+                    <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
+                  </div>
+                </button>
+                <button
+                  className="btn01"
+                  type="submit"
+                  style={{
+                    background: "#22a699",
+                    color: "white",
+                    width: "auto",
+                    height: "auto",
+                    marginLeft: "20px",
+                    marginBottom: "10px",
+                  }}
+                  onClick={(e) => {
+                    handleSubmit(e);
+                  }}
+                >
+                  <div className="btn-save01">
+                    <FontAwesomeIcon icon={faFloppyDisk} />
+                    <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <form className="form-customer-new-C" onSubmit={handleSubmit}>
+              
               <div className="form-row-new-C">
-                <label className="form-label-new-C">
-                  <p>*</p>ชื่อบริษัท :
-                </label>
+                <label className="form-label-new-C">รหัสลูกค้า :</label>
                 <input
-                  name="name_company"
+                  style={{ background: "#e5e5e5", border: "none" }}
+                  name="id"
                   type="text"
                   className="form-input-new"
-                  onChange={handleInput}
+                  disabled
                 />
-                {errors.name_company && (
-                  <p className="text-danger">{errors.name_company}</p>
-                )}
               </div>
-              <div className="form-row-new-C">
-                <label className="form-label-new-C">
-                  <p>*</p>ชื่อลูกค้า :
-                </label>
-                <input
-                  name="name_cus"
-                  type="text"
-                  className="form-input-new-C"
-                  onChange={handleInput}
-                />
-                {errors.name_cus && <p>{errors.name_cus}</p>}
+              <div className="row-customer">
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">
+                    <p>*</p>ชื่อบริษัท :
+                  </label>
+                  <input
+                    name="name_company"
+                    type="text"
+                    className="form-input-new"
+                    onChange={handleInput}
+                  />
+                  {errors.name_company && (
+                    <p className="text-danger">{errors.name_company}</p>
+                  )}
+                </div>
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">
+                    <p>*</p>ชื่อลูกค้า :
+                  </label>
+                  <input
+                    name="name_cus"
+                    type="text"
+                    className="form-input-new"
+                    onChange={handleInput}
+                  />
+                  {errors.name_cus && <p>{errors.name_cus}</p>}
+                </div>
               </div>
+
               <div className="form-row-new-C">
                 <label className="form-label-new-C">
                   <p>*</p>รหัสบัตรประชาชน :
@@ -229,32 +292,35 @@ function CustomerCreatePage() {
                 />
                 {errors.card_ID && <p>{errors.card_ID}</p>}
               </div>
-              <div className="form-row-new-C">
-                <label className="form-label-new-C">
-                  <p>*</p>อีเมล :
-                </label>
-                <input
-                  name="email_cus"
-                  type="email"
-                  className="form-input-new-C"
-                  onChange={handleInput}
-                />
-                {errors.email_cus && <p>{errors.email_cus}</p>}
-              </div>
-              <div className="form-row-new-C">
-                <label className="form-label-new-C">
-                  <p>*</p>เบอร์โทรศัพท์ :
-                </label>
-                <input
-                  name="phone_cus"
-                  type="text"
-                  className="form-input-new-C"
-                  onChange={handleInput}
-                  value={phoneNumber}
-                  maxLength={12}
-                  required
-                />
-                {errors.phone_cus && <p>{errors.phone_cus}</p>}
+
+              <div className="row-customer">
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">
+                    <p>*</p>อีเมล :
+                  </label>
+                  <input
+                    name="email_cus"
+                    type="email"
+                    className="form-input-new"
+                    onChange={handleInput}
+                  />
+                  {errors.email_cus && <p>{errors.email_cus}</p>}
+                </div>
+                <div className="form-row-new-C">
+                  <label className="form-label-new-C">
+                    <p>*</p>เบอร์โทรศัพท์ :
+                  </label>
+                  <input
+                    name="phone_cus"
+                    type="text"
+                    className="form-input-new"
+                    onChange={handleInput}
+                    value={phoneNumber}
+                    maxLength={12}
+                    required
+                  />
+                  {errors.phone_cus && <p>{errors.phone_cus}</p>}
+                </div>
               </div>
 
               <div className="form-row-new-C">
@@ -328,7 +394,7 @@ function CustomerCreatePage() {
             </form>
           </div>
 
-          <div className="btn-submit-new-C">
+          {/* <div className="btn-submit-new-C">
             <div className="btn-area-new-C">
               <button
                 type="cancle"
@@ -349,7 +415,7 @@ function CustomerCreatePage() {
                 <span>บันทึก</span>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </main>
     </div>

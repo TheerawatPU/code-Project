@@ -33,8 +33,9 @@ function Stabledetel() {
         <Menu />
       </section>
       <main className="main-new">
+        
         <div className="title-Text">
-          <div className="top-text-stable">
+          <div className="top-text-stable-read">
             <div className="text-new-EM-Unit">
               <div
                 className="titleText"
@@ -43,7 +44,7 @@ function Stabledetel() {
               >
                 <FaArrowLeftLong />
               </div>
-              <div className="titleText">รายละเอีดยวัตถุดิบ</div>
+              <div className="titleText">รายละเอียดวัตถุดิบ</div>
             </div>
           </div>
         </div>

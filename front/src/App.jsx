@@ -42,6 +42,7 @@ import LoginForm from "./Admin/LoginForm";
 
 import CutStable from "./page/StablePage/CutStable/CutStable";
 import CusStableNew from "./page/StablePage/CutStable/CusStableNew";
+import CusStableReadID from "./page/StablePage/CutStable/CusStableReadID";
 
 function App() {
   return (
@@ -88,6 +89,9 @@ function App() {
         <Route path="/EM/StablePage/BuyStableNew" element={<BuyStableNew />} />
 
         <Route path="/EM/StablePage/StableNew" element={<StableNew />} />
+
+
+        <Route path="/EM/StablePage/CusStableReadID/:id" element={<CusStableReadID />} />
 
         <Route path="/EM/CutStable" element={<CutStable />} />
 

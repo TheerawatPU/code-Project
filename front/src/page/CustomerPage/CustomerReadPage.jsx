@@ -2,10 +2,18 @@ import React, { useEffect, useState } from "react";
 import { FaPen, FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import "../../CSS/Customer.css";
+import { useNavigate } from "react-router-dom";
 import Topnav from "../../component/Topnav";
 import Menu from "../../component/Menu";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faEye,
+  faPlus,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 function CustomerReadPage() {
   const navigate = useNavigate();
@@ -117,13 +125,15 @@ function CustomerReadPage() {
             value={filterVal}
             onInput={(e) => handleFilter(e)}
           />
+
           <button
-            className="btn1"
+            className="btnstable2"
             onClick={() => navigate(`CustomerCreatePage`)}
           >
-            <h2>
-              <BiPlus />
-            </h2>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
           </button>
         </div>
 
@@ -162,24 +172,27 @@ function CustomerReadPage() {
                     <td>
                       <div className="TDB">
                         <button
-                          className="btn2"
+                          className="btnstableRead2"
                           onClick={() =>
                             navigate(`CustomerReadIDPage/${item.id_customer}`)
                           }
                         >
-                          <h3>
-                            <FaEye />
-                          </h3>
+                          <div className="icon_edit">
+                            <FontAwesomeIcon icon={faEye} />
+                          </div>
+                          {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                         </button>
+
                         <button
                           onClick={() =>
                             navigate(`CustomerUpdatePage/${item.id_customer}`)
                           }
-                          className="btn3"
+                          className="btnstableEdit2"
                         >
-                          <h3>
-                            <FaPen />
-                          </h3>
+                          <div className="icon_edit">
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                          </div>
+                          {/* <div className="test-icon-edit">แก้ไข</div> */}
                         </button>
                       </div>
                     </td>
@@ -193,7 +206,7 @@ function CustomerReadPage() {
             <ul className="pagination-Customer">
               <li className="page-item-Customer">
                 <a href="#" className="page-link" onClick={prePage}>
-                  ก่อน
+                  <FontAwesomeIcon icon={faAnglesLeft} />
                 </a>
               </li>
               {number.map((n, i) => (
@@ -214,7 +227,7 @@ function CustomerReadPage() {
               ))}
               <li className="page-item-Customer">
                 <a href="#" className="page-link" onClick={nextPage}>
-                  ต่อไป
+                  <FontAwesomeIcon icon={faAnglesRight} />
                 </a>
               </li>
             </ul>

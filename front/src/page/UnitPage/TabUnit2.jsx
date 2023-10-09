@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { FaPen, FaEye } from "react-icons/fa";
-import { BiPlus } from "react-icons/bi";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import Topnav from "../../component/Topnav";
-import Menu from "../../component/Menu";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faEye,
+  faPlus,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 function TabUnit2() {
   // ดึงข้อมูลผู้บันทึกที่เข้าระบบตอนนั้น
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
-  const location = useLocation();
+
   // ตัวใช้สำหรับการลิงค์ข้าม component
   const navigate = useNavigate();
 
@@ -67,10 +72,11 @@ function TabUnit2() {
             // value={filterVal}
             // onInput={(e) => handleFilter(e)}
           />
-          <button className="btnstable" onClick={() => navigate(`ProductNew`)}>
-            <h2>
-              <BiPlus />
-            </h2>
+          <button className="btnstable2" onClick={() => navigate(`ProductNew`)}>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
           </button>
         </div>
 
@@ -104,7 +110,9 @@ function TabUnit2() {
                   <tr key={index}>
                     <td
                       style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => navigate(`ProductID/${item.id_productorder}`)}
+                      onClick={() =>
+                        navigate(`ProductID/${item.id_productorder}`)
+                      }
                     >
                       {item.id_productorder}
                     </td>
@@ -121,7 +129,9 @@ function TabUnit2() {
                     <td className="TDStable">
                       <button
                         className="btnstableRead"
-                        onClick={() => navigate(`ProductID/${item.id_productorder}`)}
+                        onClick={() =>
+                          navigate(`ProductID/${item.id_productorder}`)
+                        }
                       >
                         <h3>
                           <FaEye />
@@ -152,29 +162,30 @@ function TabUnit2() {
                 <td>ยังไม่ชำระ</td>
                 <td>
                   <button className="btnstableRead">
-                    <h3>
-                      ยืนยัน
-                    </h3>
+                    <h3>ยืนยัน</h3>
                   </button>
                 </td>
                 <td>{userLoginData[0].name}</td>
 
                 <td className="TDStable">
                   <button
-                    className="btnstableRead"
+                    className="btnstableRead2"
                     onClick={() => navigate(`ProductID/${ProductID}`)}
                   >
-                    <h3>
-                      <FaEye />
-                    </h3>
+                    <div className="icon_edit">
+                      <FontAwesomeIcon icon={faEye} />
+                    </div>
+                    {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                   </button>
+
                   <button
                     onClick={() => navigate(`StableEdit/$`)}
-                    className="btnstableEdit"
+                    className="btnstableEdit2"
                   >
-                    <h3>
-                      <FaPen />
-                    </h3>
+                    <div className="icon_edit">
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </div>
+                    {/* <div className="test-icon-edit">แก้ไข</div> */}
                   </button>
                 </td>
               </tr>
@@ -185,7 +196,7 @@ function TabUnit2() {
             <ul className="pagination-stable">
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={prePage}>
-                  ก่อน
+                  <FontAwesomeIcon icon={faAnglesLeft} />
                 </a>
               </li>
               {number.map((n, i) => (
@@ -206,7 +217,7 @@ function TabUnit2() {
               ))}
               <li className="page-item-stable">
                 <a href="#" className="page-link" onClick={nextPage}>
-                  ต่อไป
+                  <FontAwesomeIcon icon={faAnglesRight} />
                 </a>
               </li>
             </ul>

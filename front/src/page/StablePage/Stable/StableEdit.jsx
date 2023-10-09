@@ -73,8 +73,7 @@ function StableEdit() {
         <Menu />
       </section>
       <main className="main-new">
-        
-        <div className="title-Text">
+        <div className="title-Text-stable">
           <div className="top-text-new-EM">
             <div className="text-new-EM-Unit">
               <div

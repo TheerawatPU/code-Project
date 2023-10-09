@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../CSS/lot.css";
-import { FaEye } from "react-icons/fa";
 import { BiPlus } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
 import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
 
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFloppyDisk,
-  faXmark,
   faDownload,
+  faPlus,
+  faAnglesLeft,
+  faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
-
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 function TableLot() {
@@ -85,7 +81,7 @@ function TableLot() {
         <Menu />
       </section>
       <main className="main-new">
-        <div className="grup_btn-lot">
+        <div className="top-lot-0">
           <div className="select-show">
             <div
               className="lot-text-header"
@@ -94,36 +90,54 @@ function TableLot() {
             >
               <FaArrowLeftLong />
             </div>
-            <div className="lot-text-header">ล็อตวัตถุดิบ {stapleName}</div>
+            <div className="lot-header">ล็อตวัตถุดิบ {stapleName}</div>
           </div>
 
-          <p>ปริมาณที่มีทั้งหมด</p>
-          <div className="numberSUM">
-            <input
-              type="text"
-              style={{ width: "100px", height: "50px" }}
-              disabled
-              // value={ (Data.reduce((sum, student) => sum + student.amount, 0))  }
-              value={`จำนวน ${Data.reduce(
-                (sum, student) => sum + student.amount,
-                0
-              )}  ชิ้น`}
-            />
+          <div className="amount_lot_all">
+            <label style={{ color: "black", marginRight: "20px" }}>
+              ปริมาณรับเข้าทั้งหมด:
+            </label>
+            <div className="numberSUM1">
+              <input
+                className="numberSUM2"
+                type="text"
+                disabled
+                // value={ (Data.reduce((sum, student) => sum + student.amount, 0))  }
+                value={`จำนวน ${Data.reduce(
+                  (sum, student) => sum + student.amount,
+                  0
+                )}  ชิ้น`}
+              />
+            </div>
           </div>
 
-          <button
-            className="btnstable"
-            onClick={() => {
-              navigate("AddLot");
-            }}
-          >
-            <h2>
-              <BiPlus />
-            </h2>
+          <div className="amount_lot_all">
+            <label style={{ color: "black", marginRight: "20px" }}>
+              ปริมาณคงเหลือทั้งหมด:
+            </label>
+            <div className="numberSUM1">
+              <input
+                className="numberSUM2"
+                type="text"
+                disabled
+                // value={ (Data.reduce((sum, student) => sum + student.amount, 0))  }
+                value={`จำนวน ${Data.reduce(
+                  (sum, student) => sum + student.amount_re,
+                  0
+                )}  ชิ้น`}
+              />
+            </div>
+          </div>
+
+          <button className="btnstable2" onClick={() => navigate(`AddLot`)}>
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
           </button>
         </div>
 
-        <div class="table-body-Customer">
+        <div class="table-body-lot">
           <table class="styled-table-Customer">
             <thead>
               <tr>
@@ -187,7 +201,7 @@ function TableLot() {
             <ul className="pagination-Customer">
               <li className="page-item-Customer">
                 <a href="#" className="page-link" onClick={prePage}>
-                  ก่อน
+                  <FontAwesomeIcon icon={faAnglesLeft} />
                 </a>
               </li>
               {number.map((n, i) => (
@@ -208,7 +222,7 @@ function TableLot() {
               ))}
               <li className="page-item-Customer">
                 <a href="#" className="page-link" onClick={nextPage}>
-                  ต่อไป
+                  <FontAwesomeIcon icon={faAnglesRight} />
                 </a>
               </li>
             </ul>
