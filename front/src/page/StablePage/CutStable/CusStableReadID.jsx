@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { ImCancelCircle } from "react-icons/im";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faPrint } from "@fortawesome/free-solid-svg-icons";
 import Menu from "../../../component/Menu";
 import Topnav from "../../../component/Topnav";
 import "../../../CSS/CutStable.css";
@@ -33,7 +33,7 @@ function CusStableReadID() {
           <Menu />
         </section>
         <main className="main">
-          <div className="title-Text-cutstable">
+          {/* <div className="title-Text-cutstable">
             <div className="top-text-cutstable">
               <div className="text-new-EM-Unit">
                 <div
@@ -46,8 +46,23 @@ function CusStableReadID() {
                 <div className="titleText">รายละเอียดการปรับสต๊อก</div>
               </div>
             </div>
+          </div> */}
 
-            {/* <div className="all-btn-0">
+          <div className="title-Text-new">
+            <div className="top-text-new-EM">
+              <div className="text-new-EM-Unit">
+                <div
+                  className="titleText"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(-1)}
+                >
+                  <FaArrowLeftLong />
+                </div>
+                <div className="titleText">รายละเอียดการปรับสต๊อก</div>
+              </div>
+            </div>
+
+            <div className="all-btn-0">
               <button
                 className="btn01"
                 type="submit"
@@ -70,7 +85,7 @@ function CusStableReadID() {
                 className="btn01"
                 type="submit"
                 style={{
-                  background: "#22a699",
+                  background: "#000",
                   color: "white",
                   width: "auto",
                   height: "auto",
@@ -79,12 +94,13 @@ function CusStableReadID() {
                 }}
               >
                 <div className="btn-save01">
-                  <FontAwesomeIcon icon={faFloppyDisk} />
-                  <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+                  <FontAwesomeIcon icon={faPrint} />
+                  <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
                 </div>
               </button>
-            </div> */}
+            </div>
           </div>
+
           {data.map((d, index) => (
             <div className="box-big-bg-new">
               <div className="box-BG-area-new">

@@ -145,7 +145,7 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                         <th>รหัส</th>
                         <th>วันหมดอายุ</th>
                         <th>ราคา (บาท)</th>
-                        <th>ปริมาณ (กรัม)</th>
+                        {/* <th>ปริมาณ (กรัม)</th> */}
                         <th>ปริมาณคงเหลือ (กรัม)</th>
                         <th>ใส่ปริมาณที่ต้องการ</th>
                       </tr>
@@ -183,7 +183,7 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                             {/* #2f14c7 */}
                           </td>
                           <td>{item.cost}</td>
-                          <td>{item.amount}</td>
+                          {/* <td>{item.amount}</td> */}
                           <td>{item.amount_re}</td>
                           <td>
                             <input

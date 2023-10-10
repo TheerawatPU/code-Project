@@ -11,9 +11,14 @@ import Report1Chart1 from "./Report1Chart1";
 import Report1Chart2 from "./Report1Chart2";
 import Report1Chart3 from "./Report1Chart3";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faArrowLeft,
+  faPrint,
+} from "@fortawesome/free-solid-svg-icons";
+
 function TabReport1() {
-
-
   const [idStapleCount, setIdStapleCount] = useState(0);
 
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
@@ -57,7 +62,28 @@ function TabReport1() {
                   ค้นหา
                 </button>
               </div>
+
+              <div className="report-print">
+                <button
+                  className="Report_search_btn"
+                  type="submit"
+                  style={{
+                    background: "#000",
+                    color: "white",
+                    width: "auto",
+                    height: "auto",
+                    marginLeft: "50px",
+                  }}
+                >
+                  <div className="btn-save01">
+                    <FontAwesomeIcon icon={faPrint} />
+
+                    <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
+                  </div>
+                </button>
+              </div>
             </div>
+
             <div className="Rbox2">
               <div className="Rbox2-2">
                 <div className="Rbox2-2-2-1">
@@ -98,8 +124,8 @@ function TabReport1() {
                 </div>
                 <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">วัตถุดิบทั้งหมด</div>
-                    <div className="title-boxRSM2">10</div>
+                    <div className="title-boxRSM1">วัตถุดิบใหม่</div>
+                    <div className="title-boxRSM2">2</div>
                   </div>
                 </div>
                 <div className="boxRSM2-1-1">
@@ -148,8 +174,7 @@ function TabReport1() {
                   </div>
                 </div>
 
-                <div className="mainR" >
-                  
+                <div className="mainR">
                   {activeTab === 1 ? (
                     <Report1Chart1 />
                   ) : activeTab === 2 ? (

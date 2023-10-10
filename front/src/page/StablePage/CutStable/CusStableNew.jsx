@@ -154,6 +154,8 @@ function CusStableNew() {
           <Menu />
         </section>
         <main className="main">
+
+          
           <div className="title-Text-new">
             <div className="top-text-new-EM">
               <div className="text-new-EM-Unit">

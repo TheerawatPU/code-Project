@@ -8,7 +8,7 @@ import Topnav from "../../component/Topnav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
-import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faXmark ,faPrint} from "@fortawesome/free-solid-svg-icons";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { ImCancelCircle } from "react-icons/im";
 import { BiPlus } from "react-icons/bi";
@@ -82,11 +82,12 @@ function Utest() {
                   <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
                 </div>
               </button>
+              
               <button
                 className="btn01"
                 type="submit"
                 style={{
-                  background: "#22a699",
+                  background: "#000",
                   color: "white",
                   width: "auto",
                   height: "auto",
@@ -95,8 +96,9 @@ function Utest() {
                 }}
               >
                 <div className="btn-save01">
-                  <FontAwesomeIcon icon={faFloppyDisk} />
-                  <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+                  <FontAwesomeIcon icon={faPrint} />
+                  
+                  <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
                 </div>
               </button>
             </div>
@@ -109,7 +111,7 @@ function Utest() {
           <div className="Ubox0">
             <div className="Ubox1">
               <div className="Ubox1-1">
-                <h2 style={{ marginBottom: "25px" }}>ข้อมูลการผลิต</h2>
+                <h2 style={{ marginBottom: "25px" }}>ข้อมูลสูตรผลิต</h2>
 
                 <div className="Ubox1-1-1">
                   <label className="form-label1-1">รหัสสูตร :</label>
@@ -184,7 +186,7 @@ function Utest() {
 
             <div className="Ubox2">
               <div className="Ubox2-1">
-                <h2 style={{ marginBottom: "25px" }}>ตารางวัตถุดิบ</h2>
+                <h2 style={{ marginBottom: "25px" }}>ตารางวัตถุดิบที่ใช้</h2>
 
                 <div className="Ubox2-1-1">
                   <div class="table-body-Unit">

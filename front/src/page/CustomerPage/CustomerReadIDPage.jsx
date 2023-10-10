@@ -10,13 +10,21 @@ import {
   faPenToSquare,
   faArrowLeft,
   faFloppyDisk,
+  faPrint,
 } from "@fortawesome/free-solid-svg-icons";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { ImCancelCircle } from "react-icons/im";
 
+// import customerPDF from "./customerPDF";
+import CustomerPDF from "./customerPDF"; // แก้ import นี้
+
 function CustomerReadIDPage() {
   const { id } = useParams();
+
   const [Data, setdata] = useState([]);
+
+  const idPage = id;
+  console.log("idPage", idPage);
 
   useEffect(() => {
     axios
@@ -39,7 +47,6 @@ function CustomerReadIDPage() {
         {Data.map((d, index) => (
           <div className="box-big-bg-new-C" key={index}>
             <div className="box-BG-area-new-Customer">
-
               <div className="title-Text-customer">
                 <div className="top-text-new-EM">
                   <div className="text-new-EM-Unit">
@@ -50,7 +57,7 @@ function CustomerReadIDPage() {
                     >
                       <FaArrowLeftLong />
                     </div>
-                    <div className="titleText">แก้ไขข้อมูลลูกค้า</div>
+                    <div className="titleText">ดูข้อมูลลูกค้า</div>
                   </div>
                 </div>
 
@@ -77,23 +84,23 @@ function CustomerReadIDPage() {
                     className="btn01"
                     type="submit"
                     style={{
-                      background: "#22a699",
+                      background: "#000",
                       color: "white",
                       width: "auto",
                       height: "auto",
                       marginLeft: "20px",
                       marginBottom: "10px",
                     }}
-                    onClick={(e) => {
-                      handleUpdate(e);
-                    }}
                   >
                     <div className="btn-save01">
-                      <FontAwesomeIcon icon={faFloppyDisk} />
-                      <label style={{ paddingLeft: "5px" }}>บันทึก</label>
+                      <FontAwesomeIcon icon={faPrint} />
+                      {/* <FontAwesomeIcon icon={faFloppyDisk} /> */}
+                      <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
                     </div>
                   </button>
                 </div>
+
+                <CustomerPDF idPage={idPage} />
               </div>
 
               <form className="form-stable-new-C">
