@@ -96,7 +96,7 @@ export const cutStock_ID = (req, res) => {
 // อ่านข้อมูล lot and amount_re
 export const cutStock_ID_read = (req, res) => {
   const id = req.params.id;
-  const sql = "SELECT id_cutStock , DATE_FORMAT(cut_stock.date_cutStock, '%d/%m/%Y') AS date_cutStock ,staple.Name_staple,cut_stock.id_lot,amount_old,amount_total,cause,details_cutStock FROM cut_stock INNER JOIN staple ON cut_stock.id_staple = staple.id_staple INNER JOIN lots ON cut_stock.id_lot = lots.id_lot WHERE `id_cutStock` = ?";
+  const sql = "SELECT id_cutStock , DATE_FORMAT(cut_stock.date_cutStock, '%d/%m/%Y') AS date_cutStock ,staple.Name_staple,cut_stock.id_lot,amount_old,amount_total,cause,details_cutStock,employees.name FROM cut_stock INNER JOIN staple ON cut_stock.id_staple = staple.id_staple INNER JOIN lots ON cut_stock.id_lot = lots.id_lot INNER JOIN employees ON cut_stock.id_employee = employees.id_employee WHERE `id_cutStock` = ?";
 
   db.query(sql, [id], (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });

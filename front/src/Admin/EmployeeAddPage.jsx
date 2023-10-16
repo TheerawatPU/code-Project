@@ -4,11 +4,18 @@ import TopNavAD from "./ComponentAD/TopNavAD";
 import MenuAD from "./ComponentAD/MenuAD";
 import "./CSS/Employee.css";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFloppyDisk,
+  faXmark,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import profileBG from "./img/profileBG.png";
 import logo from "./img/logo2.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { ImCancelCircle } from "react-icons/im";
 
+import pat from "./img/pat.png";
 function EmployeeAddPage() {
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
 
@@ -26,7 +33,6 @@ function EmployeeAddPage() {
     username: "",
     password: "",
     image: "",
-    
   });
 
   const handleSubmit = (event) => {
@@ -63,7 +69,7 @@ function EmployeeAddPage() {
     setImages([...e.target.files]);
   }
 
-  console.log("values",values);
+  console.log("values", values);
   console.log(image);
 
   return (
@@ -75,20 +81,253 @@ function EmployeeAddPage() {
         <MenuAD />
       </section>
       <main className="main">
-        <div className="top-text-new-EM">
-          <div className="text-new-EM">เพิ่มข้อมูลพนักงาน</div>
+        <div className="title-Text-customer">
+          <div className="top-text-new-EM">
+            <div className="text-new-EM-Unit">
+              <div
+                className="titleText"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(-1)}
+              >
+                <FaArrowLeftLong />
+              </div>
+              <div className="titleText">แก้ไขข้อมูลตัวเอง</div>
+            </div>
+          </div>
+
+          <div className="all-btn-0">
+            <button
+              className="btn01"
+              type="submit"
+              style={{
+                background: "rgb(221 62 62)",
+                color: "white",
+                width: "auto",
+                height: "auto",
+                marginLeft: "20px",
+                marginBottom: "10px",
+              }}
+              onClick={() => navigate(-1)}
+            >
+              <div className="btn-save01">
+                <ImCancelCircle />
+                <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
+              </div>
+            </button>
+            <button
+              className="btn01"
+              type="submit"
+              style={{
+                background: "#22a699",
+                color: "white",
+                width: "auto",
+                height: "auto",
+                marginLeft: "20px",
+                marginBottom: "10px",
+              }}
+              onClick={(e) => {
+                handleSubmit(e);
+              }}
+            >
+              <div className="btn-save01">
+                {/* <FontAwesomeIcon icon={faFloppyDisk} /> */}
+                <FontAwesomeIcon icon={faPenToSquare} />
+                <label style={{ paddingLeft: "5px" }}>แก้ไข</label>
+              </div>
+            </button>
+          </div>
         </div>
 
-        <div className="text-new-lg">
-          กรุณากรอกข้อมูลให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
+        <div className="col0">
+          <div className="col1">
+            <div className="pic">
+              <div className="pib">
+                <img src={pat} alt="" className="imgs" />
+              </div>
+              <button className="bbb1" style={{ marginTop: "20px" }}>
+                เลือก
+              </button>
+            </div>
+          </div>
+          <div className="col2">
+            <div className="row2-1">
+              <div className="rowcol1">
+                <h4>รหัสพนักงาน</h4>
+                <input type="text" className="inputcol1" disabled value={18} />
+              </div>
+              <div className="rowcol1">
+                <div className="rowcol1">
+                  <h4>ตำแหน่ง</h4>
+                  {/* <select name="" id="" className="inputcol1" >
+                    <option value="">พนักงานฝ่ายผลิต</option>
+                    <option value="">ผู้บริหาร</option>
+                  </select> */}
+
+                  <input
+                    type="text"
+                    className="inputcol1"
+                    value={"ผู้บริหาร"}
+                    style={{ color: "black" }}
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row2-2">
+              <div className="rowcol2" style={{ width: "30%", color: "black" }}>
+                <h4>คำนำหน้า</h4>
+                <select
+                  // disabled
+                  type="text"
+                  className="inputcol1"
+                  style={{ width: "90%", height: "65%", color: "black" }}
+                >
+                  <option value="">เลือกคำนำหน้า</option>
+                  <option value="">นาย</option>
+                </select>
+              </div>
+
+              <div className="rowcol1" style={{ width: "70%" }}>
+                <div className="rowcol2">
+                  <h4>ชื่อนามสกุล</h4>
+                  <input
+                    type="text"
+                    className="inputcol1"
+                    style={{ width: "95%", color: "black" }}
+                    // disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row2-1">
+              <div className="rowcol1">
+                <h4>เพศ</h4>
+                <select
+                  // disabled
+                  type="text"
+                  className="inputcol1"
+                  style={{ width: "90%", height: "65%", color: "black" }}
+                >
+                  <option value="">ชาย</option>
+                </select>
+              </div>
+
+              <div className="rowcol1">
+                <div className="rowcol1">
+                  <h4>วันเกิด</h4>
+                  <input
+                    type="date"
+                    className="inputcol1"
+                    // disabled
+                    style={{ color: "black" }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row2-1">
+              <div className="rowcol1">
+                <h4>เลขบัตรประชาชน</h4>
+                <input
+                  // disabled
+                  type="text"
+                  className="inputcol1"
+                  style={{ width: "97%", color: "black" }}
+                />
+              </div>
+            </div>
+
+            {/* <div className="row2-1">
+              <div className="rowcol1">
+                <h4>อีเมล</h4>
+                <input
+                  type="text"
+                  className="inputcol1"
+                  style={{ width: "97%" }}
+                />
+              </div>
+            </div> */}
+
+            <div className="row2-1">
+              <div className="rowcol1">
+                <h4>เบอร์โทรศัพท์</h4>
+                <input
+                  type="text"
+                  className="inputcol1"
+                  // disabled
+                  style={{ color: "black" }}
+                />
+              </div>
+              <div className="rowcol1">
+                <div className="rowcol1">
+                  <h4>เฟสบุ๊ค</h4>
+                  <input
+                    type="text"
+                    className="inputcol1"
+                    // disabled
+                    style={{ color: "black" }}
+                  />
+                </div>
+              </div>
+              <div className="rowcol1">
+                <div className="rowcol1">
+                  <h4>ไอดีไลน์</h4>
+                  <input
+                    type="text"
+                    className="inputcol1"
+                    // disabled
+                    style={{ color: "black" }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="row2-1">
+              <div className="rowcol1">
+                <h4>สถานะการทำงาน</h4>
+                <select
+                  type="text"
+                  className="inputcol1"
+                  style={{ width: "100%" }}
+                >
+                  <option value="">กำลังทำงาน</option>
+                </select>
+              </div>
+            </div> */}
+
+            <div className="row2-1">
+              <div className="rowcol1">
+                <h4>บัญชีผู้ใช้</h4>
+                <input
+                  // disabled
+                  type="text"
+                  className="inputcol1"
+                  style={{ width: "97%", color: "black" }}
+                />
+              </div>
+            </div>
+
+            <div className="row2-1">
+              <div className="rowcol1">
+                <h4>รหัสผ่าน</h4>
+                <input
+                  // disabled
+                  type="text"
+                  className="inputcol1"
+                  style={{ width: "97%", color: "black" }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="box-big-bg-new-EM">
           {/* //!ฟอร์มที่1 รูป */}
-          <div className="box-BG-area-new-EM">
+          {/* <div className="box-BG-area-new-EM">
             <form className="form-EM-new" onSubmit={handleSubmit}>
               <div className="form-row-img-AD">
-                {/* <img src={profileBG} alt="" className="img-AD" /> */}
                 {imageURls.map((imageSrc, index) => (
                   <img key={index} src="{imageSrc}" />
                 ))}
@@ -102,11 +341,12 @@ function EmployeeAddPage() {
                 />
               </div>
             </form>
-          </div>
+          </div> */}
+
           {/* //!ฟอร์มที่2 ข้อมูลส่วนตัว */}
-          <div className="box-BG-area-new-EM">
+          {/* <div className="box-BG-area-new-EM">
             <form className="form-EM-new" onSubmit={handleSubmit}>
-              {/* เลือกตำแหน่ง และสถานะ */}
+
               <h2 style={{ marginBottom: "20px" }}>ข้อมูลส่วนตัว</h2>
               <div className="form-row-new-select-EM">
                 <div className="select-row-C">
@@ -143,7 +383,6 @@ function EmployeeAddPage() {
                 </div>
               </div>
 
-              {/*คำนำหน้า ชื่อ-นามสกุล */}
               <div className="form-row-new-select-EM">
                 <div className="select-row-C">
                   <label className="form-label-new-EM">
@@ -175,7 +414,6 @@ function EmployeeAddPage() {
                 </div>
               </div>
 
-              {/* เพศ วันเกิด */}
               <div className="form-row-new-select-EM-Radio">
                 <div className="select-row-Radio">
                   <div className="btn-Radio">
@@ -216,7 +454,6 @@ function EmployeeAddPage() {
                 </div>
               </div>
 
-              {/* เบอร์โทร IDLine Facebook */}
 
               <div className="form-row-new-select-EM">
                 <div className="select-row-C">
@@ -266,9 +503,9 @@ function EmployeeAddPage() {
                 />
               </div>
             </form>
-          </div>
+          </div> */}
           {/* //!ฟอร์มที่3 บัญชีผู้ใช้ */}
-          <div className="box-BG-area-new-EM">
+          {/* <div className="box-BG-area-new-EM">
             <form className="form-EM-new" onSubmit={handleSubmit}>
               <h2 style={{ marginBottom: "20px" }}>บัญชีผู้ใช้</h2>
               <div className="form-row-new">
@@ -300,9 +537,9 @@ function EmployeeAddPage() {
                 <input type="text" className="form-input-new-EM" />
               </div>
             </form>
-          </div>
+          </div> */}
           {/* //!ปุ่ม */}
-          <div className="btn-submit-new">
+          {/* <div className="btn-submit-new">
             <div className="btn-area-new">
               <button
                 type="cancle"
@@ -323,7 +560,7 @@ function EmployeeAddPage() {
                 <span>บันทึก</span>
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </main>
     </div>

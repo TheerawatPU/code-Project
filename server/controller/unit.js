@@ -82,8 +82,10 @@ export const newAddUnit = (req, res) => {
 export const UreadID = (req, res) => {
   const id = req.params.id;
 
-  const sqlUnit = "SELECT unit.id_unit,unit.unit_name,DATE_FORMAT(unit.day_admit_list, '%d/%m/%Y') AS day_admit_list,unit.notification_num, DATE_FORMAT(unit.date_notification_num, '%d/%m/%Y') AS date_notification_num,customer.name_cus,employees.name ,staple.Name_staple,  detail_unit.AmountP FROM `unit` INNER JOIN customer ON unit.id_customer = customer.id_customer  INNER JOIN employees ON unit.id_employee = employees.id_employee  INNER JOIN detail_unit ON  unit.id_unit = detail_unit.id_unit  INNER JOIN staple ON detail_unit.id_staple = staple.id_staple WHERE unit.id_unit = ?";
-  const sqlDetail_unit = "SELECT detail_unit.id_unit , staple.Name_staple, staple.Name_INCIname , detail_unit.AmountP FROM detail_unit INNER JOIN staple ON detail_unit.id_staple = staple.id_staple WHERE id_unit = ?";
+  const sqlUnit =
+    "SELECT unit.id_unit,unit.unit_name,DATE_FORMAT(unit.day_admit_list, '%d/%m/%Y') AS day_admit_list,unit.notification_num, DATE_FORMAT(unit.date_notification_num, '%d/%m/%Y') AS date_notification_num,customer.name_cus,employees.name ,staple.Name_staple,  detail_unit.AmountP FROM `unit` INNER JOIN customer ON unit.id_customer = customer.id_customer  INNER JOIN employees ON unit.id_employee = employees.id_employee  INNER JOIN detail_unit ON  unit.id_unit = detail_unit.id_unit  INNER JOIN staple ON detail_unit.id_staple = staple.id_staple WHERE unit.id_unit = ?";
+  const sqlDetail_unit =
+    "SELECT detail_unit.id_unit , staple.Name_staple, staple.Name_INCIname , detail_unit.AmountP FROM detail_unit INNER JOIN staple ON detail_unit.id_staple = staple.id_staple WHERE id_unit = ?";
 
   db.query(sqlUnit, [id], (err, unitResults) => {
     if (err) {
@@ -102,3 +104,28 @@ export const UreadID = (req, res) => {
   });
 };
 
+// อ่านข้อมูลแต่ละไอดี
+export const UreadID1 = (req, res) => {
+  const id = req.params.id;
+
+  const sqlUnit =
+    "SELECT unit.id_unit,unit.unit_name,DATE_FORMAT(unit.day_admit_list, '%d/%m/%Y') AS day_admit_list,unit.notification_num, DATE_FORMAT(unit.date_notification_num, '%d/%m/%Y') AS date_notification_num,customer.name_company,customer.name_cus,employees.name,customer.phone_cus,CONCAT(customer.address_cus , ' ตำบล' , customer.subdistricts , ' อำเภอ' , customer.districts , '  จังหวัด' , customer.provinces , ' รหัสไปรษณี ' , customer.zip_code) AS address_customer ,staple.Name_staple,  detail_unit.AmountP FROM `unit` INNER JOIN customer ON unit.id_customer = customer.id_customer  INNER JOIN employees ON unit.id_employee = employees.id_employee  INNER JOIN detail_unit ON  unit.id_unit = detail_unit.id_unit  INNER JOIN staple ON detail_unit.id_staple = staple.id_staple WHERE unit.id_unit = ?;";
+  const sqlDetail_unit =
+    "SELECT detail_unit.id_unit , staple.Name_staple, staple.Name_INCIname , detail_unit.AmountP FROM detail_unit INNER JOIN staple ON detail_unit.id_staple = staple.id_staple WHERE id_unit = ?";
+
+  db.query(sqlUnit, [id], (err, unitResults) => {
+    if (err) {
+      return res.json({ Message: "เกิดข้อผิดพลาดในการดึงข้อมูลสูตร" });
+    } else {
+      db.query(sqlDetail_unit, [id], (err, detail_unit) => {
+        if (err) {
+          return res.json({
+            Message: "เกิดข้อผิดพลาดในการดึงข้อมูลวัตถุดิบในสูตร",
+          });
+        } else {
+          res.json({ unitResults: unitResults[0], detail_unit });
+        }
+      });
+    }
+  });
+};

@@ -25,7 +25,7 @@ function TabUnit2() {
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
-      .get("http://localhost:5500/productRead")
+      .get("http://localhost:5500/producter")
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -89,7 +89,7 @@ function TabUnit2() {
                 <th>วันที่ผลิต</th>
                 <th>วันที่ส่งมอบ</th>
                 <th>ยอดรวม </th>
-                <th>สถานะการชำระ</th>
+              
                 <th>ยืนยันการผลิต</th>
                 <th>ผู้บันทึก</th>
 
@@ -121,31 +121,32 @@ function TabUnit2() {
                     </td>
                     <td>{item.day_productorder}</td>
                     <td>{item.day_move}</td>
-                    <td>{item.amount_productorder}</td>
-                    <td>ชำระแล้ว</td>
+                    <td>{item.total_cost}</td>
+                    
                     <td>ยืนยันแล้ว</td>
                     <td>{userLoginData[0].name}</td>
 
                     <td className="TDStable">
-                      <button
-                        className="btnstableRead"
-                        onClick={() =>
-                          navigate(`ProductID/${item.id_productorder}`)
-                        }
-                      >
-                        <h3>
-                          <FaEye />
-                        </h3>
-                      </button>
-                      <button
-                        onClick={() => navigate(`StableEdit/${item.id_unit}`)}
-                        className="btnstableEdit"
-                      >
-                        <h3>
-                          <FaPen />
-                        </h3>
-                      </button>
-                    </td>
+                  <button
+                    className="btnstableRead2"
+                    onClick={() => navigate(`ProductID/${ProductID}`)}
+                  >
+                    <div className="icon_edit">
+                      <FontAwesomeIcon icon={faEye} />
+                    </div>
+                    {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
+                  </button>
+
+                  <button
+                    onClick={() => navigate(`StableEdit/$`)}
+                    className="btnstableEdit2"
+                  >
+                    <div className="icon_edit">
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </div>
+                    {/* <div className="test-icon-edit">แก้ไข</div> */}
+                  </button>
+                </td>
                   </tr>
                 );
               })}
@@ -159,7 +160,7 @@ function TabUnit2() {
                 <td>12/12/2023</td>
                 <td>5/5/2024</td>
                 <td>4500</td>
-                <td>ยังไม่ชำระ</td>
+              
                 <td>
                   <button className="btnstableRead">
                     <h3>ยืนยัน</h3>

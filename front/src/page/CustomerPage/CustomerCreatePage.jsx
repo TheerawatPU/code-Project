@@ -179,7 +179,6 @@ function CustomerCreatePage() {
       <main className="main">
         <div className="box-big-bg-new-C">
           <div className="box-BG-area-new-Customer">
-
             <div className="title-Text-customer">
               <div className="top-text-new-EM">
                 <div className="text-new-EM-Unit">
@@ -237,7 +236,6 @@ function CustomerCreatePage() {
             </div>
 
             <form className="form-customer-new-C" onSubmit={handleSubmit}>
-              
               <div className="form-row-new-C">
                 <label className="form-label-new-C">รหัสลูกค้า :</label>
                 <input

@@ -6,6 +6,7 @@ import { GiBackwardTime } from "react-icons/gi";
 import { PiMoneyLight } from "react-icons/pi";
 import "../CSS/Component.css";
 import logo from "../Admin/img/logo2.png";
+import { RiUserSettingsLine } from "react-icons/ri";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -28,9 +29,9 @@ function Menu() {
           <div className="item-bar-EM">
             <a href="/EM/Unit">
               <div className="side-item-EM">
-                {/* <FontAwesomeIcon icon={faStar} /> */}
+               
                 <FontAwesomeIcon icon={faListCheck} />
-                {/* <BsBoxes /> */}
+               
                 <span>การผลิต</span>
               </div>
             </a>
@@ -43,10 +44,8 @@ function Menu() {
             <a href="/EM/CustomerReadPage">
               <div className="side-item-EM">
                 {/* <FontAwesomeIcon icon={faUser} /> */}
-
-                <FontAwesomeIcon icon={faUser} />
-
-                <span>ลูกค้า</span>
+                <RiUserSettingsLine />
+                <span>พนักงาน</span>
               </div>
             </a>
             <a href="/EM/Report">
@@ -57,8 +56,6 @@ function Menu() {
             </a>
           </div>
         </div>
-
-        
       </div>
     </>
   );

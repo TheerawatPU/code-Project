@@ -32,20 +32,26 @@ function MenuAD() {
           <div className="item-bar-EM">
             <a href="/AD/StockReadPage">
               <div className="side-item-EM">
-                {/* <FontAwesomeIcon icon={faStar} /> */}
                 <FontAwesomeIcon icon={faListCheck} />
-                {/* <BsBoxes /> */}
-                <span>ตัดสต๊อก</span>
+
+                <span>การผลิต</span>
+              </div>
+            </a>
+            <a href="/EM/StablePage">
+              <div className="side-item-EM">
+                <BsBoxSeam />
+                <span>วัตถุดิบ</span>
               </div>
             </a>
             <a href="/AD/EmployeeReadPage">
               <div className="side-item-EM">
-                <RiUserSettingsLine />
+                {/* <RiUserSettingsLine /> */}
                 {/* <FontAwesomeIcon icon={faUser} /> */}
 
                 {/* <img src={profile} alt="" className="img-profile-AD" /> */}
-
-                <span>พนักงาน</span>
+                <FontAwesomeIcon icon={faUser} />
+                {/* <RiUserSettingsLine /> */}
+                <span>ลูกค้า</span>
               </div>
             </a>
             <a href="/AD/ReportReadPageEM">

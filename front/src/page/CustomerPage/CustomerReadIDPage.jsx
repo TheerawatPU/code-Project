@@ -6,26 +6,45 @@ import Topnav from "../../component/Topnav";
 import Menu from "../../component/Menu";
 import "../../CSS/CustomerNew.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPenToSquare,
-  faArrowLeft,
-  faFloppyDisk,
-  faPrint,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { ImCancelCircle } from "react-icons/im";
 
-// import customerPDF from "./customerPDF";
-import CustomerPDF from "./customerPDF"; // แก้ import นี้
+// font
+import FontTH from "../../PDF/THSarabun.ttf";
+import FontTHBold from "../../PDF/THSarabun Bold.ttf";
+
+// PDF
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+  Font,
+  Image,
+} from "@react-pdf/renderer";
+
+// PDF
+import logo from "../../PDF/logo.jpg";
+
+// PDF
+import {
+  Table,
+  TableHeader,
+  TableCell,
+  TableBody,
+  DataTableCell,
+} from "@david.kucsai/react-pdf-table";
 
 function CustomerReadIDPage() {
+  // นำทางข้าม component
+  const navigate = useNavigate();
+
+  // ไอดีจาก URL
   const { id } = useParams();
 
   const [Data, setdata] = useState([]);
-
-  const idPage = id;
-  console.log("idPage", idPage);
-
   useEffect(() => {
     axios
       .get("http://localhost:5500/customerID/" + id)
@@ -33,7 +52,84 @@ function CustomerReadIDPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  const navigate = useNavigate();
+  // สไตล์ใน PDF
+  const styles = StyleSheet.create({
+    page: {
+      fontFamily: "FontTH",
+      padding: 10,
+    },
+    section: {
+      margin: 15,
+      padding: 10,
+      flexGrow: 1,
+      fontFamily: "FontTH",
+      fontSize: 15,
+      // border: 1,
+    },
+    section5: {
+      marginTop: 15,
+      paddingTop: 10,
+      flexGrow: 1,
+      fontFamily: "FontTH",
+      fontSize: 15,
+      // border: 1,
+    },
+
+    texts: {
+      fontSize: 18,
+      fontFamily: "FontTHBold",
+    },
+    title: {
+      marginTop: 0,
+      fontSize: 25,
+      fontFamily: "FontTHBold",
+      textAlign: "center",
+    },
+    body: {
+      flexDirection: "row",
+      fontFamily: "FontTH",
+      paddingLeft: 15,
+      marginLeft: 10,
+      // border: 1,
+      fontSize: 15,
+    },
+    body3: {
+      fontFamily: "FontTH",
+      margin: 15,
+      padding: 10,
+      fontSize: 15,
+      // border: 1,
+    },
+    tableHeader: {
+      textAlign: "center",
+      backgroundColor: "#22a699",
+      fontFamily: "FontTHBold",
+      color: "#ffffff",
+      paddingTop: 3,
+      paddingBottom: 3,
+    },
+    tableHeader2: {
+      paddingTop: 3,
+      paddingBottom: 3,
+      paddingLeft: 10,
+    },
+    body2: {
+      textAlign: "right",
+    },
+    imgLogo: {
+      width: 100,
+      height: 100,
+    },
+    Textpad: {
+      paddingBottom: 10,
+    },
+  });
+
+  // นำฟ้อนมาใช้ PDF
+  Font.register({ family: "FontTH", src: FontTH });
+  Font.register({ family: "FontTHBold", src: FontTHBold });
+
+  // -------------------------
 
   return (
     <div className="all-page">
@@ -62,45 +158,88 @@ function CustomerReadIDPage() {
                 </div>
 
                 <div className="all-btn-0">
-                  <button
-                    className="btn01"
-                    type="submit"
-                    style={{
-                      background: "rgb(221 62 62)",
-                      color: "white",
-                      width: "auto",
-                      height: "auto",
-                      marginLeft: "20px",
-                      marginBottom: "10px",
-                    }}
-                    onClick={() => navigate(-1)}
-                  >
-                    <div className="btn-save01">
-                      <ImCancelCircle />
-                      <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
-                    </div>
-                  </button>
-                  <button
-                    className="btn01"
-                    type="submit"
-                    style={{
-                      background: "#000",
-                      color: "white",
-                      width: "auto",
-                      height: "auto",
-                      marginLeft: "20px",
-                      marginBottom: "10px",
-                    }}
-                  >
-                    <div className="btn-save01">
-                      <FontAwesomeIcon icon={faPrint} />
-                      {/* <FontAwesomeIcon icon={faFloppyDisk} /> */}
-                      <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
-                    </div>
-                  </button>
-                </div>
+                  <PDFDownloadLink
+                    document={
+                      <Document>
+                        <Page size="A4" style={styles.page}>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Image style={styles.imgLogo} src={logo} />
+                          </View>
+                          <Text style={styles.title}>ลูกค้า</Text>
+                          {/*  */}
 
-                <CustomerPDF idPage={idPage} />
+                          <View style={styles.body}>
+                            <Text style={styles.Textpad}>
+                              รหัสลูกค้า : {d.id_customer}
+                            </Text>
+                          </View>
+
+                          <View style={styles.body}>
+                            <Text style={styles.Textpad}>
+                              ชื่อบริษัท : {d.name_company}
+                            </Text>
+                          </View>
+
+                          <View style={styles.body}>
+                            <Text style={styles.Textpad}>
+                              ชื่อลูกค้า : {d.name_cus}
+                            </Text>
+                          </View>
+
+                          <View style={styles.body}>
+                            <Text style={styles.Textpad}>
+                              รหัสบัตรประชาชน : {d.card_ID}
+                            </Text>
+                          </View>
+
+                          <View style={styles.body}>
+                            <Text style={styles.Textpad}>
+                              อีเมล : {d.email_cus}
+                            </Text>
+                          </View>
+
+                          <View style={styles.body}>
+                            <Text style={styles.Textpad}>
+                              เบอร์โทรศัพท์ : {d.phone_cus}
+                            </Text>
+                          </View>
+
+                          <View style={styles.body}>
+                            <Text style={styles.Textpad}>
+                              ที่อยู่ : {d.address}
+                            </Text>
+                          </View>
+
+                          {/*  */}
+                        </Page>
+                      </Document>
+                    }
+                    fileName="ลูกค้า.pdf"
+                  >
+                    <button
+                      className="btn01"
+                      type="submit"
+                      style={{
+                        background: "#000",
+                        color: "white",
+                        width: "auto",
+                        height: "auto",
+                        marginRight: "50px",
+                        marginBottom: "10px",
+                      }}
+                    >
+                      <div className="btn-save01">
+                        <FontAwesomeIcon icon={faPrint} />
+                        <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
+                      </div>
+                    </button>
+                  </PDFDownloadLink>
+                </div>
               </div>
 
               <form className="form-stable-new-C">

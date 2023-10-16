@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../CSS/Unit.css";
 import Menu from "../../component/Menu";
 import Topnav from "../../component/Topnav";
+
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -251,7 +252,7 @@ function UnitNew() {
               >
                 <FaArrowLeftLong />
               </div>
-              <div className="titleText">เพิ่มข้อมูลสูตร</div>
+              <div className="titleText">แก้ไขข้อมูลสูตร</div>
             </div>
           </div>
           <div className="all-btn-0">

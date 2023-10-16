@@ -10,6 +10,8 @@ import {
   stableIdUpdate,
   stableUpdate,
   LotNew,
+  buy_stable_all,
+  producter,
 } from "../controller/stable.js";
 
 //@End Point อ่านข้อมูล  http://localhost:5500/stapleRead
@@ -24,7 +26,6 @@ router.get("/stabletest", stabletest);
 //@End Point เพิ่มข้อมูล   http://localhost:5500/stapleNew
 router.post("/stapleNew", stapleNew);
 
-
 //@End Point เพิ่มข้อมูลLot   http://localhost:5500/LotNew
 router.post("/LotNew", LotNew);
 
@@ -34,9 +35,15 @@ router.get("/stableID/:id", stableID);
 //@End Point อ่านข้อมูลแต่ละไอดีที่จะแก้ไข   http://localhost:5500/stableIdUpdate/:id
 router.get("/stableIdUpdate/:id", stableIdUpdate);
 
-
-
 //@End Point อัพเดตข้อมูล  http://localhost:5500/stableUpdate/:id
 router.put("/stableUpdate/:id", stableUpdate);
+
+// สั่งซื้อวัตถุดิบ
+//@End Point อัพเดตข้อมูล  http://localhost:5500/buy_stable_all
+router.get("/buy_stable_all", buy_stable_all);
+
+// producter
+//@End Point อัพเดตข้อมูล  http://localhost:5500/producter
+router.get("/producter", producter);
 
 export default router;

@@ -64,8 +64,6 @@ function EmployeeReadPage() {
             phone: "ไม่มีข้อมูล",
             line_id: "ไม่มีข้อมูล",
             facebook_id: "ไม่มีข้อมูล",
-            username: "ไม่มีข้อมูล",
-            password: "ไม่มีข้อมูล",
           },
         ]);
       }
@@ -153,8 +151,6 @@ function EmployeeReadPage() {
                 <th>เบอร์โทรศัพท์</th>
                 <th>ไอดีไลน์</th>
                 <th>ชื่อเฟสบุ๊ค</th>
-                <th>ชื่อบัญชี</th>
-                <th>รหัสผ่าน</th>
 
                 <th>แก้ไข</th>
               </tr>
@@ -178,8 +174,6 @@ function EmployeeReadPage() {
                     <td>{item.phone}</td>
                     <td>{item.line_id}</td>
                     <td>{item.facebook_id}</td>
-                    <td>{item.username}</td>
-                    <td>{item.password}</td>
 
                     <td>
                       <div className="TDB">

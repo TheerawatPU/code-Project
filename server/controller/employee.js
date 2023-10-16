@@ -2,7 +2,8 @@ import db from "../db.js";
 
 // โชว์ขข้อมูลพนักงาน
 export const employeeRead = (req, res) => {
-  const sql = "SELECT * FROM employees ORDER BY id_employee DESC";
+  const sql =
+    "SELECT `id_employee`,`department`,`title`,`name`,`sex`, DATE_FORMAT(`birthday`, '%d/%m/%Y') AS birthday,`card_id`,`phone`,`line_id`,`facebook_id` FROM `employees` ORDER BY `id_employee`DESC";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);
@@ -103,7 +104,6 @@ export const loginadmin = (req, res) => {
     }
   });
 };
-
 
 //อ่านข้อมูลที่จะแก้ไข
 export const employeeUpdateID = (req, res) => {

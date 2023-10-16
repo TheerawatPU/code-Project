@@ -5,6 +5,7 @@ import TabReport1 from "./TabReport1";
 import TabReport2 from "./TabReport2";
 import TabReport3 from "./TabReport3";
 import TabReport4 from "./TabReport4";
+import TabReport5 from "./TabReport5";
 import Topnav from "../../component/Topnav";
 import Menu from "../../component/Menu";
 
@@ -50,13 +51,21 @@ function Repoet() {
                 onClick={() => handleTabChange(3)}
                 className={activeTab === 3 ? "active" : ""}
               >
-                สูตรผลิต
+                ปรับสต๊อก
               </button>
             </li>
             <li>
               <button
                 onClick={() => handleTabChange(4)}
                 className={activeTab === 4 ? "active" : ""}
+              >
+                สูตรผลิต
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => handleTabChange(5)}
+                className={activeTab === 5 ? "active" : ""}
               >
                 สั่งผลิต
               </button>
@@ -69,8 +78,10 @@ function Repoet() {
             <TabReport2 />
           ) : activeTab === 3 ? (
             <TabReport3 />
-          ) : (
+          ) : activeTab === 4 ? (
             <TabReport4 />
+          ) : (
+            <TabReport5 />
           )}
         </div>
       </main>

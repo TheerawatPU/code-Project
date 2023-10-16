@@ -1,87 +1,45 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "../../../CSS/lot.css";
+import React, { useEffect, useState } from "react";
 import { FaPen, FaEye } from "react-icons/fa";
-import { BiPlus } from "react-icons/bi";
-
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBoxArchive,
+  faPenToSquare,
+  faEye,
   faPlus,
   faAnglesLeft,
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabContent2() {
+  // ดึงข้อมูลผู้บันทึกที่เข้าระบบตอนนั้น
+  const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
+
+  // ตัวใช้สำหรับการลิงค์ข้าม component
   const navigate = useNavigate();
+
+  //   state สำหรับเก็บข้อมูลที่ได้ทำการโหลดมา
   const [data, setData] = useState([]);
 
-  const [filterVal, setFilterVal] = useState("");
-  const [searchApiData, setSearchApiData] = useState([]);
-
+  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
-    const fetchData = () => {
-      axios
-        .get("http://localhost:5500/stapleRead")
-        .then((res) => {
-          setData(res.data);
-          setSearchApiData(res.data);
-        })
-        .catch((err) => console.log(err));
-    };
-    fetchData();
+    axios
+      .get("http://localhost:5500/buy_stable_all")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
   }, []);
 
-  const handleFilter = (e) => {
-    if (e.target.value == "") {
-      setData(searchApiData);
-    } else {
-      const filterResult = searchApiData.filter(
-        (item) =>
-          //   item.id_staple
-          //     .toLowerCase()
-          //     .includes(e.target.value.toLowerCase()) ||
-          item.Name_staple.toLowerCase().includes(
-            e.target.value.toLowerCase()
-          ) ||
-          item.Name_INCIname.toLowerCase().includes(
-            e.target.value.toLowerCase()
-          ) ||
-          item.reOrder.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.cost.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.amount.toLowerCase().includes(e.target.value.toLowerCase())
-
-        // item.id_customer.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-
-      if (filterResult.length > 0) {
-        setData(filterResult);
-      } else {
-        setData([
-          {
-            id_staple: "ไม่มีข้อมูล",
-            Name_staple: "ไม่มีข้อมูล",
-            Name_INCIname: "ไม่มีข้อมูล",
-            reOrder: "ไม่มีข้อมูล",
-            cost: "ไม่มีข้อมูล",
-            amount: "ไม่มีข้อมูล",
-          },
-        ]);
-      }
-    }
-    setFilterVal(e.target.value);
-  };
-
-  //next page555555
+  //ตัวแปรสำหรับใช้การกดเลขถัดไปของหน้าจอ
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 9;
+  const recordsPerPage = 8;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data.length / recordsPerPage);
   const number = [...Array(npage + 1).keys()].slice(1);
 
+  //   ข้อมูลก่อนหน้า
   function prePage() {
     if (currentPage < firstIndex) {
       setCurrentPage(currentPage - 1);
@@ -90,10 +48,12 @@ function TabContent2() {
     }
   }
 
+  //   ตัวเลขข้อมูล
   function changeCPage(id) {
     setCurrentPage(id);
   }
 
+  //   ข้อมูลถัดไป
   function nextPage() {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
@@ -103,44 +63,35 @@ function TabContent2() {
     <div>
       <main className="main-stable ">
         <div className="grup_btn">
-          <p>รายการสั่งซื้อวัตถุดิบ</p>
+          <p>รายการผลิต</p>
           <input
             className="inputsearch"
             type="text"
             placeholder="ช่องค้นหา...."
-            value={filterVal}
-            onInput={(e) => handleFilter(e)}
+            // value={filterVal}
+            // onInput={(e) => handleFilter(e)}
           />
-          <button
-            className="btnstable2"
-            onClick={() => navigate(`BuyStableNew`)}
-          >
+          <button className="btnstable2" onClick={() => navigate(`ProductNew`)}>
             <div>
               <FontAwesomeIcon icon={faPlus} />
             </div>
             <div>เพิ่ม</div>
           </button>
-          {/* <button
-            className="btnstable"
-            onClick={() => navigate(`BuyStableNew`)}
-          >
-            <h2>
-              <BiPlus />
-            </h2>
-          </button> */}
         </div>
 
         <div class="table-body">
           <table class="styled-table">
             <thead>
               <tr>
-                <th>รหัสรายการสั่งซื้อ</th>
+                <th>รหัสการสั่งซื้อ</th>
                 <th>ร้านที่สั่งซื้อ</th>
                 <th>วันที่สั่งซื้อ</th>
                 <th>วันที่รับวัตถุดิบ</th>
-                <th>รหัสอ้างอิง</th>
+                <th>รหัสอ้างอิง </th>
+
                 <th>ยอดรวม</th>
                 <th>ยืนยันวัตถุดิบ</th>
+                <th>ผู้บันทึก</th>
 
                 <th
                   style={{
@@ -149,7 +100,7 @@ function TabContent2() {
                     marginTop: "10px",
                   }}
                 >
-                  ชื่อผู้บันทึก
+                  แก้ไข
                 </th>
               </tr>
             </thead>
@@ -159,56 +110,85 @@ function TabContent2() {
                   <tr key={index}>
                     <td
                       style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => navigate(`Stabledetel/${item.id_staple}`)}
+                      onClick={() => navigate(`ProductID/${item.id_buylist}`)}
                     >
-                      {item.id_staple}
+                      {item.id_buylist}
                     </td>
+                    <td>
+                      <b>{item.store}</b>
+                    </td>
+                    <td>{item.day_buy}</td>
+                    <td>{item.day_admit_staple}</td>
+                    <td>{item.refer_id}</td>
+                    <td>{item.total_cost}</td>
 
-                    <td style={{ color: item.textColor }}>
-                      {item.Name_staple}
-                    </td>
-                    {/* <td>{item.Name_INCIname}</td> */}
-                    <td style={{ color: item.textColor }}>
-                      {item.Name_INCIname}
-                    </td>
-                    <td style={{ color: item.textColor }}>{item.reOrder}</td>
-                    <td style={{ color: item.textColor }}>{item.cost}</td>
-                    <td style={{ color: item.textColor }}>{item.amount}</td>
+                    <td>ยืนยันแล้ว</td>
+                    <td>{userLoginData[0].name}</td>
 
                     <td className="TDStable">
                       <button
-                        className="btnstableRead"
-                        onClick={() =>
-                          navigate(`Stabledetel/${item.id_staple}`)
-                        }
+                        className="btnstableRead2"
+                        onClick={() => navigate(`ProductID/${ProductID}`)}
                       >
-                        <h3>
-                          <FaEye />
-                        </h3>
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faEye} />
+                        </div>
+                        {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                       </button>
-                      <button
-                        onClick={() => navigate(`StableEdit/${item.id_staple}`)}
-                        className="btnstableEdit"
-                      >
-                        <h3>
-                          <FaPen />
-                        </h3>
-                      </button>
-                      <button
-                        className="btnstableLot"
-                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
-                        onClick={() => navigate(`TableLot/${item.id_staple}`)}
 
-                        // onClick={() => navigate(`TableLot/${item.id_staple}`)}
+                      <button
+                        onClick={() => navigate(`StableEdit/$`)}
+                        className="btnstableEdit2"
                       >
-                        <h3>
-                          <FontAwesomeIcon icon={faBoxArchive} />
-                        </h3>
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faPenToSquare} />
+                        </div>
+                        {/* <div className="test-icon-edit">แก้ไข</div> */}
                       </button>
                     </td>
                   </tr>
                 );
               })}
+
+              {/* ข้อมูลจำลอง */}
+              <tr>
+                <td style={{ color: "blue", cursor: "pointer" }}>2</td>
+                <td>
+                  <b>ดวงใจ เดือนเพ็ญ</b>
+                </td>
+                <td>12/12/2023</td>
+                <td>5/5/2024</td>
+                <td>12345679</td>
+                <td>4500</td>
+
+                <td>
+                  <button className="btnstableRead">
+                    <h3>ยืนยัน</h3>
+                  </button>
+                </td>
+                <td>{userLoginData[0].name}</td>
+                <td className="TDStable">
+                  <button
+                    className="btnstableRead2"
+                    onClick={() => navigate(`ProductID/${ProductID}`)}
+                  >
+                    <div className="icon_edit">
+                      <FontAwesomeIcon icon={faEye} />
+                    </div>
+                    {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
+                  </button>
+
+                  <button
+                    onClick={() => navigate(`StableEdit/$`)}
+                    className="btnstableEdit2"
+                  >
+                    <div className="icon_edit">
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </div>
+                    {/* <div className="test-icon-edit">แก้ไข</div> */}
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
 

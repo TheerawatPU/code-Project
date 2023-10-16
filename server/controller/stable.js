@@ -76,7 +76,6 @@ export const stapleNew = (req, res) => {
   });
 };
 
-
 //เพิ่มข้อมูลLot
 export const LotNew = (req, res) => {
   const sql =
@@ -145,4 +144,25 @@ export const stableUpdate = (req, res) => {
       return res.json(result);
     }
   );
+};
+
+//สั่งซื้อวัตถุดิบ
+export const buy_stable_all = (req, res) => {
+  const sql =
+    "SELECT `id_buylist`,DATE_FORMAT(day_buy, '%d/%m/%Y') AS day_buy,DATE_FORMAT(day_admit_staple, '%d/%m/%Y') AS  day_admit_staple,`store`,`cost_price`,`total_cost`,`refer_id`,`note` FROM `buy_staple` ORDER BY `id_buylist` DESC";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
+// สั่งผลิต
+
+export const producter = (req, res) => {
+  const sql =
+    "SELECT productorder.id_productorder , customer.name_cus , DATE_FORMAT(productorder.day_productorder, '%d/%m/%Y') AS day_productorder  , DATE_FORMAT(productorder.day_move, '%d/%m/%Y') AS day_move , productorder.total_cost FROM `productorder` INNER JOIN customer ON productorder.id_customer = customer.id_customer ORDER BY `id_productorder` DESC";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
 };
