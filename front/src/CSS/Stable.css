@@ -369,7 +369,7 @@ button.btnstableLot2 {
 .form-stable-new {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 .row2form {
   width: 100%;
@@ -377,12 +377,12 @@ button.btnstableLot2 {
   justify-content: space-between;
 }
 /* ฟอร์มเพื่อจัดตำแหน่ง */
-.form-row-new {
+.form-row-new-stable {
   width: 100%;
   display: flex;
   align-items: flex-start;
-  margin-top: 10px;
-  margin-bottom: 25px;
+  /* margin-top: 10px; */
+  /* margin-bottom: 25px; */
   flex-direction: column;
 }
 /* ฟอร์มตัวหนังสือบนฟอร์ม */

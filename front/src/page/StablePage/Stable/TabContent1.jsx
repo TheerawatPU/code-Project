@@ -37,26 +37,23 @@ function TabContent1() {
   //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
   const [filterVal, setFilterVal] = useState("");
   const [searchApiData, setSearchApiData] = useState([]);
+
   const handleFilter = (e) => {
     if (e.target.value == "") {
       setData(searchApiData);
     } else {
       const filterResult = searchApiData.filter(
         (item) =>
-          //   item.id_staple
-          //     .toLowerCase()
-          //     .includes(e.target.value.toLowerCase()) ||
           item.Name_staple.toLowerCase().includes(
             e.target.value.toLowerCase()
           ) ||
           item.Name_INCIname.toLowerCase().includes(
             e.target.value.toLowerCase()
           ) ||
-          item.reOrder.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.cost.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.amount.toLowerCase().includes(e.target.value.toLowerCase())
-
-        // item.id_customer.toLowerCase().includes(e.target.value.toLowerCase())
+          item.reOrder.toString().includes(e.target.value.toString()) ||
+          item.cost.toString().includes(e.target.value.toString()) ||
+          item.amount_re.toString().includes(e.target.value.toString()) ||
+          item.id_staple.toString().includes(e.target.value)
       );
 
       if (filterResult.length > 0) {
@@ -64,12 +61,12 @@ function TabContent1() {
       } else {
         setData([
           {
-            id_staple: "ไม่มีข้อมูล",
             Name_staple: "ไม่มีข้อมูล",
             Name_INCIname: "ไม่มีข้อมูล",
             reOrder: "ไม่มีข้อมูล",
             cost: "ไม่มีข้อมูล",
-            amount: "ไม่มีข้อมูล",
+            amount_re: "ไม่มีข้อมูล",
+            id_staple: "ไม่มีข้อมูล",
           },
         ]);
       }

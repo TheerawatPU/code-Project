@@ -3,7 +3,7 @@ import db from "../db.js";
 //อ่านข้อมูลทั้งหมดของวัตถุดิบ
 export const stapleRead = (req, res) => {
   const sql =
-    "SELECT s.id_staple, s.Name_staple ,s.Name_INCIname,s.reOrder, COALESCE(l.cost, 0) AS cost , COALESCE(l.amount_re, 0) AS amount_re FROM staple s LEFT JOIN ( SELECT id_staple, MAX(id_lot) AS latest_lot_id, cost , amount_re FROM lots GROUP BY id_staple ) AS latest_lots ON s.id_staple = latest_lots.id_staple LEFT JOIN lots l ON latest_lots.latest_lot_id = l.id_lot";
+    "SELECT s.id_staple, s.Name_staple ,s.Name_INCIname,s.reOrder, COALESCE(l.cost, 0) AS cost , COALESCE(l.amount_re, 0) AS amount_re FROM staple s LEFT JOIN ( SELECT id_staple, MAX(id_lot) AS latest_lot_id, cost , amount_re FROM lots GROUP BY id_staple ) AS latest_lots ON s.id_staple = latest_lots.id_staple LEFT JOIN lots l ON latest_lots.latest_lot_id = l.id_lot ORDER BY id_staple DESC";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);

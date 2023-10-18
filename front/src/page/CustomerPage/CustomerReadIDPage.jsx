@@ -153,7 +153,7 @@ function CustomerReadIDPage() {
                     >
                       <FaArrowLeftLong />
                     </div>
-                    <div className="titleText">ดูข้อมูลลูกค้า</div>
+                    <div className="titleText">รายละเอียดลูกค้า</div>
                   </div>
                 </div>
 

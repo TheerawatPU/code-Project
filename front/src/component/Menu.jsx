@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import { FaBoxes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { BsBoxSeam, BsBoxes } from "react-icons/bs";
@@ -17,6 +19,9 @@ import {
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 function Menu() {
+  // ตัวใช้สำหรับการลิงค์ข้าม component
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="mainMenu">
@@ -29,9 +34,8 @@ function Menu() {
           <div className="item-bar-EM">
             <a href="/EM/Unit">
               <div className="side-item-EM">
-               
                 <FontAwesomeIcon icon={faListCheck} />
-               
+
                 <span>การผลิต</span>
               </div>
             </a>
@@ -43,8 +47,8 @@ function Menu() {
             </a>
             <a href="/EM/CustomerReadPage">
               <div className="side-item-EM">
-                {/* <FontAwesomeIcon icon={faUser} /> */}
-                <RiUserSettingsLine />
+                <FontAwesomeIcon icon={faUser} />
+                {/* <RiUserSettingsLine /> */}
                 <span>พนักงาน</span>
               </div>
             </a>

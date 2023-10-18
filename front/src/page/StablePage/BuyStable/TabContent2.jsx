@@ -25,8 +25,11 @@ function TabContent2() {
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
-      .get("http://localhost:5500/buy_stable_all")
-      .then((res) => setData(res.data))
+      .get("http://localhost:5500/buystableRead")
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -59,6 +62,46 @@ function TabContent2() {
       setCurrentPage(currentPage + 1);
     }
   }
+
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.store.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.day_buy.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.refer_id.toString().includes(e.target.value.toString()) ||
+          item.day_admit_staple
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.id_buylist.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            id_buylist: "ไม่มีข้อมูล",
+            store: "ไม่มีข้อมูล",
+            day_buy: "ไม่มีข้อมูล",
+            day_admit_staple: "ไม่มีข้อมูล",
+            refer_id: "ไม่มีข้อมูล",
+            name: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+  //! ..........................................
+
   return (
     <div>
       <main className="main-stable ">
@@ -68,10 +111,13 @@ function TabContent2() {
             className="inputsearch"
             type="text"
             placeholder="ช่องค้นหา...."
-            // value={filterVal}
-            // onInput={(e) => handleFilter(e)}
+            value={filterVal}
+            onInput={(e) => handleFilter(e)}
           />
-          <button className="btnstable2" onClick={() => navigate(`ProductNew`)}>
+          <button
+            className="btnstable2"
+            onClick={() => navigate(`BuyStableNew`)}
+          >
             <div>
               <FontAwesomeIcon icon={faPlus} />
             </div>
@@ -89,8 +135,8 @@ function TabContent2() {
                 <th>วันที่รับวัตถุดิบ</th>
                 <th>รหัสอ้างอิง </th>
 
-                <th>ยอดรวม</th>
-                <th>ยืนยันวัตถุดิบ</th>
+                {/* <th>ยอดรวม</th>
+                <th>ยืนยันวัตถุดิบ</th> */}
                 <th>ผู้บันทึก</th>
 
                 <th
@@ -110,7 +156,9 @@ function TabContent2() {
                   <tr key={index}>
                     <td
                       style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => navigate(`ProductID/${item.id_buylist}`)}
+                      onClick={() =>
+                        navigate(`BuyStableRead/${item.id_buylist}`)
+                      }
                     >
                       {item.id_buylist}
                     </td>
@@ -120,15 +168,17 @@ function TabContent2() {
                     <td>{item.day_buy}</td>
                     <td>{item.day_admit_staple}</td>
                     <td>{item.refer_id}</td>
-                    <td>{item.total_cost}</td>
+                    {/* <td>{item.total_cost}</td> */}
 
-                    <td>ยืนยันแล้ว</td>
-                    <td>{userLoginData[0].name}</td>
+                    {/* <td>ยืนยันแล้ว</td> */}
+                    <td>{item.name}</td>
 
                     <td className="TDStable">
                       <button
                         className="btnstableRead2"
-                        onClick={() => navigate(`ProductID/${ProductID}`)}
+                        onClick={() =>
+                          navigate(`BuyStableRead/${item.id_buylist}`)
+                        }
                       >
                         <div className="icon_edit">
                           <FontAwesomeIcon icon={faEye} />
@@ -149,46 +199,6 @@ function TabContent2() {
                   </tr>
                 );
               })}
-
-              {/* ข้อมูลจำลอง */}
-              <tr>
-                <td style={{ color: "blue", cursor: "pointer" }}>2</td>
-                <td>
-                  <b>ดวงใจ เดือนเพ็ญ</b>
-                </td>
-                <td>12/12/2023</td>
-                <td>5/5/2024</td>
-                <td>12345679</td>
-                <td>4500</td>
-
-                <td>
-                  <button className="btnstableRead">
-                    <h3>ยืนยัน</h3>
-                  </button>
-                </td>
-                <td>{userLoginData[0].name}</td>
-                <td className="TDStable">
-                  <button
-                    className="btnstableRead2"
-                    onClick={() => navigate(`ProductID/${ProductID}`)}
-                  >
-                    <div className="icon_edit">
-                      <FontAwesomeIcon icon={faEye} />
-                    </div>
-                    {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
-                  </button>
-
-                  <button
-                    onClick={() => navigate(`StableEdit/$`)}
-                    className="btnstableEdit2"
-                  >
-                    <div className="icon_edit">
-                      <FontAwesomeIcon icon={faPenToSquare} />
-                    </div>
-                    {/* <div className="test-icon-edit">แก้ไข</div> */}
-                  </button>
-                </td>
-              </tr>
             </tbody>
           </table>
 

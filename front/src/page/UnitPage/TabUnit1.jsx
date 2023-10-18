@@ -23,16 +23,64 @@ function TabUnit1() {
   // ตัวใช้สำหรับการลิงค์ข้าม component
   const navigate = useNavigate();
 
-  //   state สำหรับเก็บข้อมูลที่ได้ทำการโหลดมา
+  //  state สำหรับเก็บข้อมูลที่ได้ทำการโหลดมา
   const [data, setData] = useState([]);
 
-  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
+  //  โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
       .get("http://localhost:5500/unitRead")
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
+
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.unit_name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.day_admit_list
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.notification_num
+            .toString()
+            .includes(e.target.value.toString()) ||
+          item.date_notification_num
+            .toString()
+            .includes(e.target.value.toString()) ||
+          item.name_cus.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.id_unit.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            unit_name: "ไม่มีข้อมูล",
+            day_admit_list: "ไม่มีข้อมูล",
+            notification_num: "ไม่มีข้อมูล",
+            date_notification_num: "ไม่มีข้อมูล",
+            name_cus: "ไม่มีข้อมูล",
+            name: "ไม่มีข้อมูล",
+            id_unit: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+  //! ..........................................
 
   //ตัวแปรสำหรับใช้การกดเลขถัดไปของหน้าจอ
   const [currentPage, setCurrentPage] = useState(1);
@@ -73,8 +121,8 @@ function TabUnit1() {
             className="inputsearch"
             type="text"
             placeholder="ช่องค้นหา...."
-            // value={filterVal}
-            // onInput={(e) => handleFilter(e)}
+            value={filterVal}
+            onInput={(e) => handleFilter(e)}
           />
           <button className="btnstable2" onClick={() => navigate(`UnitNew`)}>
             <div>

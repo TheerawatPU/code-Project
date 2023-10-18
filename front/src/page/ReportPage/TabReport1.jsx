@@ -3,19 +3,18 @@ import React, { useEffect, useState } from "react";
 import "../../CSS/Report.css";
 
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 
 import { FaChartPie, FaChartBar, FaBorderAll } from "react-icons/fa";
-
-import Report1Chart1 from "./Report1Chart1";
-import Report1Chart2 from "./Report1Chart2";
-import Report1Chart3 from "./Report1Chart3";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
   faArrowLeft,
   faPrint,
+  faAnglesLeft,
+  faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabReport1() {
@@ -38,13 +37,41 @@ function TabReport1() {
       });
   }, []);
 
-  // ปุ่มกดเปลี่ยนกราฟ
+  const [data, setData] = useState([]);
+  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/Report_Stable")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
-  const [activeTab, setActiveTab] = useState(1);
+  //next page555555
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 9;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recordsPerPage);
+  const number = [...Array(npage + 1).keys()].slice(1);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  function prePage() {
+    if (currentPage < firstIndex) {
+      setCurrentPage(currentPage - 1);
+    } else if (currentPage === firstIndex) {
+      setCurrentPage(changeCPage + 0);
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
 
   return (
     <>
@@ -146,7 +173,7 @@ function TabReport1() {
               <div className="boxR2-2">
                 <div className="titleR">
                   <div className="titleR-Table">ตารางวัตถุดิบ</div>
-                  <div className="btn-R-chart">
+                  {/* <div className="btn-R-chart">
                     <button
                       className="btn-R-0"
                       onClick={() => handleTabChange(1)}
@@ -171,10 +198,10 @@ function TabReport1() {
                         <FaChartPie />
                       </h4>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
 
-                <div className="mainR">
+                {/* <div className="mainR">
                   {activeTab === 1 ? (
                     <Report1Chart1 />
                   ) : activeTab === 2 ? (
@@ -182,45 +209,72 @@ function TabReport1() {
                   ) : (
                     <Report1Chart3 />
                   )}
+                </div> */}
 
-                  {/* <nav>
-                    <ul
-                      className="pagination-stable"
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        background: "#f5f5f5",
-                      }}
-                    >
-                      <li className="page-item-stable">
-                        <a href="#" className="page-link" onClick={prePage}>
-                          ก่อน
-                        </a>
-                      </li>
-                      {number.map((n, i) => (
-                        <li
-                          className={`page-item-stable ${
-                            currentPage === n ? "active" : ""
-                          }`}
-                          key={i}
+                <table class="styled-table-Unit">
+                  <thead>
+                    <tr>
+                      <th>รหัส</th>
+                      <th>ชื่อวัตถุดิบ</th>
+                      <th>INCIname </th>
+                      <th>จุดสั่งซื้อ</th>
+                      <th>ปริมาณคงเหลือ (กรัม)</th>
+                      <th>ราคา (บาท)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {records.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item.id_staple}</td>
+                          <td>{item.Name_staple}</td>
+                          <td>{item.Name_INCIname}</td>
+                          <td>{item.reOrder}</td>
+                          <td>{item.amount_re}</td>
+                          <td>{item.cost}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+
+                <nav>
+                  <ul
+                    className="pagination-stable"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      background: "none",
+                    }}
+                  >
+                    <li className="page-item-stable">
+                      <a href="#" className="page-link" onClick={prePage}>
+                        <FontAwesomeIcon icon={faAnglesLeft} />
+                      </a>
+                    </li>
+                    {number.map((n, i) => (
+                      <li
+                        className={`page-item-stable ${
+                          currentPage === n ? "active" : ""
+                        }`}
+                        key={i}
+                      >
+                        <a
+                          href="#"
+                          className="page-link"
+                          onClick={() => changeCPage(n)}
                         >
-                          <a
-                            href="#"
-                            className="page-link"
-                            onClick={() => changeCPage(n)}
-                          >
-                            {n}
-                          </a>
-                        </li>
-                      ))}
-                      <li className="page-item-stable">
-                        <a href="#" className="page-link" onClick={nextPage}>
-                          ต่อไป
+                          {n}
                         </a>
                       </li>
-                    </ul>
-                  </nav> */}
-                </div>
+                    ))}
+                    <li className="page-item-stable">
+                      <a href="#" className="page-link" onClick={nextPage}>
+                        <FontAwesomeIcon icon={faAnglesRight} />
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>

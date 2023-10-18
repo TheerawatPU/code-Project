@@ -30,28 +30,28 @@ function MenuAD() {
           </div>
 
           <div className="item-bar-EM">
-            <a href="/AD/StockReadPage">
+            {/* <a href="/AD/StockReadPage">
               <div className="side-item-EM">
                 <FontAwesomeIcon icon={faListCheck} />
 
                 <span>การผลิต</span>
               </div>
-            </a>
-            <a href="/EM/StablePage">
+            </a> */}
+            {/* <a href="/EM/StablePage">
               <div className="side-item-EM">
                 <BsBoxSeam />
                 <span>วัตถุดิบ</span>
               </div>
-            </a>
+            </a> */}
             <a href="/AD/EmployeeReadPage">
               <div className="side-item-EM">
                 {/* <RiUserSettingsLine /> */}
                 {/* <FontAwesomeIcon icon={faUser} /> */}
 
                 {/* <img src={profile} alt="" className="img-profile-AD" /> */}
-                <FontAwesomeIcon icon={faUser} />
-                {/* <RiUserSettingsLine /> */}
-                <span>ลูกค้า</span>
+                {/* <FontAwesomeIcon icon={faUser} /> */}
+                <RiUserSettingsLine />
+                <span>พนักงาน</span>
               </div>
             </a>
             <a href="/AD/ReportReadPageEM">

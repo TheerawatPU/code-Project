@@ -14,6 +14,8 @@ import {
   faPenToSquare,
   faArrowLeft,
   faPrint,
+  faAnglesLeft,
+  faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabReport5() {
@@ -36,13 +38,59 @@ function TabReport5() {
       });
   }, []);
 
-  // ปุ่มกดเปลี่ยนกราฟ
+  const [data, setData] = useState([]);
+  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5500/producter")
+  //     .then((res) => setData(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
-  const [activeTab, setActiveTab] = useState(1);
+  //next page555555
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 11;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recordsPerPage);
+  const number = [...Array(npage + 1).keys()].slice(1);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  function prePage() {
+    if (currentPage < firstIndex) {
+      setCurrentPage(currentPage - 1);
+    } else if (currentPage === firstIndex) {
+      setCurrentPage(changeCPage + 0);
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
+  //
+  const [startDate, setStartDate] = useState(""); // เก็บวันเริ่มต้น
+  const [endDate, setEndDate] = useState(""); // เก็บวันสิ้นสุด
+
+  useEffect(() => {
+    let apiUrl = "http://localhost:5500/producter";
+
+    if (startDate && endDate) {
+      apiUrl += `?startDate=${startDate}&endDate=${endDate}`;
+    }
+
+    axios
+      .get(apiUrl)
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, [startDate, endDate]);
+
   return (
     <>
       <div className="back-0">
@@ -92,13 +140,31 @@ function TabReport5() {
                 </div>
 
                 <div className="Rbox2-2-2-2">
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    type="date"
+                    className="input-date-Report"
+                    onChange={(e) => setStartDate(e.target.value)}
+                    value={startDate}
+                  />
                   <h2>ถึง</h2>
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    className="input-date-Report"
+                    type="date"
+                    onChange={(e) => setEndDate(e.target.value)}
+                    value={endDate}
+                  />
                 </div>
 
                 <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn">ค้นหา</button>
+                  <button
+                    className="Report_search_btn"
+                    onClick={() => {
+                      setStartDate();
+                      setEndDate();
+                    }}
+                  >
+                    ค้นหา
+                  </button>
                 </div>
               </div>
             </div>
@@ -107,93 +173,65 @@ function TabReport5() {
         <div className="back02">
           <div className="back2">
             <div className="back2-2">
-
-              {/* <div className="boxR2-1">
-
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">รายการสั่งผลิตทั้งหมด</div>
-                    <div className="title-list-boxRSM">
-                      <div className="title-boxRSM2">{idStapleCount}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">วัตถุดิบใหม่</div>
-                    <div className="title-boxRSM2">2</div>
-                  </div>
-                </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">
-                      วัตถุดิบต่ำกว่าจุดสั่งซื้อ
-                    </div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
-                </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">วัตถุดิบหมดอายุ</div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
-                </div>
-                
-              </div> */}
-              
               <div className="boxR2-2">
                 <div className="titleR">
                   <div className="titleR-Table">ตารางสั่งผลิต</div>
-                  <div className="btn-R-chart">
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(1)}
-                    >
-                      <h4>
-                        <FaBorderAll />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(2)}
-                    >
-                      <h4>
-                        <FaChartBar />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(3)}
-                    >
-                      <h4>
-                        <FaChartPie />
-                      </h4>
-                    </button>
-                  </div>
                 </div>
 
                 <div className="mainR">
-                  {activeTab === 1 ? (
+                  {/* {activeTab === 1 ? (
                     <Report5Chart1 />
                   ) : activeTab === 2 ? (
                     <Report5Chart1 />
                   ) : (
                     <Report5Chart1 />
-                  )}
+                  )} */}
 
-                  {/* <nav>
+                  <table class="styled-table-Unit">
+                    <thead>
+                      <tr>
+                        <th>รหัสการผลิต</th>
+                        <th>ชื่อลูกค้า</th>
+                        <th>วันที่ผลิต </th>
+                        <th>วันที่ส่งมอบ</th>
+                        <th>ยอดรวม</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {records
+                        .filter((data) => {
+                          const expDate = new Date(data.day_move);
+                          return (
+                            (!startDate || expDate >= new Date(startDate)) &&
+                            (!endDate || expDate <= new Date(endDate))
+                          );
+                        })
+                        .map((item, index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{item.id_productorder}</td>
+                              <td>{item.name_cus}</td>
+                              <td>{item.day_productorder}</td>
+                              <td>{item.day_move}</td>
+                              <td>{item.total_cost}</td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+
+                  <nav>
                     <ul
                       className="pagination-stable"
                       style={{
                         display: "flex",
                         justifyContent: "center",
-                        background: "#f5f5f5",
+                        background: "none",
                       }}
                     >
                       <li className="page-item-stable">
                         <a href="#" className="page-link" onClick={prePage}>
-                          ก่อน
+                          <FontAwesomeIcon icon={faAnglesLeft} />
                         </a>
                       </li>
                       {number.map((n, i) => (
@@ -214,11 +252,11 @@ function TabReport5() {
                       ))}
                       <li className="page-item-stable">
                         <a href="#" className="page-link" onClick={nextPage}>
-                          ต่อไป
+                          <FontAwesomeIcon icon={faAnglesRight} />
                         </a>
                       </li>
                     </ul>
-                  </nav> */}
+                  </nav>
                 </div>
               </div>
             </div>

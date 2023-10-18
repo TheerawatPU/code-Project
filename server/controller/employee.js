@@ -3,7 +3,7 @@ import db from "../db.js";
 // โชว์ขข้อมูลพนักงาน
 export const employeeRead = (req, res) => {
   const sql =
-    "SELECT `id_employee`,`department`,`title`,`name`,`sex`, DATE_FORMAT(`birthday`, '%d/%m/%Y') AS birthday,`card_id`,`phone`,`line_id`,`facebook_id` FROM `employees` ORDER BY `id_employee`DESC";
+    "SELECT `id_employee`,`department`,`title`,`name`,`sex`,DATE_FORMAT(`birthday`, '%d/%m/%Y') AS birthday , `card_id`,`phone`,`line_id`,`facebook_id`,`username`,`password`,`image`,`status` FROM `employees`  ORDER BY `id_employee`DESC";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);
@@ -120,7 +120,7 @@ export const employeeUpdateID = (req, res) => {
 export const employeeUpdate = (req, res) => {
   const id = req.params.id;
   const sql =
-    "UPDATE employees SET `department`= ? , `status`= ? , `title` = ? , `name`= ? , `sex`= ? , `birthday`= ? , `phone`= ?, `line_id`= ?, `facebook_id`= ?, `username`= ?, `password`= ?, `image`= ?   WHERE `id_employee`=?";
+    "UPDATE employees SET `department`= ? , `status`= ? , `title` = ? , `name`= ? , `sex`= ? , `birthday`= ? , `phone`= ?, `line_id`= ?, `facebook_id`= ?, `username`= ?, `password`= ?, `image`= ? , `card_id`= ?  WHERE `id_employee`=?";
   db.query(
     sql,
     [
@@ -136,6 +136,7 @@ export const employeeUpdate = (req, res) => {
       req.body.username,
       req.body.password,
       req.body.image,
+      req.body.card_id,
       id,
     ],
     (err, result) => {

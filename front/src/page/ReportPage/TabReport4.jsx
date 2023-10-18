@@ -14,6 +14,8 @@ import {
   faPenToSquare,
   faArrowLeft,
   faPrint,
+  faAnglesLeft,
+  faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabReport4() {
@@ -36,13 +38,42 @@ function TabReport4() {
       });
   }, []);
 
-  // ปุ่มกดเปลี่ยนกราฟ
+  const [data, setData] = useState([]);
+  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/unitRead")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
-  const [activeTab, setActiveTab] = useState(1);
+  //next page555555
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 9;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recordsPerPage);
+  const number = [...Array(npage + 1).keys()].slice(1);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  function prePage() {
+    if (currentPage < firstIndex) {
+      setCurrentPage(currentPage - 1);
+    } else if (currentPage === firstIndex) {
+      setCurrentPage(changeCPage + 0);
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
   return (
     <>
       <div className="back-0">
@@ -128,9 +159,7 @@ function TabReport4() {
                 </div>
                 <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">
-                      จำนวนเลขจแจ้ง
-                    </div>
+                    <div className="title-boxRSM1">จำนวนเลขจแจ้ง</div>
                     <div className="title-boxRSM2">10</div>
                   </div>
                 </div>
@@ -144,55 +173,56 @@ function TabReport4() {
               <div className="boxR2-2">
                 <div className="titleR">
                   <div className="titleR-Table">ตารางสูตรผลิต</div>
-                  <div className="btn-R-chart">
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(1)}
-                    >
-                      <h4>
-                        <FaBorderAll />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(2)}
-                    >
-                      <h4>
-                        <FaChartBar />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(3)}
-                    >
-                      <h4>
-                        <FaChartPie />
-                      </h4>
-                    </button>
-                  </div>
                 </div>
 
                 <div className="mainR">
-                  {activeTab === 1 ? (
+                  {/* {activeTab === 1 ? (
                     <Report4Chart1 />
                   ) : activeTab === 2 ? (
                     <Report4Chart1 />
                   ) : (
                     <Report4Chart1 />
-                  )}
+                  )} */}
 
-                  {/* <nav>
+                  <table class="styled-table-Unit">
+                    <thead>
+                      <tr>
+                        <th>รหัสสูตร</th>
+                        <th>ชื่อสูตร</th>
+                        <th>วันที่สร้างสูตร </th>
+                        <th>เลขจดแจ้ง</th>
+                        <th>วันสิ้นสุดเลขจดแจ้ง</th>
+                        <th>ชื่อลูกค้า</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {records.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item.id_unit}</td>
+                            <td>{item.unit_name}</td>
+                            <td>{item.day_admit_list}</td>
+                            <td>{item.notification_num}</td>
+                            <td>{item.date_notification_num}</td>
+                            <td>{item.name_cus}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+
+                  <nav>
                     <ul
                       className="pagination-stable"
                       style={{
                         display: "flex",
                         justifyContent: "center",
-                        background: "#f5f5f5",
+                        background: "none",
                       }}
                     >
                       <li className="page-item-stable">
                         <a href="#" className="page-link" onClick={prePage}>
-                          ก่อน
+                          <FontAwesomeIcon icon={faAnglesLeft} />
                         </a>
                       </li>
                       {number.map((n, i) => (
@@ -213,11 +243,11 @@ function TabReport4() {
                       ))}
                       <li className="page-item-stable">
                         <a href="#" className="page-link" onClick={nextPage}>
-                          ต่อไป
+                          <FontAwesomeIcon icon={faAnglesRight} />
                         </a>
                       </li>
                     </ul>
-                  </nav> */}
+                  </nav>
                 </div>
               </div>
             </div>

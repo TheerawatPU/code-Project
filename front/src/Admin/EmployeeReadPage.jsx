@@ -8,6 +8,15 @@ import "./CSS/Employee.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faEye,
+  faPlus,
+  faAnglesLeft,
+  faAnglesRight,
+} from "@fortawesome/free-solid-svg-icons";
+
 function EmployeeReadPage() {
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
 
@@ -40,14 +49,11 @@ function EmployeeReadPage() {
           // -----------------
           item.birthday.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.phone.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.line_id.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.facebook_id
-            .toLowerCase()
-            .includes(e.target.value.toLowerCase()) ||
+          item.status.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.username.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.password.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.card_id.toLowerCase().includes(e.target.value.toLowerCase())
-        // item.id_customer.toLowerCase().includes(e.target.value.toLowerCase())
+          item.card_id.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.id_employee.toString().includes(e.target.value)
       );
 
       if (filterResult.length > 0) {
@@ -55,6 +61,7 @@ function EmployeeReadPage() {
       } else {
         setData([
           {
+            id_employee: "ไม่มีข้อมูล",
             department: "ไม่มีข้อมูล",
             title: "ไม่มีข้อมูล",
             name: "ไม่มีข้อมูล",
@@ -62,8 +69,7 @@ function EmployeeReadPage() {
             birthday: "ไม่มีข้อมูล",
             card_id: "ไม่มีข้อมูล",
             phone: "ไม่มีข้อมูล",
-            line_id: "ไม่มีข้อมูล",
-            facebook_id: "ไม่มีข้อมูล",
+            status: "ไม่มีข้อมูล",
           },
         ]);
       }
@@ -149,8 +155,7 @@ function EmployeeReadPage() {
                 <th className="sss">วันเกิด</th>
                 <th>บัตรประชาชน</th>
                 <th>เบอร์โทรศัพท์</th>
-                <th>ไอดีไลน์</th>
-                <th>ชื่อเฟสบุ๊ค</th>
+                <th>สถานะการทำงาน</th>
 
                 <th>แก้ไข</th>
               </tr>
@@ -172,30 +177,53 @@ function EmployeeReadPage() {
                     <td>{item.birthday}</td>
                     <td>{item.card_id}</td>
                     <td>{item.phone}</td>
-                    <td>{item.line_id}</td>
-                    <td>{item.facebook_id}</td>
+                    <td>{item.status}</td>
 
                     <td>
                       <div className="TDB">
                         <button
+                          style={{
+                            fontSize: "18px",
+                            height: "35px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "50px",
+                            background: "#6499e9",
+                          }}
                           className="btn2"
                           onClick={() =>
-                            navigate(`EmployeeUpdatePage/${item.id_employee}`)
+                            navigate(`EmployeeReadIDPage/${item.id_employee}`)
                           }
                         >
-                          <h3>
+                          <div className="icon_edit">
+                            <FontAwesomeIcon icon={faEye} />
+                          </div>
+                          {/* <h3>
                             <FaEye />
-                          </h3>
+                          </h3> */}
                         </button>
                         <button
+                          style={{
+                            fontSize: "18px",
+                            height: "35px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "50px",
+                            background: "#353ffd",
+                          }}
                           onClick={() =>
                             navigate(`EmployeeUpdatePage/${item.id_employee}`)
                           }
                           className="btn3"
                         >
-                          <h3>
-                            <FaPen />
-                          </h3>
+                          <div
+                            className="icon_edit"
+                            style={{ fontSize: "18px" }}
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                          </div>
                         </button>
                       </div>
                     </td>

@@ -17,7 +17,7 @@ import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 import { ImCancelCircle } from "react-icons/im";
 
 function BuyStableNew() {
- // console.log("unit_id", unit_id);
+  // console.log("unit_id", unit_id);
 
   // todo
   // unit
@@ -30,11 +30,11 @@ function BuyStableNew() {
     useState("");
   const [unit_id_customer, setUnit_Id_customer] = useState("");
 
-  // detail_unit
+  // detail_buystaple
   const [unit_detail_id_staple, setUnit_detail_id_staple] = useState("");
   const [unit_detail_AmountP, setUnit_detail_AmountP] = useState("");
 
-  const [detail_unit, setDetail_unit] = useState([]);
+  const [detail_buystaple, setDetail_unit] = useState([]);
   // todo end
 
   // เก็บข้อมูล customer จาก api
@@ -55,9 +55,8 @@ function BuyStableNew() {
   useEffect(() => {
     // ใช้ Axios ในการทำ HTTP GET request เพื่อดึงข้อมูลจาก API
     axios
-      .get("http://localhost:5500/unitRead")
+      .get("http://localhost:5500/buystableRead")
       .then((response) => {
-        
         // ตั้งค่าข้อมูลที่อ่านได้ใน state โดยใช้ setReadID
         setReadID(response.data);
 
@@ -68,26 +67,13 @@ function BuyStableNew() {
         // ตั้งค่า state สำหรับ id_unit ตัวเก่าสุด
         setOldestIdUnit(oldestIdUnit);
         // แสดงผลในคอนโซล
-        console.log("id_unit ตัวเก่าสุด:", oldestIdUnit);
+        console.log("buystable ตัวเก่าสุด:", oldestIdUnit);
       })
       .catch((error) => {
         // แสดงข้อผิดพลาดในการดึงข้อมูล
         console.error("เกิดข้อผิดพลาดในการดึงข้อมูลลูกค้า:", error);
       });
   }, []); // useEffect นี้จะทำงานเมื่อคอมโพเนนต์ถูกโหลดครั้งแรกเท่านั้น
-
-  // ดึงข้อมูล customer มาจาก api
-  useEffect(() => {
-    axios
-      .get("http://localhost:5500/customer")
-      .then((response) => {
-        // ตั้งค่าข้อมูลอายุให้กับ customerOptions state
-        setCustomerOptions(response.data);
-      })
-      .catch((error) => {
-        console.error("เกิดข้อผิดพลาดในการดึงข้อมูลลูกค้า:", error);
-      });
-  }, []);
 
   // เก็บข้อมูล staple จาก api
   const [stapleOptions, setStapleOptions] = useState([]);
@@ -143,26 +129,26 @@ function BuyStableNew() {
     }
 
     // คำนวณรวมปริมาณสารในรายการปัจจุบัน
-    const currentTotalAmountP = detail_unit.reduce(
+    const currentTotalAmountP = detail_buystaple.reduce(
       (accumulator, currentDetail) =>
-        accumulator + parseFloat(currentDetail.AmountP),
+        accumulator + parseFloat(currentDetail.amount_staple),
       0
     );
 
     // ตรวจสอบว่ารวมปริมาณสารใหม่เกิน 100%
-    if (currentTotalAmountP + newAmountP > 100) {
-      alert("รวมปริมาณวัตถุดิบเกิน 100%");
-      return; // ยกเลิกการเพิ่มข้อมูลหากรวมปริมาณสารเกิน 100%
-    }
+    // if (currentTotalAmountP + newAmountP > 100) {
+    //   alert("รวมปริมาณวัตถุดิบเกิน 100%");
+    //   return; // ยกเลิกการเพิ่มข้อมูลหากรวมปริมาณสารเกิน 100%
+    // }
 
     // สร้างวัตถุใหม่เพื่อเก็บข้อมูลวัตถุดิบ
     const newUnit_detail = {
       id_staple: unit_detail_id_staple,
-      AmountP: unit_detail_AmountP,
+      amount_staple: unit_detail_AmountP,
     };
 
     // เพิ่มข้อมูลวัตถุดิบใหม่ลงในรายการ
-    setDetail_unit([...detail_unit, newUnit_detail]);
+    setDetail_unit([...detail_buystaple, newUnit_detail]);
 
     // ล้างค่า input หลังจากเพิ่มข้อมูล
     setUnit_detail_id_staple("");
@@ -176,26 +162,26 @@ function BuyStableNew() {
     setRemainingAmount(remainingAmount);
   };
 
-  console.log("detail_unit", detail_unit);
+  console.log("detail_buystaple", detail_buystaple);
 
   // ฟังก์ชั่นสำหรับการลบข้อมูลแถวในตาราง
 
   // ฟังก์ชั่นสำหรับการลบข้อมูลแถวในตาราง
   function handleDelete(index) {
-    // 1. ดึงข้อมูลที่จะถูกลบออกมาจาก detail_unit
-    const deletedUnit = detail_unit[index];
+    // 1. ดึงข้อมูลที่จะถูกลบออกมาจาก detail_buystaple
+    const deletedUnit = detail_buystaple[index];
 
     // 2. คำนวณค่าปริมาณสารในแถวที่ถูกลบ
-    const updatedUnitSum = parseFloat(deletedUnit.AmountP);
+    const updatedUnitSum = parseFloat(deletedUnit.amount_staple);
 
     // 3. คำนวณค่ารวมปริมาณสารใหม่โดยลบค่าปริมาณสารในแถวที่ถูกลบออกจากค่ารวมปริมาณสารเดิม
     const updatedTotalAmountP = totalAmountP - updatedUnitSum;
 
-    // 4. สร้างคัวแปรใหม่ที่เป็นสำเนาของ detail_unit และลบแถวที่ถูกลบออกจากคัวแปรใหม่
-    const updatedInputArr = [...detail_unit];
+    // 4. สร้างคัวแปรใหม่ที่เป็นสำเนาของ detail_buystaple และลบแถวที่ถูกลบออกจากคัวแปรใหม่
+    const updatedInputArr = [...detail_buystaple];
     updatedInputArr.splice(index, 1); // ลบแถวที่มี index ที่ระบุ
 
-    // 5. อัปเดต state ของ detail_unit เพื่อลบแถวที่ถูกลบออก
+    // 5. อัปเดต state ของ detail_buystaple เพื่อลบแถวที่ถูกลบออก
     setDetail_unit(updatedInputArr);
 
     // 6. อัปเดต state ของ totalAmountP เพื่อลดค่ารวมปริมาณสารตามที่คำนวณไว้ในขั้นตอนที่ 3
@@ -215,19 +201,19 @@ function BuyStableNew() {
   // ฟังก์ชั่นสำหรับการกดบันทึก
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:5500/newAddUnit", {
-        unit: {
-          unit_name: unit_Unit_name,
-          day_admit_list: unit_day_admit_list,
-          date_notification_num: unit_date_notification_num,
-          notification_num: unit_notification_num,
-          id_customer: unit_id_customer,
+      const response = await axios.post("http://localhost:5500/buystableNew", {
+        buy_staple: {
+          day_buy: unit_Unit_name,
+          day_admit_staple: unit_day_admit_list,
+          store: unit_date_notification_num,
+          refer_id: unit_notification_num,
+          note: unit_id_customer,
           id_employee: `${userLoginData[0].id_employee}`,
         },
-        detail_unit,
+        detail_buystaple,
       });
       console.log(response.data);
-      navigate("/EM/Unit");
+      navigate("/EM/StablePage");
     } catch (error) {
       console.error(error);
     }
@@ -302,7 +288,9 @@ function BuyStableNew() {
         <div className="Ubox0">
           <div className="Ubox1">
             <div className="Ubox1-1">
-              <h2 style={{ marginBottom: "25px" }}>ข้อมูลการสั่งซื้อวัตถุดิบ</h2>
+              <h2 style={{ marginBottom: "25px" }}>
+                ข้อมูลการสั่งซื้อวัตถุดิบ
+              </h2>
 
               <div className="Ubox1-1-1">
                 <label className="form-label1-1">รหัสรายการสั่งซื้อ :</label>
@@ -321,9 +309,11 @@ function BuyStableNew() {
                 <input
                   type="text"
                   className="Uinput1"
-                  name="unit_name"
-                  value={unit_Unit_name}
-                  onChange={(e) => setUnit_Unit_name(e.target.value)}
+                  name="store"
+                  value={unit_date_notification_num}
+                  onChange={(e) =>
+                    setUnit_Date_notification_num(e.target.value)
+                  }
                 />
               </div>
 
@@ -333,23 +323,19 @@ function BuyStableNew() {
                   <input
                     className="form-date"
                     type="date"
-                    name="day_admit_list"
-                    value={unit_day_admit_list}
-                    onChange={(e) => setUnit_Day_admit_list(e.target.value)}
+                    name="day_buy"
+                    value={unit_Unit_name}
+                    onChange={(e) => setUnit_Unit_name(e.target.value)}
                   />
                 </div>
                 <div className="doubleU">
-                  <label className="form-label1-1">
-                  วันที่รับวัตถุดิบ :
-                  </label>
+                  <label className="form-label1-1">วันที่รับวัตถุดิบ :</label>
                   <input
                     className="form-date"
                     type="date"
-                    name="date_notification_num"
-                    value={unit_date_notification_num}
-                    onChange={(e) =>
-                      setUnit_Date_notification_num(e.target.value)
-                    }
+                    name="day_admit_staple"
+                    value={unit_day_admit_list}
+                    onChange={(e) => setUnit_Day_admit_list(e.target.value)}
                   />
                 </div>
               </div>
@@ -359,18 +345,19 @@ function BuyStableNew() {
                 <input
                   type="text"
                   className="Uinput1"
-                  name="notification_num"
+                  name="refer_id"
                   value={unit_notification_num}
                   onChange={(e) => setUnit_Notification_num(e.target.value)}
                 />
               </div>
 
               <div className="Ubox1-1-1">
-                <label className="form-label1-1">ยอดรวม :</label>
-                <input
+                <label className="form-label1-1">หมายเหตุ :</label>
+                <textarea
+                  style={{ height: "100px", paddingTop: "10px" }}
                   type="text"
                   className="Uinput1"
-                  name="notification_num"
+                  name="note"
                   value={unit_notification_num}
                   onChange={(e) => setUnit_Notification_num(e.target.value)}
                 />
@@ -423,7 +410,7 @@ function BuyStableNew() {
                     <input
                       type="number"
                       className="Uinput1"
-                      name="AmountP"
+                      name="amount_staple"
                       value={unit_detail_AmountP}
                       onChange={(e) => setUnit_detail_AmountP(e.target.value)}
                     />
@@ -485,16 +472,16 @@ function BuyStableNew() {
                             marginTop: "10px",
                           }}
                         >
-                          แก้ไข
+                          ลบ
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {detail_unit.map((detail, index) => (
+                      {detail_buystaple.map((detail, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>{stapleNameMap[detail.id_staple] || ""}</td>
-                          <td>{detail.AmountP}</td>
+                          <td>{detail.amount_staple}</td>
                           <td className="TDStable">
                             <button
                               className="dalete-Unit"
@@ -518,6 +505,5 @@ function BuyStableNew() {
     </div>
   );
 }
-
 
 export default BuyStableNew;

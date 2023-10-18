@@ -57,7 +57,6 @@ function UnitNew() {
     axios
       .get("http://localhost:5500/unitRead")
       .then((response) => {
-        
         // ตั้งค่าข้อมูลที่อ่านได้ใน state โดยใช้ setReadID
         setReadID(response.data);
 
@@ -474,7 +473,7 @@ function UnitNew() {
                             marginTop: "10px",
                           }}
                         >
-                          แก้ไข
+                          ลบ
                         </th>
                       </tr>
                     </thead>

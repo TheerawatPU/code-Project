@@ -14,9 +14,12 @@ import {
   faPenToSquare,
   faArrowLeft,
   faPrint,
+  faAnglesLeft,
+  faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabReport3() {
+  
   const [idStapleCount, setIdStapleCount] = useState(0);
 
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
@@ -36,13 +39,41 @@ function TabReport3() {
       });
   }, []);
 
-  // ปุ่มกดเปลี่ยนกราฟ
+  const [data, setData] = useState([]);
+  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/table_cutStock")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
-  const [activeTab, setActiveTab] = useState(1);
+  //next page555555
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 9;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(data.length / recordsPerPage);
+  const number = [...Array(npage + 1).keys()].slice(1);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  function prePage() {
+    if (currentPage < firstIndex) {
+      setCurrentPage(currentPage - 1);
+    } else if (currentPage === firstIndex) {
+      setCurrentPage(changeCPage + 0);
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
 
   return (
     <>
@@ -143,55 +174,56 @@ function TabReport3() {
               <div className="boxR2-2">
                 <div className="titleR">
                   <div className="titleR-Table">ตารางปรับสต๊อก</div>
-                  <div className="btn-R-chart">
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(1)}
-                    >
-                      <h4>
-                        <FaBorderAll />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(2)}
-                    >
-                      <h4>
-                        <FaChartBar />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(3)}
-                    >
-                      <h4>
-                        <FaChartPie />
-                      </h4>
-                    </button>
-                  </div>
                 </div>
 
                 <div className="mainR">
-                  {activeTab === 1 ? (
+                  {/* {activeTab === 1 ? (
                     <Report3Chart1 />
                   ) : activeTab === 2 ? (
                     <Report3Chart1 />
                   ) : (
                     <Report3Chart1 />
-                  )}
+                  )} */}
 
-                  {/* <nav>
+                  <table class="styled-table-Unit">
+                    <thead>
+                      <tr>
+                        <th>รหัสการปรับ</th>
+                        <th>วันที่ทำการ</th>
+                        <th>ชื่อวัตถุดิบ </th>
+                        <th>รหัสล็อต</th>
+                        <th>ปริมาณก่อนปรับ (กรัม)</th>
+                        <th>ปริมาณที่ปรับ (กรัม)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {records.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item.id_cutStock}</td>
+                            <td>{item.date_cutStock}</td>
+                            <td>{item.Name_staple}</td>
+                            <td>{item.id_lot}</td>
+                            <td>{item.amount_old}</td>
+                            <td>{item.amount_total}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+
+                  <nav>
                     <ul
                       className="pagination-stable"
                       style={{
                         display: "flex",
                         justifyContent: "center",
-                        background: "#f5f5f5",
+                        background: "none",
                       }}
                     >
                       <li className="page-item-stable">
                         <a href="#" className="page-link" onClick={prePage}>
-                          ก่อน
+                          <FontAwesomeIcon icon={faAnglesLeft} />
                         </a>
                       </li>
                       {number.map((n, i) => (
@@ -212,11 +244,11 @@ function TabReport3() {
                       ))}
                       <li className="page-item-stable">
                         <a href="#" className="page-link" onClick={nextPage}>
-                          ต่อไป
+                          <FontAwesomeIcon icon={faAnglesRight} />
                         </a>
                       </li>
                     </ul>
-                  </nav> */}
+                  </nav>
                 </div>
               </div>
             </div>

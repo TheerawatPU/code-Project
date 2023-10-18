@@ -128,7 +128,11 @@ function StableEdit() {
 
         <div className="box-big-bg-new">
           <div className="box-BG-area-new">
-            <form className="form-stable-new" onSubmit={handleUpdate}>
+            <form
+              className="form-stable-new"
+              onSubmit={handleUpdate}
+              style={{ display: "flex", alignItems: "flex-start" }}
+            >
               <div className="form-row-new">
                 <label className="form-label-new">รหัสวัตถุดิบ :</label>
                 <input

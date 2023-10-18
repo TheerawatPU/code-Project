@@ -16,8 +16,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function CustomerReadPage() {
+  // การนำทางข้ามคอมโพเน้น
   const navigate = useNavigate();
 
+  // ดึง api มา
+  const [data, setData] = useState([]);
   useEffect(() => {
     axios
       .get("http://localhost:5500/customer")
@@ -26,7 +29,6 @@ function CustomerReadPage() {
   }, []);
 
   //search
-  const [data, setData] = useState([]);
   const [filterVal, setFilterVal] = useState("");
   const [searchApiData, setSearchApiData] = useState([]);
 
@@ -56,8 +58,8 @@ function CustomerReadPage() {
           item.card_ID.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.email_cus.toLowerCase().includes(e.target.value.toLowerCase()) ||
           item.phone_cus.toLowerCase().includes(e.target.value.toLowerCase()) ||
-          item.address.toLowerCase().includes(e.target.value.toLowerCase())
-        // item.id_customer.toLowerCase().includes(e.target.value.toLowerCase())
+          item.address.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.id_customer.toString().includes(e.target.value)
       );
 
       if (filterResult.length > 0) {
@@ -158,7 +160,7 @@ function CustomerReadPage() {
                   <tr key={index}>
                     <td
                       style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => navigate(`CreateRead/${item.id_customer}`)}
+                      onClick={() => navigate(`CustomerReadIDPage/${item.id_customer}`)}
                     >
                       {item.id_customer}
                     </td>

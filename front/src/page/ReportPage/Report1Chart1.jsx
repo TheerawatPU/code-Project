@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+
+import { FaChartPie, FaChartBar, FaBorderAll } from "react-icons/fa";
 
 function Report1Chart1() {
+
   const [data, setData] = useState([]);
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
@@ -42,6 +46,7 @@ function Report1Chart1() {
 
   return (
     <>
+
       <table class="styled-table-Unit">
         <thead>
           <tr>
@@ -102,6 +107,8 @@ function Report1Chart1() {
           </li>
         </ul>
       </nav>
+
+      
     </>
   );
 }

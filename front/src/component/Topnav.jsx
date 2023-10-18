@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import "../CSS/Component.css";
 import { AiOutlineCaretDown } from "react-icons/ai";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Topnav() {
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
@@ -11,7 +12,9 @@ function Topnav() {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
   const navigate = useNavigate();
+
   const handleLogout = () => {
     // ทำอย่างไรก็ตามที่คุณต้องการเมื่อคลิกที่เมนู "ออกจากระบบ"
     alert("ออกจากระบบแล้ว");
@@ -31,10 +34,11 @@ function Topnav() {
 
             <AiOutlineCaretDown />
           </button>
+
           {/* ภายในกล่อง เมื่อกดแล้ว */}
           {showMenu && (
             <div className="dropdown-content">
-              <a href="#">โปรไฟล์</a>
+              <a onClick={() => navigate(`/EM/ProfileRead`)}>โปรไฟล์</a>
               <a href="#" onClick={handleLogout}>
                 ออกจากระบบ
               </a>

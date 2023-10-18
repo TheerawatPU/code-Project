@@ -10,10 +10,13 @@ import {
   faAnglesLeft,
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { FaEye } from "react-icons/fa";
 
 function CutStable() {
+  //! การนำทางข้าม component
   const navigate = useNavigate();
+  //! ..........................................
+
+  //! โหลดข้อมูลจาก api เข้ามา
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -22,13 +25,63 @@ function CutStable() {
         .get("http://localhost:5500/table_cutStock")
         .then((res) => {
           setData(res.data);
+          setSearchApiData(res.data);
         })
         .catch((err) => console.log(err));
     };
     fetchData();
   }, []);
 
-  //next page555555
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.date_cutStock
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.Name_staple.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.id_lot.toString().includes(e.target.value.toString()) ||
+          item.amount_old.toString().includes(e.target.value.toString()) ||
+          item.amount_total.toString().includes(e.target.value.toString()) ||
+          item.cause.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.details_cutStock
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.id_cutStock.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            date_cutStock: "ไม่มีข้อมูล",
+            Name_staple: "ไม่มีข้อมูล",
+            id_lot: "ไม่มีข้อมูล",
+            amount_old: "ไม่มีข้อมูล",
+            amount_total: "ไม่มีข้อมูล",
+            cause: "ไม่มีข้อมูล",
+            details_cutStock: "ไม่มีข้อมูล",
+            name: "ไม่มีข้อมูล",
+            id_cutStock: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+  //! ..........................................
+
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 8;
   const lastIndex = currentPage * recordsPerPage;
@@ -36,7 +89,7 @@ function CutStable() {
   const records = data.slice(firstIndex, lastIndex);
   const npage = Math.ceil(data.length / recordsPerPage);
   const number = [...Array(npage + 1).keys()].slice(1);
-
+  // todo1 ฟังก์ชั่นเลขเพจก่อนหน้าแรก
   function prePage() {
     if (currentPage < firstIndex) {
       setCurrentPage(currentPage - 1);
@@ -44,16 +97,17 @@ function CutStable() {
       setCurrentPage(changeCPage + 0);
     }
   }
-
+  // todo1 ฟังก์ชั่นเลขเพจทั้งหมด
   function changeCPage(id) {
     setCurrentPage(id);
   }
-
+  // todo1 ฟังก์ชั่นเลขเพจสุดท้าย
   function nextPage() {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
     }
   }
+  //! ..................
 
   return (
     <div>
@@ -64,6 +118,8 @@ function CutStable() {
             className="inputsearch"
             type="text"
             placeholder="ช่องค้นหา...."
+            value={filterVal}
+            onInput={(e) => handleFilter(e)}
           />
 
           <button
@@ -106,7 +162,12 @@ function CutStable() {
             <tbody>
               {records.map((item, index) => (
                 <tr key={index}>
-                  <td style={{ color: "blue", cursor: "pointer" }}>
+                  <td
+                    style={{ color: "blue", cursor: "pointer" }}
+                    onClick={() =>
+                      navigate(`CusStableReadID/${item.id_cutStock}`)
+                    }
+                  >
                     {item.id_cutStock}
                   </td>
                   <td>{item.date_cutStock}</td>

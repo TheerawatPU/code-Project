@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Topnav from "../../../component/Topnav";
 import Menu from "../../../component/Menu";
@@ -9,7 +9,28 @@ import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { ImCancelCircle } from "react-icons/im";
 
+import Validation from "../../../function/StableValidate";
+
 function StableNew() {
+  //! โหลดข้อมูลจาก api เข้ามา
+  const [oldestIdUnit, setOldestIdUnit] = useState(null);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/stapleRead")
+      .then((response) => {
+        // อ่าน id_customer ตัวเก่าสุด
+        const oldestIdUnit =
+          response.data.length > 0 ? response.data[0].id_staple : null;
+        setOldestIdUnit(oldestIdUnit);
+      })
+      .catch((error) => {
+        // แสดงข้อผิดพลาดในการดึงข้อมูล
+        console.error("เกิดข้อผิดพลาดในการไอดี id_customer :", error);
+      });
+  }, []); // useEffect นี้จะทำงานเมื่อคอมโพเนนต์ถูกโหลดครั้งแรกเท่านั้น
+  console.log("ID", oldestIdUnit);
+  //! ..........................................
+
   //! ดึงข้อมูลผู้เข้าระบบ และนำทางข้าม component
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
   const navigate = useNavigate();
@@ -35,18 +56,34 @@ function StableNew() {
   };
   //! .....................................
 
-  //! ฟังก์ชั่นนำข้อมูลใน values ส่งไปบันทึกผ่าน api
+  //! ฟังก์ชั่นนำข้อมูลใน values ส่งไปบันทึกผ่าน api และเช็ค Error
+  // State เช็ค Error
+  const [errors, setErrors] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post("http://localhost:5500/stapleNew", {
-        ...values,
-      })
-      .then((res) => {
-        console.log(res);
-        navigate("/EM/StablePage");
-      })
-      .catch((err) => console.log(err));
+
+    const err = Validation({ ...values });
+    setErrors(err);
+
+    if (
+      err.Name_staple === "" &&
+      err.Name_INCIname === "" &&
+      err.howUsing === "" &&
+      err.howMixing === "" &&
+      err.saving === "" &&
+      err.melting === "" &&
+      err.reOrder === ""
+    ) {
+      axios
+        .post("http://localhost:5500/stapleNew", {
+          ...values,
+        })
+        .then((res) => {
+          console.log(res);
+          navigate("/EM/StablePage");
+        })
+        .catch((err) => console.log(err));
+    }
   };
   //! .....................................
 
@@ -119,7 +156,11 @@ function StableNew() {
 
         <div className="box-big-bg-new">
           <div className="box-BG-area-new">
-            <form className="form-stable-new" onSubmit={handleSubmit}>
+            <form
+              className="form-stable-new"
+              onSubmit={handleSubmit}
+              style={{ display: "flex", alignItems: "flex-start" }}
+            >
               <div className="form-row-new">
                 <label className="form-label-new">
                   <p>*</p>รหัสวัตถุดิบ :
@@ -128,7 +169,12 @@ function StableNew() {
                   name="id"
                   type="text"
                   className="form-input-new"
-                  style={{ background: "#e5e5e5", border: "none" }}
+                  style={{
+                    background: "#e5e5e5",
+                    border: "none",
+                    height: "35px",
+                  }}
+                  value={oldestIdUnit + 1}
                   disabled
                 />
               </div>
@@ -139,82 +185,125 @@ function StableNew() {
                     <p>*</p>ชื่อวัตถุดิบ :
                   </label>
                   <input
+                    style={{
+                      height: "35px",
+                    }}
                     name="Name_staple"
                     type="text"
                     className="form-input-new"
                     onChange={handleInput}
                   />
+                  {errors.Name_staple && (
+                    <p className="text-danger">{errors.Name_staple}</p>
+                  )}
                 </div>
+
                 <div className="form-row-new">
                   <label className="form-label-new">
                     <p>*</p>INCI Name :
                   </label>
                   <input
+                    style={{
+                      height: "35px",
+                    }}
                     name="Name_INCIname"
                     type="text"
                     className="form-input-new"
                     onChange={handleInput}
                   />
+                  {errors.Name_INCIname && (
+                    <p className="text-danger">{errors.Name_INCIname}</p>
+                  )}
                 </div>
               </div>
 
-              <div className="form-row-new">
+              <div className="form-row-new-stable">
                 <label className="form-label-new">
                   <p>*</p>การใช้ :
                 </label>
                 <textarea
+                  style={{
+                    minHeight: "55px",
+                  }}
                   name="howUsing"
                   type="text"
                   className="stable_input2"
                   onChange={handleInput}
                 />
+                {errors.howUsing && (
+                  <p className="text-danger">{errors.howUsing}</p>
+                )}
               </div>
-              <div className="form-row-new">
+              <div className="form-row-new-stable">
                 <label className="form-label-new">
                   <p>*</p>การผสม :
                 </label>
                 <textarea
+                  style={{
+                    minHeight: "55px",
+                  }}
                   name="howMixing"
                   type="text"
                   className="stable_input2"
                   onChange={handleInput}
                 />
+                {errors.howMixing && (
+                  <p className="text-danger">{errors.howMixing}</p>
+                )}
               </div>
 
-              <div className="form-row-new">
+              <div className="form-row-new-stable">
                 <label className="form-label-new">
                   <p>*</p>การรักษา :
                 </label>
                 <textarea
+                  style={{
+                    minHeight: "55px",
+                  }}
                   name="saving"
                   type="text"
                   className="stable_input2"
                   onChange={handleInput}
                 />
+                {errors.saving && (
+                  <p className="text-danger">{errors.saving}</p>
+                )}
               </div>
 
-              <div className="form-row-new">
+              <div className="form-row-new-stable">
                 <label className="form-label-new">
                   <p>*</p>การละลาย :
                 </label>
                 <textarea
+                  style={{
+                    minHeight: "55px",
+                  }}
                   name="melting"
                   type="text"
                   className="stable_input2"
                   onChange={handleInput}
                 />
+                {errors.melting && (
+                  <p className="text-danger">{errors.melting}</p>
+                )}
               </div>
 
-              <div className="form-row-new">
+              <div className="form-row-new-stable">
                 <label className="form-label-new">
                   <p>*</p>จุดสั่งซื้อ :
                 </label>
                 <input
+                  style={{
+                    height: "35px",
+                  }}
                   name="reOrder"
                   type="text"
                   className="stable_input1"
                   onChange={handleInput}
                 />
+                {errors.reOrder && (
+                  <p className="text-danger">{errors.reOrder}</p>
+                )}
               </div>
             </form>
           </div>

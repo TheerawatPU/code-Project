@@ -1,0 +1,111 @@
+.Profile_back0 {
+  width: 100%;
+  height: 100vh;
+  background: #ffffff;
+  padding: 20px;
+}
+/* ฝั่งข้อความ */
+/*  พื้นหลังโปรไฟล์ 2 */
+.Profile2 {
+  width: 75%;
+  height: 84vh;
+  /* background: #808080; */
+  border-left: 1px solid #000;
+}
+
+/* row แต่ละแถว */
+.profile2-1 {
+  width: 100%;
+  background: #ffffff;
+  /* border: 1px solid #000; */
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+/* ชื่อหัว input */
+.label-profile {
+  font-size: 20px;
+}
+/* ช่องอินพุท */
+.input-profile {
+  width: 90%;
+  height: 40px;
+  font-size: 17px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+}
+
+/* row แต่ละแถว */
+.profile2-1-long {
+  background: #ffffff;
+  /* border: 1px solid #000; */
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+/* ช่องอินพุทยาว */
+.input-profile-long {
+  width: 95%;
+  height: 40px;
+  font-size: 17px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #808080;
+}
+
+.profile2plye {
+  display: flex;
+}
+
+/* ฝั่งรูป */
+
+/*  พื้นหลังโปรไฟล์ 1 */
+.Profile1 {
+  width: 35%;
+  height: 84vh;
+  /* background: #f2a2a2; */
+  border-right: 1px solid #000;
+
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+}
+.profile-img {
+  width: 90%;
+  margin: 20px;
+  height: 40%;
+  /* background: #22a699; */
+  border: 1px solid #000;
+}
+.profile-btn {
+  border: 1px solid #000;
+  background: #22a699;
+  color: #ffffff;
+}
+
+/* read */
+/* ช่องอินพุท */
+.input-profile-read {
+  width: 90%;
+  height: 40px;
+  font-size: 17px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  border: white;
+  border-bottom: 1px solid #808080;
+  background: #ffffff;
+}
+
+/* ช่องอินพุทยาว */
+.input-profile-long-read {
+  width: 95%;
+  height: 40px;
+  font-size: 17px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  border: white;
+  border-bottom: 1px solid #808080;
+  background: #ffffff;
+}

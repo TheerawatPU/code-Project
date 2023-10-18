@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
-import profileBG from "./img/profileBG.png";
 
 function EmployeeUpdatePage() {
   const navigate = useNavigate();
@@ -34,6 +33,7 @@ function EmployeeUpdatePage() {
           username: res.data[0].username,
           password: res.data[0].password,
           image: res.data[0].image,
+          card_id: res.data[0].card_id,
         });
       })
       .catch((err) => console.log(err));
@@ -52,7 +52,10 @@ function EmployeeUpdatePage() {
     username: "",
     password: "",
     image: "",
+    card_id: "",
   });
+
+  console.log(values);
 
   const handleUpdate = (event) => {
     event.preventDefault();
@@ -65,7 +68,36 @@ function EmployeeUpdatePage() {
       .catch((err) => console.log(err));
   };
 
-  console.log(values);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleInput = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "image") {
+      const selectedFile = event.target.files[0]; // Get the selected image file
+      if (selectedFile) {
+        setSelectedImage(selectedFile); // Set the selected image to the state
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const base64Image = event.target.result;
+
+          // นำรูปภาพมาเพิ่มใน values
+          setValues({
+            ...values,
+            image: base64Image,
+          });
+
+          // นำ base64 ของรูปภาพไปเก็บลงในโฟลเดอร์ (ถ้าต้องการ)
+          // saveBase64ImageToFile(base64Image);
+        };
+
+        reader.readAsDataURL(selectedFile);
+      }
+    }
+
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <div className="all-page-new">
@@ -77,10 +109,12 @@ function EmployeeUpdatePage() {
       </section>
       <main className="main-new">
         <div className="top-text-new">
-          <div className="text-new">แก้ไขข้อมูลวัตถุดิบ</div>
+          <div className="text-new" style={{ marginLeft: "80px" }}>
+            แก้ไขข้อมูลพนักงาน
+          </div>
         </div>
 
-        <div className="text-new-lg">
+        <div className="text-new-lg" style={{ marginLeft: "80px" }}>
           กรุณากรอกข้อมูลให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
         </div>
 
@@ -89,16 +123,14 @@ function EmployeeUpdatePage() {
           <div className="box-BG-area-new-EM">
             <form className="form-EM-new" onSubmit={handleUpdate}>
               <div className="form-row-img-AD">
-                <img src={profileBG} alt="" className="img-AD" />
-                {/* {imageURls.map((imageSrc, index) => (
-                  <img key={index} src="{imageSrc}" />
-                ))} */}
+                <img src={values.image} alt="" className="img-AD" />
               </div>
               <div className="form-row-new">
                 <input
                   type="file"
-                  multiple
-                  accept="image/*"
+                  name="image"
+                  id="image"
+                  onChange={handleInput}
                   // onChange={onImageChange}
                 />
               </div>
@@ -195,8 +227,7 @@ function EmployeeUpdatePage() {
                     <div className="radio-EM">
                       <input
                         name="sex"
-                        // value="ชาย"
-                        value={values.sex}
+                        value="ชาย"
                         type="radio"
                         className="form-input-new-title-Radio-EM"
                         onChange={(e) =>
@@ -205,9 +236,8 @@ function EmployeeUpdatePage() {
                       />
                       <span>ชาย</span>
                       <input
-                        value={values.sex}
                         name="sex"
-                        // value="หญิง"
+                        value="หญิง"
                         type="radio"
                         className="form-input-new-title-Radio-EM"
                         onChange={(e) =>
@@ -322,7 +352,7 @@ function EmployeeUpdatePage() {
                 </label>
                 <input
                   name="password"
-                  type="text"
+                  type="password"
                   className="form-input-new-EM"
                   value={values.password}
                   onChange={(e) =>
@@ -330,17 +360,17 @@ function EmployeeUpdatePage() {
                   }
                 />
               </div>
-              <div className="form-row-new">
+              {/* <div className="form-row-new">
                 <label className="form-label-new">
                   <p>*</p>ยืนยันรหัสผ่าน :
                 </label>
                 <input type="text" className="form-input-new-EM" />
-              </div>
+              </div> */}
             </form>
           </div>
           {/* //!ปุ่ม */}
           <div className="btn-submit-new">
-            <div className="btn-area-new">
+            <div className="btn-area-new" style={{ width: "60%" }}>
               <button
                 type="cancle"
                 className="cancle-new"

@@ -12,6 +12,23 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { ImCancelCircle } from "react-icons/im";
 
 function CustomerCreatePage() {
+  // ไอดีการเพิ่มสต๊อก
+  const [oldestIdUnit, setOldestIdUnit] = useState(null);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/customer")
+      .then((response) => {
+        // อ่าน id_customer ตัวเก่าสุด
+        const oldestIdUnit =
+          response.data.length > 0 ? response.data[0].id_customer : null;
+        setOldestIdUnit(oldestIdUnit);
+      })
+      .catch((error) => {
+        // แสดงข้อผิดพลาดในการดึงข้อมูล
+        console.error("เกิดข้อผิดพลาดในการไอดี id_customer :", error);
+      });
+  }, []); // useEffect นี้จะทำงานเมื่อคอมโพเนนต์ถูกโหลดครั้งแรกเท่านั้น
+
   const [province, setProvince] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [subdistricts, setSubdistricts] = useState([]);
@@ -79,6 +96,7 @@ function CustomerCreatePage() {
   };
   //! สิ้นสุดจังหวัด อำเภอ ตำบล
 
+  // ! values เตรียมเก็บลงฐานข้อมูล
   const [values, setValues] = useState({
     name_company: "",
     name_cus: "",
@@ -91,9 +109,10 @@ function CustomerCreatePage() {
     subdistricts: "",
     zip_code: "",
   });
+  // ! -------------------------
 
+  // เช็ค Error
   const [errors, setErrors] = useState({});
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -243,6 +262,7 @@ function CustomerCreatePage() {
                   name="id"
                   type="text"
                   className="form-input-new"
+                  value={oldestIdUnit + 1}
                   disabled
                 />
               </div>
