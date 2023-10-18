@@ -186,15 +186,15 @@ function TabContent2() {
                         {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                       </button>
 
-                      <button
+                      {/* <button
                         onClick={() => navigate(`StableEdit/$`)}
                         className="btnstableEdit2"
                       >
                         <div className="icon_edit">
                           <FontAwesomeIcon icon={faPenToSquare} />
                         </div>
-                        {/* <div className="test-icon-edit">แก้ไข</div> */}
-                      </button>
+                        
+                      </button> */}
                     </td>
                   </tr>
                 );

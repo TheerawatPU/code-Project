@@ -29,10 +29,10 @@ function TabReport2() {
   useEffect(() => {
     // ทำการร้องขอ API เพื่อนับจำนวน id_staple
     axios
-      .get("http://localhost:5500/Report_Stable_Count") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
+      .get("http://localhost:5500/countbuy_staple") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
       .then((response) => {
         // ดึงข้อมูลจำนวน id_staple จากการร้องขอ API
-        const idStapleCountFromAPI = response.data[0].id_staple; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
+        const idStapleCountFromAPI = response.data[0].id_buylist; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
 
         // ตั้งค่าค่าจำนวน id_staple ใน state
         setIdStapleCount(idStapleCountFromAPI);
@@ -47,7 +47,10 @@ function TabReport2() {
   useEffect(() => {
     axios
       .get("http://localhost:5500/buy_stable_all")
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -78,6 +81,63 @@ function TabReport2() {
     }
   }
 
+  // สร้าง state สำหรับเก็บวันที่เริ่มต้นและสิ้นสุดของช่วงเวลาที่จะค้นหา
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // ฟังก์ชันสำหรับค้นหาข้อมูล
+  const searchByDate = () => {
+    // ทำการค้นหาข้อมูลจาก API โดยส่งวันที่เริ่มต้นและสิ้นสุดไปด้วย
+    axios
+      .get(
+        `http://localhost:5500/buy_stable_all?start_date=${startDate}&end_date=${endDate}`
+      )
+      .then((res) => {
+        // นำข้อมูลที่ได้มาแสดงในตาราง
+        setData(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.day_buy.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.day_admit_staple
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.store.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.note.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.refer_id.toString().includes(e.target.value.toString()) ||
+          item.id_buylist.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            day_buy: "ไม่มีข้อมูล",
+            day_admit_staple: "ไม่มีข้อมูล",
+            store: "ไม่มีข้อมูล",
+            id_buylist: "ไม่มีข้อมูล",
+            note: "ไม่มีข้อมูล",
+            refer_id: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+  //! ..........................................
+
   return (
     <>
       <div className="back-0">
@@ -89,13 +149,19 @@ function TabReport2() {
                   type="text"
                   className="Report_search_input"
                   placeholder="ค้นหา..."
+                  value={filterVal}
+                  onInput={(e) => handleFilter(e)}
                 />
-                <button type="submit" className="Report_search_btn">
+                <button
+                  type="submit"
+                  className="Report_search_btn"
+                  // onClick={searchByDate}
+                >
                   ค้นหา
                 </button>
               </div>
 
-              <div className="report-print">
+              {/* <div className="report-print">
                 <button
                   className="Report_search_btn"
                   type="submit"
@@ -113,7 +179,7 @@ function TabReport2() {
                     <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
                   </div>
                 </button>
-              </div>
+              </div> */}
             </div>
 
             <div className="Rbox2">
@@ -127,13 +193,25 @@ function TabReport2() {
                 </div>
 
                 <div className="Rbox2-2-2-2">
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    type="date"
+                    className="input-date-Report"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
                   <h2>ถึง</h2>
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    type="date"
+                    className="input-date-Report"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
                 </div>
 
                 <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn">ค้นหา</button>
+                  <button className="Report_search_btn" onClick={searchByDate}>
+                    ค้นหา
+                  </button>
                 </div>
               </div>
             </div>
@@ -149,31 +227,31 @@ function TabReport2() {
                     <div className="title-list-boxRSM">
                       <div className="title-boxRSM2">{idStapleCount}</div>
                       {/* {data_Count.map((item2, index) => {
-                        <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                      })} */}
+                  <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
+                })} */}
                     </div>
                   </div>
                 </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">วัตถุดิบใหม่</div>
-                    <div className="title-boxRSM2">2</div>
-                  </div>
+                {/* <div className="boxRSM2-1-1">
+                <div className="title-boxRSM">
+                  <div className="title-boxRSM1">วัตถุดิบใหม่</div>
+                  <div className="title-boxRSM2">2</div>
                 </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">
-                      วัตถุดิบต่ำกว่าจุดสั่งซื้อ
-                    </div>
-                    <div className="title-boxRSM2">10</div>
+              </div> */}
+                {/* <div className="boxRSM2-1-1">
+                <div className="title-boxRSM">
+                  <div className="title-boxRSM1">
+                    วัตถุดิบต่ำกว่าจุดสั่งซื้อ
                   </div>
+                  <div className="title-boxRSM2">10</div>
                 </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">วัตถุดิบหมดอายุ</div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
+              </div>
+              <div className="boxRSM2-1-1">
+                <div className="title-boxRSM">
+                  <div className="title-boxRSM1">วัตถุดิบหมดอายุ</div>
+                  <div className="title-boxRSM2">10</div>
                 </div>
+              </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">
@@ -195,7 +273,7 @@ function TabReport2() {
                       </tr>
                     </thead>
                     <tbody>
-                      {records.map((item, index) => {
+                      {data.map((item, index) => {
                         return (
                           <tr key={index}>
                             <td>{item.id_buylist}</td>

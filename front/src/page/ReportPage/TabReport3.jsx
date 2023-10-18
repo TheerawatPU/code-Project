@@ -19,17 +19,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabReport3() {
-  
   const [idStapleCount, setIdStapleCount] = useState(0);
 
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     // ทำการร้องขอ API เพื่อนับจำนวน id_staple
     axios
-      .get("http://localhost:5500/table_cutStock") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
+      .get("http://localhost:5500/countcut_stock") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
       .then((response) => {
         // ดึงข้อมูลจำนวน id_staple จากการร้องขอ API
-        const idStapleCountFromAPI = response.data[0].id_staple; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
+        const idStapleCountFromAPI = response.data[0].id_cutStock; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
 
         // ตั้งค่าค่าจำนวน id_staple ใน state
         setIdStapleCount(idStapleCountFromAPI);
@@ -44,7 +43,10 @@ function TabReport3() {
   useEffect(() => {
     axios
       .get("http://localhost:5500/table_cutStock")
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -74,6 +76,53 @@ function TabReport3() {
       setCurrentPage(currentPage + 1);
     }
   }
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.date_cutStock
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.Name_staple.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.cause.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.details_cutStock
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.id_lot.toString().includes(e.target.value.toString()) ||
+          item.amount_old.toString().includes(e.target.value.toString()) ||
+          item.amount_total.toString().includes(e.target.value.toString()) ||
+          item.id_cutStock.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            date_cutStock: "ไม่มีข้อมูล",
+            Name_staple: "ไม่มีข้อมูล",
+            cause: "ไม่มีข้อมูล",
+            details_cutStock: "ไม่มีข้อมูล",
+            name: "ไม่มีข้อมูล",
+            id_lot: "ไม่มีข้อมูล",
+            amount_old: "ไม่มีข้อมูล",
+            id_cutStock: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+  //! ..........................................
 
   return (
     <>
@@ -86,13 +135,15 @@ function TabReport3() {
                   type="text"
                   className="Report_search_input"
                   placeholder="ค้นหา..."
+                  value={filterVal}
+                  onInput={(e) => handleFilter(e)}
                 />
                 <button type="submit" className="Report_search_btn">
                   ค้นหา
                 </button>
               </div>
 
-              <div className="report-print">
+              {/* <div className="report-print">
                 <button
                   className="Report_search_btn"
                   type="submit"
@@ -110,7 +161,7 @@ function TabReport3() {
                     <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
                   </div>
                 </button>
-              </div>
+              </div> */}
             </div>
 
             <div className="Rbox2">
@@ -144,32 +195,32 @@ function TabReport3() {
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">จำนวนรายการทั้งหมด</div>
                     <div className="title-list-boxRSM">
-                      <div className="title-boxRSM2">10</div>
+                      <div className="title-boxRSM2">{idStapleCount}</div>
                       {/* <div className="title-boxRSM2">{idStapleCount}</div> */}
                       {/* {data_Count.map((item2, index) => {
-                        <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                      })} */}
+                  <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
+                })} */}
                     </div>
                   </div>
                 </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนวัตถุดิบที่ปรับ</div>
-                    <div className="title-boxRSM2">2</div>
-                  </div>
+                {/* <div className="boxRSM2-1-1">
+                <div className="title-boxRSM">
+                  <div className="title-boxRSM1">จำนวนวัตถุดิบที่ปรับ</div>
+                  <div className="title-boxRSM2">2</div>
                 </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนที่ทำรายการวันนี้</div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
+              </div> */}
+                {/* <div className="boxRSM2-1-1">
+                <div className="title-boxRSM">
+                  <div className="title-boxRSM1">จำนวนที่ทำรายการวันนี้</div>
+                  <div className="title-boxRSM2">10</div>
                 </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">ปริมาณที่ปรับทั้งหมด</div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
+              </div> */}
+                {/* <div className="boxRSM2-1-1">
+                <div className="title-boxRSM">
+                  <div className="title-boxRSM1">ปริมาณที่ปรับทั้งหมด</div>
+                  <div className="title-boxRSM2">10</div>
                 </div>
+              </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">
@@ -178,12 +229,12 @@ function TabReport3() {
 
                 <div className="mainR">
                   {/* {activeTab === 1 ? (
-                    <Report3Chart1 />
-                  ) : activeTab === 2 ? (
-                    <Report3Chart1 />
-                  ) : (
-                    <Report3Chart1 />
-                  )} */}
+              <Report3Chart1 />
+            ) : activeTab === 2 ? (
+              <Report3Chart1 />
+            ) : (
+              <Report3Chart1 />
+            )} */}
 
                   <table class="styled-table-Unit">
                     <thead>

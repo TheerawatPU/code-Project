@@ -24,7 +24,7 @@ function TabReport1() {
   useEffect(() => {
     // ทำการร้องขอ API เพื่อนับจำนวน id_staple
     axios
-      .get("http://localhost:5500/Report_Stable_Count") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
+      .get("http://localhost:5500/countstaple") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
       .then((response) => {
         // ดึงข้อมูลจำนวน id_staple จากการร้องขอ API
         const idStapleCountFromAPI = response.data[0].id_staple; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
@@ -42,7 +42,10 @@ function TabReport1() {
   useEffect(() => {
     axios
       .get("http://localhost:5500/Report_Stable")
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -73,6 +76,44 @@ function TabReport1() {
     }
   }
 
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.Name_staple.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.Name_INCIname.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.reOrder.toString().includes(e.target.value.toString()) ||
+          item.cost.toString().includes(e.target.value.toString()) ||
+          item.amount_re.toString().includes(e.target.value.toString()) ||
+          item.id_staple.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            Name_staple: "ไม่มีข้อมูล",
+            Name_INCIname: "ไม่มีข้อมูล",
+            reOrder: "ไม่มีข้อมูล",
+            cost: "ไม่มีข้อมูล",
+            amount_re: "ไม่มีข้อมูล",
+            id_staple: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
   return (
     <>
       <div className="back-0">
@@ -84,13 +125,15 @@ function TabReport1() {
                   type="text"
                   className="Report_search_input"
                   placeholder="ค้นหา..."
+                  value={filterVal}
+                  onInput={(e) => handleFilter(e)}
                 />
                 <button type="submit" className="Report_search_btn">
                   ค้นหา
                 </button>
               </div>
 
-              <div className="report-print">
+              {/* <div className="report-print">
                 <button
                   className="Report_search_btn"
                   type="submit"
@@ -108,7 +151,7 @@ function TabReport1() {
                     <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
                   </div>
                 </button>
-              </div>
+              </div> */}
             </div>
 
             <div className="Rbox2">
@@ -144,72 +187,36 @@ function TabReport1() {
                     <div className="title-list-boxRSM">
                       <div className="title-boxRSM2">{idStapleCount}</div>
                       {/* {data_Count.map((item2, index) => {
-                        <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                      })} */}
+                    <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
+                  })} */}
                     </div>
                   </div>
                 </div>
-                <div className="boxRSM2-1-1">
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">วัตถุดิบใหม่</div>
                     <div className="title-boxRSM2">2</div>
                   </div>
-                </div>
-                <div className="boxRSM2-1-1">
+                </div> */}
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">
                       วัตถุดิบต่ำกว่าจุดสั่งซื้อ
                     </div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
-                <div className="boxRSM2-1-1">
+                </div> */}
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">วัตถุดิบหมดอายุ</div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">
                   <div className="titleR-Table">ตารางวัตถุดิบ</div>
-                  {/* <div className="btn-R-chart">
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(1)}
-                    >
-                      <h4>
-                        <FaBorderAll />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(2)}
-                    >
-                      <h4>
-                        <FaChartBar />
-                      </h4>
-                    </button>
-                    <button
-                      className="btn-R-0"
-                      onClick={() => handleTabChange(3)}
-                    >
-                      <h4>
-                        <FaChartPie />
-                      </h4>
-                    </button>
-                  </div> */}
                 </div>
-
-                {/* <div className="mainR">
-                  {activeTab === 1 ? (
-                    <Report1Chart1 />
-                  ) : activeTab === 2 ? (
-                    <Report1Chart2 />
-                  ) : (
-                    <Report1Chart3 />
-                  )}
-                </div> */}
 
                 <table class="styled-table-Unit">
                   <thead>

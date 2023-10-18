@@ -32,3 +32,48 @@ export const Report_Stable = (req, res) => {
 };
 
 // ("SELECT s.id_staple, s.Name_staple ,s.Name_INCIname,s.reOrder, COALESCE(l.cost, 0) AS cost , COALESCE(l.amount_re, 0) AS amount_re FROM staple s LEFT JOIN ( SELECT id_staple, MAX(id_lot) AS latest_lot_id, cost , amount_re FROM lots GROUP BY id_staple ) AS latest_lots ON s.id_staple = latest_lots.id_staple LEFT JOIN lots l ON latest_lots.latest_lot_id = l.id_lot ORDER BY id_staple DESC LIMIT 8");
+
+//countUnit
+export const countUnit = (req, res) => {
+  const sql = "SELECT COUNT(`id_unit`)  AS id_unit FROM `unit`";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
+//countbuy_staple
+export const countbuy_staple = (req, res) => {
+  const sql = "SELECT COUNT(id_buylist)  AS id_buylist FROM buy_staple";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
+//countbuy_staple
+export const countstaple = (req, res) => {
+  const sql = "SELECT COUNT(id_staple)  AS id_staple FROM staple";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
+//countbuy_staple
+export const countcut_stock = (req, res) => {
+  const sql = "SELECT COUNT(id_cutStock) AS id_cutStock FROM `cut_stock`";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
+//countbuy_staple
+export const countproductorder = (req, res) => {
+  const sql = "SELECT COUNT(id_productorder) AS id_productorder FROM `productorder`";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};

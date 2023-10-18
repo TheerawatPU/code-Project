@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import "../../CSS/Report.css";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { FaChartPie, FaChartBar, FaBorderAll } from "react-icons/fa";
-
-import Report4Chart1 from "./Report4Chart1";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,14 +13,16 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function TabReport4() {
+import "../CSS/Report.css";
+
+function ReportAD5() {
   const [idStapleCount, setIdStapleCount] = useState(0);
 
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     // ทำการร้องขอ API เพื่อนับจำนวน id_staple
     axios
-      .get("http://localhost:5500/unitRead") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
+      .get("http://localhost:5500/Report_Stable_Count") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
       .then((response) => {
         // ดึงข้อมูลจำนวน id_staple จากการร้องขอ API
         const idStapleCountFromAPI = response.data[0].id_staple; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
@@ -40,16 +37,16 @@ function TabReport4() {
 
   const [data, setData] = useState([]);
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
-  useEffect(() => {
-    axios
-      .get("http://localhost:5500/unitRead")
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5500/producter")
+  //     .then((res) => setData(res.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   //next page555555
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 9;
+  const recordsPerPage = 11;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = data.slice(firstIndex, lastIndex);
@@ -73,6 +70,23 @@ function TabReport4() {
       setCurrentPage(currentPage + 1);
     }
   }
+
+  //
+  const [startDate, setStartDate] = useState(""); // เก็บวันเริ่มต้น
+  const [endDate, setEndDate] = useState(""); // เก็บวันสิ้นสุด
+
+  useEffect(() => {
+    let apiUrl = "http://localhost:5500/producter";
+
+    if (startDate && endDate) {
+      apiUrl += `?startDate=${startDate}&endDate=${endDate}`;
+    }
+
+    axios
+      .get(apiUrl)
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, [startDate, endDate]);
 
   return (
     <>
@@ -123,13 +137,31 @@ function TabReport4() {
                 </div>
 
                 <div className="Rbox2-2-2-2">
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    type="date"
+                    className="input-date-Report"
+                    onChange={(e) => setStartDate(e.target.value)}
+                    value={startDate}
+                  />
                   <h2>ถึง</h2>
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    className="input-date-Report"
+                    type="date"
+                    onChange={(e) => setEndDate(e.target.value)}
+                    value={endDate}
+                  />
                 </div>
 
                 <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn">ค้นหา</button>
+                  <button
+                    className="Report_search_btn"
+                    onClick={() => {
+                      setStartDate();
+                      setEndDate();
+                    }}
+                  >
+                    ค้นหา
+                  </button>
                 </div>
               </div>
             </div>
@@ -138,76 +170,50 @@ function TabReport4() {
         <div className="back02">
           <div className="back2">
             <div className="back2-2">
-              <div className="boxR2-1">
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">สูตรทั้งหมด</div>
-                    <div className="title-list-boxRSM">
-                      {/* <div className="title-boxRSM2">{idStapleCount}</div> */}
-                      <div className="title-boxRSM2">15</div>
-                      {/* {data_Count.map((item2, index) => {
-                        <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                      })} */}
-                    </div>
-                  </div>
-                </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">สูตรใหม่วันนี้</div>
-                    <div className="title-boxRSM2">2</div>
-                  </div>
-                </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนเลขจแจ้ง</div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
-                </div>
-                <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนสิ้นสุดเลขจดแจ้ง</div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
-                </div>
-              </div>
               <div className="boxR2-2">
                 <div className="titleR">
-                  <div className="titleR-Table">ตารางสูตรผลิต</div>
+                  <div className="titleR-Table">ตารางสั่งผลิต</div>
                 </div>
 
                 <div className="mainR">
                   {/* {activeTab === 1 ? (
-                    <Report4Chart1 />
-                  ) : activeTab === 2 ? (
-                    <Report4Chart1 />
-                  ) : (
-                    <Report4Chart1 />
-                  )} */}
+                <Report5Chart1 />
+              ) : activeTab === 2 ? (
+                <Report5Chart1 />
+              ) : (
+                <Report5Chart1 />
+              )} */}
 
                   <table class="styled-table-Unit">
                     <thead>
                       <tr>
-                        <th>รหัสสูตร</th>
-                        <th>ชื่อสูตร</th>
-                        <th>วันที่สร้างสูตร </th>
-                        <th>เลขจดแจ้ง</th>
-                        <th>วันสิ้นสุดเลขจดแจ้ง</th>
+                        <th>รหัสการผลิต</th>
                         <th>ชื่อลูกค้า</th>
+                        <th>วันที่ผลิต </th>
+                        <th>วันที่ส่งมอบ</th>
+                        <th>ยอดรวม</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {records.map((item, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{item.id_unit}</td>
-                            <td>{item.unit_name}</td>
-                            <td>{item.day_admit_list}</td>
-                            <td>{item.notification_num}</td>
-                            <td>{item.date_notification_num}</td>
-                            <td>{item.name_cus}</td>
-                          </tr>
-                        );
-                      })}
+                      {records
+                        .filter((data) => {
+                          const expDate = new Date(data.day_move);
+                          return (
+                            (!startDate || expDate >= new Date(startDate)) &&
+                            (!endDate || expDate <= new Date(endDate))
+                          );
+                        })
+                        .map((item, index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{item.id_productorder}</td>
+                              <td>{item.name_cus}</td>
+                              <td>{item.day_productorder}</td>
+                              <td>{item.day_move}</td>
+                              <td>{item.total_cost}</td>
+                            </tr>
+                          );
+                        })}
                     </tbody>
                   </table>
 
@@ -258,4 +264,4 @@ function TabReport4() {
   );
 }
 
-export default TabReport4;
+export default ReportAD5;

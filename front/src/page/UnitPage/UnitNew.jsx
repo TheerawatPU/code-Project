@@ -251,7 +251,7 @@ function UnitNew() {
               >
                 <FaArrowLeftLong />
               </div>
-              <div className="titleText">แก้ไขข้อมูลสูตร</div>
+              <div className="titleText">เพิ่มข้อมูลสูตร</div>
             </div>
           </div>
           <div className="all-btn-0">
@@ -301,7 +301,7 @@ function UnitNew() {
         <div className="Ubox0">
           <div className="Ubox1">
             <div className="Ubox1-1">
-              <h2 style={{ marginBottom: "25px" }}>ข้อมูลการผลิต</h2>
+              <h2 style={{ marginBottom: "25px" }}>ข้อมูลสูตร</h2>
 
               <div className="Ubox1-1-1">
                 <label className="form-label1-1">รหัสสูตร :</label>

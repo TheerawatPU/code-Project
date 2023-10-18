@@ -108,7 +108,7 @@ function TabReport5() {
                 </button>
               </div>
 
-              <div className="report-print">
+              {/* <div className="report-print">
                 <button
                   className="Report_search_btn"
                   type="submit"
@@ -126,7 +126,7 @@ function TabReport5() {
                     <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
                   </div>
                 </button>
-              </div>
+              </div> */}
             </div>
 
             <div className="Rbox2">

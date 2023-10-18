@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import "../../CSS/Report.css";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { FaChartPie, FaChartBar, FaBorderAll } from "react-icons/fa";
-
-import Report4Chart1 from "./Report4Chart1";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,14 +13,16 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function TabReport4() {
+import "../CSS/Report.css";
+
+function ReportAD1() {
   const [idStapleCount, setIdStapleCount] = useState(0);
 
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     // ทำการร้องขอ API เพื่อนับจำนวน id_staple
     axios
-      .get("http://localhost:5500/unitRead") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
+      .get("http://localhost:5500/countstaple") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
       .then((response) => {
         // ดึงข้อมูลจำนวน id_staple จากการร้องขอ API
         const idStapleCountFromAPI = response.data[0].id_staple; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
@@ -42,8 +39,11 @@ function TabReport4() {
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
-      .get("http://localhost:5500/unitRead")
-      .then((res) => setData(res.data))
+      .get("http://localhost:5500/Report_Stable")
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -74,6 +74,45 @@ function TabReport4() {
     }
   }
 
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.Name_staple.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.Name_INCIname.toLowerCase().includes(
+            e.target.value.toLowerCase()
+          ) ||
+          item.reOrder.toString().includes(e.target.value.toString()) ||
+          item.cost.toString().includes(e.target.value.toString()) ||
+          item.amount_re.toString().includes(e.target.value.toString()) ||
+          item.id_staple.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            Name_staple: "ไม่มีข้อมูล",
+            Name_INCIname: "ไม่มีข้อมูล",
+            reOrder: "ไม่มีข้อมูล",
+            cost: "ไม่มีข้อมูล",
+            amount_re: "ไม่มีข้อมูล",
+            id_staple: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+
   return (
     <>
       <div className="back-0">
@@ -85,6 +124,8 @@ function TabReport4() {
                   type="text"
                   className="Report_search_input"
                   placeholder="ค้นหา..."
+                  value={filterVal}
+                  onInput={(e) => handleFilter(e)}
                 />
                 <button type="submit" className="Report_search_btn">
                   ค้นหา
@@ -141,114 +182,105 @@ function TabReport4() {
               <div className="boxR2-1">
                 <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">สูตรทั้งหมด</div>
+                    <div className="title-boxRSM1">วัตถุดิบทั้งหมด</div>
                     <div className="title-list-boxRSM">
-                      {/* <div className="title-boxRSM2">{idStapleCount}</div> */}
-                      <div className="title-boxRSM2">15</div>
+                      <div className="title-boxRSM2">{idStapleCount}</div>
                       {/* {data_Count.map((item2, index) => {
-                        <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                      })} */}
+                    <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
+                  })} */}
                     </div>
                   </div>
                 </div>
-                <div className="boxRSM2-1-1">
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">สูตรใหม่วันนี้</div>
+                    <div className="title-boxRSM1">วัตถุดิบใหม่</div>
                     <div className="title-boxRSM2">2</div>
                   </div>
-                </div>
-                <div className="boxRSM2-1-1">
+                </div> */}
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนเลขจแจ้ง</div>
+                    <div className="title-boxRSM1">
+                      วัตถุดิบต่ำกว่าจุดสั่งซื้อ
+                    </div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
-                <div className="boxRSM2-1-1">
+                </div> */}
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนสิ้นสุดเลขจดแจ้ง</div>
+                    <div className="title-boxRSM1">วัตถุดิบหมดอายุ</div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">
-                  <div className="titleR-Table">ตารางสูตรผลิต</div>
+                  <div className="titleR-Table">ตารางวัตถุดิบ</div>
                 </div>
 
-                <div className="mainR">
-                  {/* {activeTab === 1 ? (
-                    <Report4Chart1 />
-                  ) : activeTab === 2 ? (
-                    <Report4Chart1 />
-                  ) : (
-                    <Report4Chart1 />
-                  )} */}
+                <table class="styled-table-Unit">
+                  <thead>
+                    <tr>
+                      <th>รหัส</th>
+                      <th>ชื่อวัตถุดิบ</th>
+                      <th>INCIname </th>
+                      <th>จุดสั่งซื้อ</th>
+                      <th>ปริมาณคงเหลือ (กรัม)</th>
+                      <th>ราคา (บาท)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {records.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{item.id_staple}</td>
+                          <td>{item.Name_staple}</td>
+                          <td>{item.Name_INCIname}</td>
+                          <td>{item.reOrder}</td>
+                          <td>{item.amount_re}</td>
+                          <td>{item.cost}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
 
-                  <table class="styled-table-Unit">
-                    <thead>
-                      <tr>
-                        <th>รหัสสูตร</th>
-                        <th>ชื่อสูตร</th>
-                        <th>วันที่สร้างสูตร </th>
-                        <th>เลขจดแจ้ง</th>
-                        <th>วันสิ้นสุดเลขจดแจ้ง</th>
-                        <th>ชื่อลูกค้า</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {records.map((item, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{item.id_unit}</td>
-                            <td>{item.unit_name}</td>
-                            <td>{item.day_admit_list}</td>
-                            <td>{item.notification_num}</td>
-                            <td>{item.date_notification_num}</td>
-                            <td>{item.name_cus}</td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-
-                  <nav>
-                    <ul
-                      className="pagination-stable"
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        background: "none",
-                      }}
-                    >
-                      <li className="page-item-stable">
-                        <a href="#" className="page-link" onClick={prePage}>
-                          <FontAwesomeIcon icon={faAnglesLeft} />
-                        </a>
-                      </li>
-                      {number.map((n, i) => (
-                        <li
-                          className={`page-item-stable ${
-                            currentPage === n ? "active" : ""
-                          }`}
-                          key={i}
+                <nav>
+                  <ul
+                    className="pagination-stable"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      background: "none",
+                    }}
+                  >
+                    <li className="page-item-stable">
+                      <a href="#" className="page-link" onClick={prePage}>
+                        <FontAwesomeIcon icon={faAnglesLeft} />
+                      </a>
+                    </li>
+                    {number.map((n, i) => (
+                      <li
+                        className={`page-item-stable ${
+                          currentPage === n ? "active" : ""
+                        }`}
+                        key={i}
+                      >
+                        <a
+                          href="#"
+                          className="page-link"
+                          onClick={() => changeCPage(n)}
                         >
-                          <a
-                            href="#"
-                            className="page-link"
-                            onClick={() => changeCPage(n)}
-                          >
-                            {n}
-                          </a>
-                        </li>
-                      ))}
-                      <li className="page-item-stable">
-                        <a href="#" className="page-link" onClick={nextPage}>
-                          <FontAwesomeIcon icon={faAnglesRight} />
+                          {n}
                         </a>
                       </li>
-                    </ul>
-                  </nav>
-                </div>
+                    ))}
+                    <li className="page-item-stable">
+                      <a href="#" className="page-link" onClick={nextPage}>
+                        <FontAwesomeIcon icon={faAnglesRight} />
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>
@@ -258,4 +290,4 @@ function TabReport4() {
   );
 }
 
-export default TabReport4;
+export default ReportAD1;

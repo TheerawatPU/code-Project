@@ -160,7 +160,9 @@ function CustomerReadPage() {
                   <tr key={index}>
                     <td
                       style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => navigate(`CustomerReadIDPage/${item.id_customer}`)}
+                      onClick={() =>
+                        navigate(`CustomerReadIDPage/${item.id_customer}`)
+                      }
                     >
                       {item.id_customer}
                     </td>

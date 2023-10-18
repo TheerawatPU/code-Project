@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import "../../CSS/Report.css";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { FaChartPie, FaChartBar, FaBorderAll } from "react-icons/fa";
-
-import Report4Chart1 from "./Report4Chart1";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,17 +13,19 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function TabReport4() {
+import "../CSS/Report.css";
+
+function ReportAD2() {
   const [idStapleCount, setIdStapleCount] = useState(0);
 
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     // ทำการร้องขอ API เพื่อนับจำนวน id_staple
     axios
-      .get("http://localhost:5500/unitRead") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
+      .get("http://localhost:5500/countbuy_staple") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
       .then((response) => {
         // ดึงข้อมูลจำนวน id_staple จากการร้องขอ API
-        const idStapleCountFromAPI = response.data[0].id_staple; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
+        const idStapleCountFromAPI = response.data[0].id_buylist; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
 
         // ตั้งค่าค่าจำนวน id_staple ใน state
         setIdStapleCount(idStapleCountFromAPI);
@@ -42,8 +39,11 @@ function TabReport4() {
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
-      .get("http://localhost:5500/unitRead")
-      .then((res) => setData(res.data))
+      .get("http://localhost:5500/buy_stable_all")
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -74,6 +74,63 @@ function TabReport4() {
     }
   }
 
+  // สร้าง state สำหรับเก็บวันที่เริ่มต้นและสิ้นสุดของช่วงเวลาที่จะค้นหา
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // ฟังก์ชันสำหรับค้นหาข้อมูล
+  const searchByDate = () => {
+    // ทำการค้นหาข้อมูลจาก API โดยส่งวันที่เริ่มต้นและสิ้นสุดไปด้วย
+    axios
+      .get(
+        `http://localhost:5500/buy_stable_all?start_date=${startDate}&end_date=${endDate}`
+      )
+      .then((res) => {
+        // นำข้อมูลที่ได้มาแสดงในตาราง
+        setData(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.day_buy.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.day_admit_staple
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.store.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.note.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.refer_id.toString().includes(e.target.value.toString()) ||
+          item.id_buylist.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            day_buy: "ไม่มีข้อมูล",
+            day_admit_staple: "ไม่มีข้อมูล",
+            store: "ไม่มีข้อมูล",
+            id_buylist: "ไม่มีข้อมูล",
+            note: "ไม่มีข้อมูล",
+            refer_id: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+  //! ..........................................
+
   return (
     <>
       <div className="back-0">
@@ -85,13 +142,19 @@ function TabReport4() {
                   type="text"
                   className="Report_search_input"
                   placeholder="ค้นหา..."
+                  value={filterVal}
+                  onInput={(e) => handleFilter(e)}
                 />
-                <button type="submit" className="Report_search_btn">
+                <button
+                  type="submit"
+                  className="Report_search_btn"
+                  // onClick={searchByDate}
+                >
                   ค้นหา
                 </button>
               </div>
-
-              {/* <div className="report-print">
+{/* 
+              <div className="report-print">
                 <button
                   className="Report_search_btn"
                   type="submit"
@@ -123,13 +186,25 @@ function TabReport4() {
                 </div>
 
                 <div className="Rbox2-2-2-2">
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    type="date"
+                    className="input-date-Report"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
                   <h2>ถึง</h2>
-                  <input type="date" className="input-date-Report" />
+                  <input
+                    type="date"
+                    className="input-date-Report"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
                 </div>
 
                 <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn">ค้นหา</button>
+                  <button className="Report_search_btn" onClick={searchByDate}>
+                    ค้นหา
+                  </button>
                 </div>
               </div>
             </div>
@@ -141,70 +216,67 @@ function TabReport4() {
               <div className="boxR2-1">
                 <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">สูตรทั้งหมด</div>
+                    <div className="title-boxRSM1">สั่งซื้อวัตถุดิบ</div>
                     <div className="title-list-boxRSM">
-                      {/* <div className="title-boxRSM2">{idStapleCount}</div> */}
-                      <div className="title-boxRSM2">15</div>
+                      <div className="title-boxRSM2">{idStapleCount}</div>
                       {/* {data_Count.map((item2, index) => {
-                        <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                      })} */}
+                    <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
+                  })} */}
                     </div>
                   </div>
                 </div>
-                <div className="boxRSM2-1-1">
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">สูตรใหม่วันนี้</div>
+                    <div className="title-boxRSM1">วัตถุดิบใหม่</div>
                     <div className="title-boxRSM2">2</div>
                   </div>
-                </div>
-                <div className="boxRSM2-1-1">
+                </div> */}
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนเลขจแจ้ง</div>
+                    <div className="title-boxRSM1">
+                      วัตถุดิบต่ำกว่าจุดสั่งซื้อ
+                    </div>
                     <div className="title-boxRSM2">10</div>
                   </div>
                 </div>
                 <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนสิ้นสุดเลขจดแจ้ง</div>
+                    <div className="title-boxRSM1">วัตถุดิบหมดอายุ</div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">
-                  <div className="titleR-Table">ตารางสูตรผลิต</div>
+                  <div className="titleR-Table">ตารางสั่งซื้อวัตถุดิบ</div>
                 </div>
 
                 <div className="mainR">
-                  {/* {activeTab === 1 ? (
-                    <Report4Chart1 />
-                  ) : activeTab === 2 ? (
-                    <Report4Chart1 />
-                  ) : (
-                    <Report4Chart1 />
-                  )} */}
-
                   <table class="styled-table-Unit">
                     <thead>
                       <tr>
-                        <th>รหัสสูตร</th>
-                        <th>ชื่อสูตร</th>
-                        <th>วันที่สร้างสูตร </th>
-                        <th>เลขจดแจ้ง</th>
-                        <th>วันสิ้นสุดเลขจดแจ้ง</th>
-                        <th>ชื่อลูกค้า</th>
+                        <th>รหัสการสั่งซื้อ</th>
+                        <th>วันที่สั่งซื้อ</th>
+                        <th>วันที่รับวัตถุดิบ </th>
+                        <th>ร้านค้าที่สั่งซื้อ</th>
+                        <th>ราคาต้นทุน (บาท)</th>
+                        <th>ยอดรวม (บาท)</th>
+                        <th>รหัสอ้างอิง</th>
+                        <th>หมายเหตุ</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {records.map((item, index) => {
+                      {data.map((item, index) => {
                         return (
                           <tr key={index}>
-                            <td>{item.id_unit}</td>
-                            <td>{item.unit_name}</td>
-                            <td>{item.day_admit_list}</td>
-                            <td>{item.notification_num}</td>
-                            <td>{item.date_notification_num}</td>
-                            <td>{item.name_cus}</td>
+                            <td>{item.id_buylist}</td>
+                            <td>{item.day_buy}</td>
+                            <td>{item.day_admit_staple}</td>
+                            <td>{item.store}</td>
+                            <td>{item.cost_price}</td>
+                            <td>{item.total_cost}</td>
+                            <td>{item.refer_id}</td>
+                            <td>{item.note}</td>
                           </tr>
                         );
                       })}
@@ -258,4 +330,4 @@ function TabReport4() {
   );
 }
 
-export default TabReport4;
+export default ReportAD2;

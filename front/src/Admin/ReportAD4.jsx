@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import "../../CSS/Report.css";
-
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { FaChartPie, FaChartBar, FaBorderAll } from "react-icons/fa";
-
-import Report4Chart1 from "./Report4Chart1";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,17 +13,19 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function TabReport4() {
+import "../CSS/Report.css";
+
+function ReportAD4() {
   const [idStapleCount, setIdStapleCount] = useState(0);
 
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     // ทำการร้องขอ API เพื่อนับจำนวน id_staple
     axios
-      .get("http://localhost:5500/unitRead") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
+      .get("http://localhost:5500/countUnit") // เปลี่ยนเส้นทาง URL ตามที่คุณใช้งาน
       .then((response) => {
         // ดึงข้อมูลจำนวน id_staple จากการร้องขอ API
-        const idStapleCountFromAPI = response.data[0].id_staple; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
+        const idStapleCountFromAPI = response.data[0].id_unit; // แนะนำให้ตรวจสอบโครงสร้างข้อมูลของ API
 
         // ตั้งค่าค่าจำนวน id_staple ใน state
         setIdStapleCount(idStapleCountFromAPI);
@@ -144,14 +141,14 @@ function TabReport4() {
                     <div className="title-boxRSM1">สูตรทั้งหมด</div>
                     <div className="title-list-boxRSM">
                       {/* <div className="title-boxRSM2">{idStapleCount}</div> */}
-                      <div className="title-boxRSM2">15</div>
+                      <div className="title-boxRSM2">{idStapleCount}</div>
                       {/* {data_Count.map((item2, index) => {
-                        <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                      })} */}
+                    <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
+                  })} */}
                     </div>
                   </div>
                 </div>
-                <div className="boxRSM2-1-1">
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">สูตรใหม่วันนี้</div>
                     <div className="title-boxRSM2">2</div>
@@ -162,13 +159,13 @@ function TabReport4() {
                     <div className="title-boxRSM1">จำนวนเลขจแจ้ง</div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
-                <div className="boxRSM2-1-1">
+                </div> */}
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">จำนวนสิ้นสุดเลขจดแจ้ง</div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">
@@ -177,12 +174,12 @@ function TabReport4() {
 
                 <div className="mainR">
                   {/* {activeTab === 1 ? (
-                    <Report4Chart1 />
-                  ) : activeTab === 2 ? (
-                    <Report4Chart1 />
-                  ) : (
-                    <Report4Chart1 />
-                  )} */}
+                <Report4Chart1 />
+              ) : activeTab === 2 ? (
+                <Report4Chart1 />
+              ) : (
+                <Report4Chart1 />
+              )} */}
 
                   <table class="styled-table-Unit">
                     <thead>
@@ -258,4 +255,4 @@ function TabReport4() {
   );
 }
 
-export default TabReport4;
+export default ReportAD4;

@@ -49,7 +49,7 @@ function Menu() {
               <div className="side-item-EM">
                 <FontAwesomeIcon icon={faUser} />
                 {/* <RiUserSettingsLine /> */}
-                <span>พนักงาน</span>
+                <span>ลูกค้า</span>
               </div>
             </a>
             <a href="/EM/Report">
