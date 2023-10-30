@@ -16,6 +16,10 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+import "../../CSS/button.css";
+
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 function TabUnit1() {
   // ดึงข้อมูลผู้บันทึกที่เข้าระบบตอนนั้น
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
@@ -112,6 +116,8 @@ function TabUnit1() {
     }
   }
 
+  const [showHint, setShowHint] = useState(false);
+
   return (
     <div>
       <main className="main-stable ">
@@ -182,13 +188,26 @@ function TabUnit1() {
 
                     <td className="TDStable">
                       <button
+                        data-tooltip-id="my-tooltip-1"
                         className="btnstableRead2"
                         onClick={() => navigate(`Utest/${item.id_unit}`)}
+                        onMouseEnter={() => setShowHint(true)}
+                        onMouseLeave={() => setShowHint(false)}
                       >
                         <div className="icon_edit">
                           <FontAwesomeIcon icon={faEye} />
                         </div>
-                        {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
+
+                        <ReactTooltip
+                          id="my-tooltip-1"
+                          place="bottom"
+                          content="ดูข้อมูล"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
                       </button>
 
                       {/* <button

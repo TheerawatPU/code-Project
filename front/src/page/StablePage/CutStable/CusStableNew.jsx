@@ -154,8 +154,6 @@ function CusStableNew() {
           <Menu />
         </section>
         <main className="main">
-
-          
           <div className="title-Text-new">
             <div className="top-text-new-EM">
               <div className="text-new-EM-Unit">
@@ -337,6 +335,15 @@ function CusStableNew() {
                 </div>
               </form>
             </div>
+            <p
+              style={{
+                // paddingRight: "870px",
+                marginRight: "870px",
+                marginTop: "20px",
+              }}
+            >
+              * เมื่อกดบันทึกแล้วไม่สามารถแก้ไขข้อมูลได้
+            </p>
           </div>
         </main>
       </div>

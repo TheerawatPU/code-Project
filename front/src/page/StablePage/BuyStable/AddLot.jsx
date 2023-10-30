@@ -319,6 +319,15 @@ function AddLot() {
                 </div>
               </form>
             </div>
+            <p
+              style={{
+                paddingRight: "870px",
+                // marginRight: "870px",
+                marginTop: "10px",
+              }}
+            >
+              * เมื่อกดบันทึกแล้วไม่สามารถแก้ไขข้อมูลได้
+            </p>
           </div>
         </main>
       </div>

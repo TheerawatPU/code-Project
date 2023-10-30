@@ -109,3 +109,15 @@ export const buystableID = (req, res) => {
     }
   });
 };
+
+
+
+// อ่านข้อมูลสั่งวัตถุดิบทั้งหมด
+export const buystableReadNew = (req, res) => {
+  const sql =
+    "SELECT `id_buylist`,  day_buy ,  day_admit_staple , `store`, `refer_id`, `note`, employees.name FROM `buy_staple` INNER JOIN employees ON buy_staple.id_employee = employees.id_employee ORDER BY id_buylist DESC";
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};

@@ -16,6 +16,7 @@ import {
   faPrint,
   faAnglesLeft,
   faAnglesRight,
+  faArrowRightArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabReport4() {
@@ -42,8 +43,11 @@ function TabReport4() {
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
-      .get("http://localhost:5500/unitRead")
-      .then((res) => setData(res.data))
+      .get("http://localhost:5500/Report_unit_all")
+      .then((res) => {
+        setData(res.data);
+        setSearchApiData(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -73,68 +77,231 @@ function TabReport4() {
       setCurrentPage(currentPage + 1);
     }
   }
+  //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
+  const [filterVal, setFilterVal] = useState("");
+  const [searchApiData, setSearchApiData] = useState([]);
+
+  const handleFilter = (e) => {
+    if (e.target.value == "") {
+      setData(searchApiData);
+    } else {
+      const filterResult = searchApiData.filter(
+        (item) =>
+          item.unit_name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.day_admit_list
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.date_notification_num
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          item.name_cus.toLowerCase().includes(e.target.value.toLowerCase()) ||
+          item.id_unit.toString().includes(e.target.value) ||
+          item.notification_num.toString().includes(e.target.value)
+      );
+
+      if (filterResult.length > 0) {
+        setData(filterResult);
+      } else {
+        setData([
+          {
+            id_unit: "ไม่มีข้อมูล",
+            unit_name: "ไม่มีข้อมูล",
+            day_admit_list: "ไม่มีข้อมูล",
+            notification_num: "ไม่มีข้อมูล",
+            date_notification_num: "ไม่มีข้อมูล",
+            name_cus: "ไม่มีข้อมูล",
+          },
+        ]);
+      }
+    }
+    setFilterVal(e.target.value);
+  };
+  //! ..........................................
+
+  // ! ฟังก์ชั่นเลือกรีพอร์ต
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // ฟังก์ชันสำหรับค้นหาข้อมูล
+  const handleSearch = () => {
+    axios
+      .get(
+        `http://localhost:5500/Report_unit_date?start_date=${startDate}&end_date=${endDate}`
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error searching for students", error);
+      });
+  };
+
+  // ล้างข้อมูล
+  const handleClear = () => {
+    setStartDate("");
+    setEndDate("");
+    axios
+      .get("http://localhost:5500/Report_unit_all")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // ปุ่มกด สัปหาด์/เดือน/ปี
+  const handleViewOption2 = (option) => {
+    axios
+      .get(`http://localhost:5500/Report_unit_button_date/${option}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // กด เรียงลำดับน้อยไปมาก มากไปน้อย
+  const [sortOrder, setSortOrder] = useState("asc");
+  const handleSort = (column) => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+    axios
+      .get(
+        `http://localhost:5500/Report_unit_button_sort/${column}/${newSortOrder}`
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error sorting students", error);
+      });
+  };
+
+  // เลือกร้านค้า
+  const [store, setStore] = useState([]);
+  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/Report_unit_select_customer")
+      .then((res) => {
+        setStore(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  // โชว์จากที่เลือก
+  const handleTeacherSelect = (event) => {
+    const store = event.target.value;
+
+    if (store) {
+      axios
+        .get(`http://localhost:5500/Report_unit_select_customerData/${store}`)
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching students", error);
+        });
+    } else {
+      // ถ้าคุณเลือก "เลือกครูที่ปรึกษา" ให้ดึงรายชื่อนักเรียนทั้งหมด
+      axios
+        .get("http://localhost:5500/Report_unit_all")
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching students", error);
+        });
+    }
+  };
+
+  // ! ฟังก์ชั่นเลือกรีพอร์ต---------------------------
 
   return (
     <>
       <div className="back-0">
-        <div className="back01">
-          <div className="back1">
-            <div className="Rbox1">
-              <div className="Report_search">
-                <input
-                  type="text"
-                  className="Report_search_input"
-                  placeholder="ค้นหา..."
-                />
-                <button type="submit" className="Report_search_btn">
-                  ค้นหา
-                </button>
-              </div>
+        <div className="back01new">
+          <div className="R00">
+            <input
+              type="text"
+              className="inReport00"
+              placeholder="ค้นหา..."
+              value={filterVal}
+              onInput={(e) => handleFilter(e)}
+            />
+          </div>
 
-              {/* <div className="report-print">
-                <button
-                  className="Report_search_btn"
-                  type="submit"
-                  style={{
-                    background: "#000",
-                    color: "white",
-                    width: "auto",
-                    height: "auto",
-                    marginLeft: "50px",
-                  }}
-                >
-                  <div className="btn-save01">
-                    <FontAwesomeIcon icon={faPrint} />
-
-                    <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
-                  </div>
-                </button>
-              </div> */}
+          <div className="R01">
+            <div className="R1">
+              <select
+                name=""
+                id=""
+                className="selectReport00"
+                onChange={handleTeacherSelect}
+              >
+                <option value="">ชื่อลูกค้า</option>
+                {store.map((cusOption) => (
+                  <option key={cusOption.id} value={cusOption.name_cus}>
+                    {cusOption.name_cus}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="Rbox2">
-              <div className="Rbox2-2">
-                <div className="Rbox2-2-2-1">
-                  <select name="" id="" className="input-select-Report">
-                    <option value="">วัตถุดิบทั้งหมด</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </div>
+            <div className="R2">
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("week")}
+              >
+                สัปดาห์
+              </button>
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("month")}
+              >
+                เดือน
+              </button>
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("year")}
+              >
+                ปี
+              </button>
+            </div>
 
-                <div className="Rbox2-2-2-2">
-                  <input type="date" className="input-date-Report" />
-                  <h2>ถึง</h2>
-                  <input type="date" className="input-date-Report" />
-                </div>
+            <div className="R3">
+              <input
+                type="date"
+                name=""
+                className="dateSeach"
+                id="startDate"
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <label htmlFor="" className="labeldate">
+                ถึง
+              </label>
+              <input
+                type="date"
+                name=""
+                className="dateSeach"
+                id="endDate"
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
 
-                <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn">ค้นหา</button>
-                </div>
-              </div>
+            <div className="R4">
+              <button className="B_report00" onClick={handleSearch}>
+                ค้นหา
+              </button>
+              <button className="B_report01" onClick={handleClear}>
+                ล้าง
+              </button>
             </div>
           </div>
         </div>
+
         <div className="back02">
           <div className="back2">
             <div className="back2-2">
@@ -145,19 +312,28 @@ function TabReport4() {
                     <div className="title-list-boxRSM">
                       {/* <div className="title-boxRSM2">{idStapleCount}</div> */}
                       <div className="title-boxRSM2">15</div>
+                      <p
+                        style={{
+                          paddingLeft: "5px",
+                          color: "#393B44",
+                          fontSize: "25px",
+                        }}
+                      >
+                        รายการ
+                      </p>
                       {/* {data_Count.map((item2, index) => {
                         <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
                       })} */}
                     </div>
                   </div>
                 </div>
-                <div className="boxRSM2-1-1">
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">สูตรใหม่วันนี้</div>
                     <div className="title-boxRSM2">2</div>
                   </div>
-                </div>
-                <div className="boxRSM2-1-1">
+                </div> */}
+                {/* <div className="boxRSM2-1-1">
                   <div className="title-boxRSM">
                     <div className="title-boxRSM1">จำนวนเลขจแจ้ง</div>
                     <div className="title-boxRSM2">10</div>
@@ -168,7 +344,7 @@ function TabReport4() {
                     <div className="title-boxRSM1">จำนวนสิ้นสุดเลขจดแจ้ง</div>
                     <div className="title-boxRSM2">10</div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">

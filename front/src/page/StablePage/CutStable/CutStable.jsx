@@ -11,6 +11,8 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 function CutStable() {
   //! การนำทางข้าม component
   const navigate = useNavigate();
@@ -109,6 +111,28 @@ function CutStable() {
   }
   //! ..................
 
+  const [showHintEdit, setShowHintEdit] = useState({});
+  const [showHintRead, setShowHintRead] = useState({});
+  const [showHintLot, setShowHintLot] = useState({});
+  const handleMouseEnterEdit = (id) => {
+    setShowHintEdit((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveEdit = (id) => {
+    setShowHintEdit((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+  const handleMouseEnterRead = (id) => {
+    setShowHintRead((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveRead = (id) => {
+    setShowHintRead((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+  const handleMouseEnterLot = (id) => {
+    setShowHintLot((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveLot = (id) => {
+    setShowHintLot((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+
   return (
     <div>
       <main className="main-stable ">
@@ -160,42 +184,72 @@ function CutStable() {
             </thead>
 
             <tbody>
-              {records.map((item, index) => (
-                <tr key={index}>
-                  <td
-                    style={{ color: "blue", cursor: "pointer" }}
-                    onClick={() =>
-                      navigate(`CusStableReadID/${item.id_cutStock}`)
-                    }
-                  >
-                    {item.id_cutStock}
-                  </td>
-                  <td>{item.date_cutStock}</td>
-                  <td>{item.Name_staple}</td>
-                  <td>{item.id_lot}</td>
-                  <td>{item.amount_old}</td>
-                  <td>{item.amount_total}</td>
-                  <td>
-                    <div className="text-cutstable">{item.cause}</div>
-                  </td>
-                  <td>{item.details_cutStock}</td>
-                  <td>{item.name}</td>
-
-                  <td className="TDStable">
-                    <button
-                      className="btnstableRead2"
+              {records.map((item, index) => {
+                const showHintEditButton =
+                  showHintEdit[item.id_staple] || false;
+                const showHintReadButton =
+                  showHintRead[item.id_staple] || false;
+                const showHintLotButton = showHintLot[item.id_staple] || false;
+                return (
+                  <tr key={index}>
+                    <td
+                      style={{ color: "blue", cursor: "pointer" }}
                       onClick={() =>
                         navigate(`CusStableReadID/${item.id_cutStock}`)
                       }
                     >
-                      <div className="icon_edit">
-                        <FontAwesomeIcon icon={faEye} />
-                      </div>
-                      {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                      {item.id_cutStock}
+                    </td>
+                    <td>{item.date_cutStock}</td>
+                    <td>{item.Name_staple}</td>
+                    <td>{item.id_lot}</td>
+                    <td>{item.amount_old}</td>
+                    <td>{item.amount_total}</td>
+                    <td>
+                      <div className="text-cutstable">{item.cause}</div>
+                    </td>
+                    <td>{item.details_cutStock}</td>
+                    <td>{item.name}</td>
+
+                    <td className="TDStable">
+                      <button
+                        data-tooltip-id="my-tooltip-1"
+                        className="btnstableRead2"
+                        onClick={() =>
+                          navigate(`CusStableReadID/${item.id_cutStock}`)
+                        }
+                        // onMouseEnter={() =>
+                        //   handleMouseEnterRead(item.id_staple)
+                        // }
+                        // onMouseLeave={() =>
+                        //   handleMouseLeaveRead(item.id_staple)
+                        // }
+                      >
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faEye} />
+                        </div>
+
+                        <ReactTooltip
+                          id="my-tooltip-1"
+                          place="bottom"
+                          content="ดูข้อมูล"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
+
+
+                        {/* {showHintReadButton && (
+                          <div className="hint-button-popup4">ดูข้อมูล</div>
+                        )} */}
+                        {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
 

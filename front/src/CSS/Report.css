@@ -1,10 +1,12 @@
 .back-0 {
-  background: #9b9a9a;
+  /* background: #9b9a9a; */
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
   height: 100vh;
 }
 
 .back01 {
-  background: #ffffff;
+  /* background: #ffffff; */
   width: 100%;
   display: flex;
   justify-content: center;
@@ -21,19 +23,17 @@
 }
 
 .Rbox1 {
-  width: 40%;
+  width: 30%;
   height: 70%;
   display: flex;
   align-items: end;
 }
 
 .Rbox2 {
-  width: 60%;
+  width: 70%;
   height: 70%;
-
   display: flex;
-
-  justify-content: end;
+  justify-content: flex-start;
 }
 .Rbox2-2 {
   height: 100%;
@@ -46,6 +46,7 @@
   display: flex;
   justify-content: start;
   align-items: end;
+  border: 2px solid #191d88;
 }
 .input-select-Report {
   height: 38px;
@@ -59,8 +60,9 @@
   height: 100%;
   width: 55%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: end;
+  border: 2px solid #881919;
 }
 .input-date-Report {
   height: 38px;
@@ -75,10 +77,31 @@
 .Rbox2-2-2-3 {
   height: 100%;
   width: 15%;
-
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: end;
+  border: 2px solid #c0c30e;
+}
+
+.Rbox2-2-2-4 {
+  height: 100%;
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid #0ec311;
+  align-items: end;
+}
+
+button.b_report {
+  font-size: 15px;
+  height: 42px;
+  width: 70px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #881919;
+  color: #ffffff;
 }
 
 .Report_search {
@@ -91,8 +114,8 @@
 .Report_search_input {
   height: 40px;
   width: 100%;
-  font-size: 1.2rem;
-  border-radius: 5px 0px 0px 5px;
+  font-size: 1rem;
+  border-radius: 10px;
   border: 1px solid #d0d0d0;
   padding-left: 20px;
 }
@@ -104,12 +127,12 @@ button.Report_search_btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #191D88;
+  background: #191d88;
   color: #ffffff;
 }
 
 .back02 {
-  background: #ffffff;
+  /* background: #ffffff; */
   width: 100%;
   height: 93%;
 
@@ -119,7 +142,7 @@ button.Report_search_btn {
 }
 
 .back2 {
-  background: #f5f5f5;
+  background: #ffffff;
   /* border: 1px solid; */
   height: 95%;
   width: 95%;
@@ -133,7 +156,7 @@ button.Report_search_btn {
 }
 
 .boxR2-1 {
-  background: #f5f5f5;
+  background: #ffffff;
   /* border: 1px solid; */
   height: 15%;
   display: flex;
@@ -142,7 +165,7 @@ button.Report_search_btn {
 }
 
 .boxR2-2 {
-  /* background: #ffffff; */
+  background: #ffffff;
 
   height: 70%;
 }
@@ -150,7 +173,7 @@ button.Report_search_btn {
 .boxRSM2-1-1 {
   background: #ffffff;
   padding: 7px;
-  width: 20%;
+  width: auto;
   height: 40%;
   -webkit-box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48);
   -moz-box-shadow: 0px 12px 23px -10px rgba(0, 0, 0, 0.48);
@@ -163,11 +186,11 @@ button.Report_search_btn {
   flex-direction: row;
   justify-content: space-between;
   align-items: end;
-
 }
 .title-boxRSM1 {
   font-size: 1.4rem;
   padding-bottom: 9px;
+  padding-right: 20px;
   /* font-weight: bold; */
 }
 .title-list-boxRSM {
@@ -216,3 +239,162 @@ button.btn-R-0 {
   /* border: 1px solid; */
   height: 100%;
 }
+
+/* ! ตัวใหม่ */
+
+/* พื้นภายนอก */
+.back01new {
+  /* border: 1px solid #000000; */
+  height: 4%;
+  display: flex;
+  align-items: end;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 30px;
+}
+/* พื้นภายในฝั่งซ้าย */
+.R00 {
+  /* background: #a62292; */
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: end;
+  /* margin-right: 50px; */
+}
+
+.inReport00 {
+  width: 70%;
+  height: 100%;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 0px 15px 0px 15px;
+  border: 1px solid #b0b0b0;
+}
+
+/* พื้นภายในฝั่งขวา */
+.R01 {
+  /* background: #22a699; */
+  width: 70%;
+  height: 100%;
+  display: flex;
+  align-items: end;
+}
+
+/* ส่วนที่1 */
+.R1 {
+  /* background: #191d88; */
+  width: 25%;
+  height: 100%;
+  margin-left: 15px;
+}
+
+.selectReport00 {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  font-size: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+/* ส่วนที่1 --------------------------- */
+
+/* ส่วนที่2 */
+.R2 {
+  /* background: #ff0000; */
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+button.B_DMY {
+  width: 100%;
+  height: 100%;
+  background: #191d88;
+  color: white;
+  border-radius: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
+/* ส่วนที่2------------------------ */
+
+/* ส่วนที่3 */
+.R3 {
+  /* background: #ffee00; */
+  width: 45%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.labeldate {
+  font-size: 20px;
+  font-weight: bold;
+}
+.dateSeach {
+  width: 35%;
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid #b0b0b0;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+}
+/* ส่วนที่3 --------------------------------*/
+
+/* ส่วนที่4 */
+.R4 {
+  /* background: #029925; */
+  width: 15%;
+  height: 100%;
+  display: flex;
+}
+.R4-4 {
+  /* background: #029925; */
+  width: 30%;
+  height: 100%;
+  display: flex;
+}
+button.B_report00 {
+  margin-left: 10px;
+  height: 100%;
+  width: 100%;
+  background: #191d88;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border: none;
+}
+button.B_report01 {
+  margin-left: 10px;
+  height: 100%;
+  width: 100%;
+  background: #a71212;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border: none;
+}
+button.B_report02 {
+  margin-left: 10px;
+  height: 100%;
+  width: 30%;
+  background: #a71212;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border: none;
+}
+/* ส่วนที่4-------------------- */

@@ -137,7 +137,8 @@
   font-family: "Noto Serif Thai", serif;
   color: #000000;
   justify-content: center;
-  background: #efefef;
+  background: #f1ddfe00;
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
   padding: 30px 25px 4px;
   display: flex;
   align-items: center;
@@ -149,7 +150,8 @@
   display: flex;
   justify-content: space-between;
   align-items: end;
-  background: #efefef;
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
   margin-bottom: 20px;
 }
 
@@ -401,7 +403,7 @@ button.btnstableEdit {
 /* พื้นหลังสุดพื้นที่ทำงานสีเทา */
 .box-big-bg-new-addlot {
   display: flex;
-  background: #efefef;
+  /* background: #efefef; */
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -542,3 +544,6 @@ button.btnstableEdit {
   padding-left: 5px;
   color: #ffffff;
 }
+
+
+

@@ -17,6 +17,8 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 function EmployeeReadPage() {
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
 
@@ -136,10 +138,12 @@ function EmployeeReadPage() {
             value={filterVal}
             onInput={(e) => handleFilter(e)}
           />
-          <button className="btn1" onClick={() => navigate(`EmployeeAddPage`)}>
-            <h2>
-              <BiPlus />
-            </h2>
+          <button className="btnstable2" onClick={() => navigate(`EMnew`)}>
+            {/* <BiPlus /> */}
+            <div>
+              <FontAwesomeIcon icon={faPlus} />
+            </div>
+            <div>เพิ่ม</div>
           </button>
         </div>
 
@@ -155,7 +159,7 @@ function EmployeeReadPage() {
                 <th className="sss">วันเกิด</th>
                 <th>บัตรประชาชน</th>
                 <th>เบอร์โทรศัพท์</th>
-                <th>สถานะการทำงาน</th>
+                <th style={{ textAlign: "center" }}>สถานะการทำงาน</th>
 
                 <th>แก้ไข</th>
               </tr>
@@ -166,7 +170,9 @@ function EmployeeReadPage() {
                   <tr key={index}>
                     <td
                       style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => navigate(`CreateRead/${item.id_employee}`)}
+                      onClick={() =>
+                        navigate(`EmployeeReadIDPage/${item.id_employee}`)
+                      }
                     >
                       {item.id_employee}
                     </td>
@@ -177,11 +183,38 @@ function EmployeeReadPage() {
                     <td>{item.birthday}</td>
                     <td>{item.card_id}</td>
                     <td>{item.phone}</td>
-                    <td>{item.status}</td>
+                    <td
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background:
+                            item.status === "กำลังทำงาน"
+                              ? "#C6F1D6"
+                              : "#F48484",
+                          color:
+                            item.status === "กำลังทำงาน"
+                              ? "#099A97"
+                              : "#B70404",
+                          padding: "5px",
+                          textAlign: "center",
+                          borderRadius: "20px",
+                          width: "70%",
+                        }}
+                      >
+                        {item.status}
+                      </div>
+                    </td>
+                    {/* <td>{item.status}</td> */}
 
                     <td>
                       <div className="TDB">
                         <button
+                          data-tooltip-id="my-tooltip-1"
+                          // style={{ backgroundColor: "#999" }}
                           style={{
                             fontSize: "18px",
                             height: "35px",
@@ -203,7 +236,19 @@ function EmployeeReadPage() {
                             <FaEye />
                           </h3> */}
                         </button>
+                        {/* hint Button */}
+                        <ReactTooltip
+                          id="my-tooltip-1"
+                          place="bottom"
+                          content="ดูข้อมูล"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "12px",
+                          }}
+                        />
                         <button
+                          data-tooltip-id="my-tooltip-2"
                           style={{
                             fontSize: "18px",
                             height: "35px",
@@ -213,9 +258,7 @@ function EmployeeReadPage() {
                             width: "50px",
                             background: "#353ffd",
                           }}
-                          onClick={() =>
-                            navigate(`EmployeeUpdatePage/${item.id_employee}`)
-                          }
+                          onClick={() => navigate(`EMUP/${item.id_employee}`)}
                           className="btn3"
                         >
                           <div
@@ -225,6 +268,17 @@ function EmployeeReadPage() {
                             <FontAwesomeIcon icon={faPenToSquare} />
                           </div>
                         </button>
+                        {/* hint Button */}
+                        <ReactTooltip
+                          id="my-tooltip-2"
+                          place="bottom"
+                          content="แก้ไข"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "12px",
+                          }}
+                        />
                       </div>
                     </td>
                   </tr>

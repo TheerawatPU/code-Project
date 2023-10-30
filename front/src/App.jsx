@@ -42,7 +42,7 @@ import BuyStableRead from "./page/StablePage/BuyStable/BuyStableRead";
 import EmployeeReadPage from "./Admin/EmployeeReadPage";
 import EmployeeAddPage from "./Admin/EmployeeAddPage";
 import EmployeeUpdatePage from "./Admin/EmployeeUpdatePage";
-import EmployeeReadIDPage from "./Admin/EmployeeReadIDPage"
+import EmployeeReadIDPage from "./Admin/EmployeeReadIDPage";
 
 import StockReadPage from "./Admin/StockReadPage";
 import ReportReadPageEM from "./Admin/ReportReadPageEM";
@@ -64,21 +64,34 @@ import ProfileEdit from "./page/Profile/ProfileEdit";
 // โปรไฟล์แอดมิน
 import ProfileAdminRead from "./Admin/ProfileAdminRead";
 import ProfileADmin from "./Admin/ProfileADmin";
+import ProfileReadID from "./Admin/ProfileReadID";
+import ProfileAdminEdit from "./Admin/ProfileAdminEdit";
+
+import customerPDF from "./page/CustomerPage/customerPDF";
+
+import EMnew from "./Admin/EMnew";
+import EMUP from "./Admin/EMUP";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/customerPDF" element={<customerPDF />} />
+
         <Route path="/AD/EmployeeReadPage" element={<EmployeeReadPage />} />
 
         <Route
           path="/AD/EmployeeReadPage/EmployeeAddPage"
           element={<EmployeeAddPage />}
         />
+        <Route path="/AD/EmployeeReadPage/EMnew" element={<EMnew />} />
+
         <Route
           path="/AD/EmployeeReadPage/EmployeeUpdatePage/:id"
           element={<EmployeeUpdatePage />}
         />
+        <Route path="/AD/EmployeeReadPage/EMUP/:id" element={<EMUP />} />
+
         <Route
           path="/AD/EmployeeReadPage/EmployeeReadIDPage/:id"
           element={<EmployeeReadIDPage />}
@@ -167,6 +180,13 @@ function App() {
           path="/AD/ProfileAdminRead/ProfileADmin/:id"
           element={<ProfileADmin />}
         />
+
+        {/* profile new */}
+        <Route
+          path="/AD/ProfileReadID/ProfileAdminEdit/:id"
+          element={<ProfileAdminEdit />}
+        />
+        <Route path="/AD/ProfileReadID" element={<ProfileReadID />} />
       </Routes>
     </BrowserRouter>
   );

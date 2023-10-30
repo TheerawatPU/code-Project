@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { format } from "date-fns";
 
 function EmployeeUpdatePage() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ function EmployeeUpdatePage() {
       .get("http://localhost:5500/employeeUpdateID/" + id)
       .then((res) => {
         console.log(res);
+        const receivedBirthdate = new Date(res.data[0].birthday);
+
         setValues({
           ...values,
           id_employee: res.data[0].id_employee,
@@ -26,7 +29,7 @@ function EmployeeUpdatePage() {
           title: res.data[0].title,
           name: res.data[0].name,
           sex: res.data[0].sex,
-          birthday: res.data[0].birthday,
+          birthday: receivedBirthdate,
           phone: res.data[0].phone,
           line_id: res.data[0].line_id,
           facebook_id: res.data[0].facebook_id,
@@ -34,7 +37,11 @@ function EmployeeUpdatePage() {
           password: res.data[0].password,
           image: res.data[0].image,
           card_id: res.data[0].card_id,
+          birthdate: new Date(), // Initialize with a default date
         });
+
+        // Format and set the date string for display
+        setBirthdateString(format(receivedBirthdate, "yyyy-MM-dd"));
       })
       .catch((err) => console.log(err));
   }, []);
@@ -53,8 +60,9 @@ function EmployeeUpdatePage() {
     password: "",
     image: "",
     card_id: "",
+    birthdate: new Date(), // Initialize with a default date
   });
-
+  const [birthdateString, setBirthdateString] = useState(""); // State for formatted date
   console.log(values);
 
   const handleUpdate = (event) => {
@@ -257,10 +265,15 @@ function EmployeeUpdatePage() {
                     name="birthday"
                     type="date"
                     className="form-input-new-title-EM"
-                    value={values.birthday}
-                    onChange={(e) =>
-                      setValues({ ...values, birthday: e.target.value })
-                    }
+                    value={birthdateString}
+                    onChange={(e) => {
+                      const selectedDate = new Date(e.target.value);
+                      setValues({
+                        ...values,
+                        birthday: selectedDate,
+                      });
+                      setBirthdateString(e.target.value);
+                    }}
                   />
                 </div>
               </div>

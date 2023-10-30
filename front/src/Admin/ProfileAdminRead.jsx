@@ -15,6 +15,15 @@ function ProfileAdminRead() {
   const navigate = useNavigate();
 
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
+  function formatDateOfBirth(dateString) {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString("th-TH", options);
+  } // แปลงวันเกิดเป็น "วัน/เดือน/ปี"
+
+  const formattedDateOfBirth = formatDateOfBirth(userLoginData[0].birthday);
+
+  console.log(formattedDateOfBirth);
   return (
     <>
       <div className="all-page">
@@ -175,7 +184,7 @@ function ProfileAdminRead() {
                     type="text"
                     className="input-profile-read"
                     disabled
-                    value={userLoginData[0].birthday}
+                    value={formattedDateOfBirth}
                   />
                 </div>
               </div>

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 import "../CSS/Component.css";
 import { AiOutlineCaretDown } from "react-icons/ai";
@@ -21,6 +23,8 @@ function Topnav() {
     sessionStorage.clear();
     navigate("/");
   };
+
+  // console.log("username", username);
 
   return (
     <div className="topnav-EM">

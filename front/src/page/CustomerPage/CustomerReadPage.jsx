@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Topnav from "../../component/Topnav";
 import Menu from "../../component/Menu";
+import "../../CSS/button.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,6 +15,8 @@ import {
   faAnglesLeft,
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 function CustomerReadPage() {
   // การนำทางข้ามคอมโพเน้น
@@ -107,6 +110,28 @@ function CustomerReadPage() {
     }
   }
 
+  const [showHintEdit, setShowHintEdit] = useState({});
+  const [showHintRead, setShowHintRead] = useState({});
+  const [showHintLot, setShowHintLot] = useState({});
+  const handleMouseEnterEdit = (id) => {
+    setShowHintEdit((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveEdit = (id) => {
+    setShowHintEdit((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+  const handleMouseEnterRead = (id) => {
+    setShowHintRead((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveRead = (id) => {
+    setShowHintRead((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+  const handleMouseEnterLot = (id) => {
+    setShowHintLot((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveLot = (id) => {
+    setShowHintLot((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+
   return (
     <div className="all-page">
       <header className="header">
@@ -156,6 +181,12 @@ function CustomerReadPage() {
             </thead>
             <tbody>
               {records.map((item, index) => {
+                const showHintEditButton =
+                  showHintEdit[item.id_staple] || false;
+                const showHintReadButton =
+                  showHintRead[item.id_staple] || false;
+                const showHintLotButton = showHintLot[item.id_staple] || false;
+
                 return (
                   <tr key={index}>
                     <td
@@ -176,27 +207,71 @@ function CustomerReadPage() {
                     <td>
                       <div className="TDB">
                         <button
+                          data-tooltip-id="my-tooltip-1"
                           className="btnstableRead2"
                           onClick={() =>
                             navigate(`CustomerReadIDPage/${item.id_customer}`)
                           }
+                          // onMouseEnter={() =>
+                          //   handleMouseEnterRead(item.id_staple)
+                          // }
+                          // onMouseLeave={() =>
+                          //   handleMouseLeaveRead(item.id_staple)
+                          // }
                         >
                           <div className="icon_edit">
                             <FontAwesomeIcon icon={faEye} />
                           </div>
-                          {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
+
+                          <ReactTooltip
+                            id="my-tooltip-1"
+                            place="bottom"
+                            content="ดูข้อมูล"
+                            style={{
+                              backgroundColor: "#0000005b",
+                              borderRadius: "15px",
+                              marginTop: "10px",
+                            }}
+                          />
+
+                          {/* {showHintReadButton && (
+                            <div className="hint-button-popup5">ดูข้อมูล</div>
+                          )} */}
                         </button>
 
                         <button
+                          id="my-tooltip-20"
                           onClick={() =>
                             navigate(`CustomerUpdatePage/${item.id_customer}`)
                           }
                           className="btnstableEdit2"
+                          // onMouseEnter={() =>
+                          //   handleMouseEnterRead(item.id_customer)
+                          // }
+                          // onMouseLeave={() =>
+                          //   handleMouseLeaveRead(item.id_customer)
+                          // }
                         >
+                          <ReactTooltip
+                            id="my-tooltip-20"
+                            place="bottom"
+                            content="แก้ไข"
+                            style={{
+                              backgroundColor: "#0000005b",
+                              borderRadius: "15px",
+                              marginTop: "10px",
+                            }}
+                          />
+
                           <div className="icon_edit">
                             <FontAwesomeIcon icon={faPenToSquare} />
                           </div>
-                          {/* <div className="test-icon-edit">แก้ไข</div> */}
+
+                          {/* {showHintReadButton && (
+                            <div className="hint-button-popup6">
+                              แก้ไขข้อมูล
+                            </div>
+                          )} */}
                         </button>
                       </div>
                     </td>

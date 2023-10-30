@@ -356,7 +356,7 @@ function UnitNew() {
               <div className="Ubox1-1-1">
                 <label className="form-label1-1">เลขที่จดแจ้ง :</label>
                 <input
-                  type="text"
+                  type="number"
                   className="Uinput1"
                   name="notification_num"
                   value={unit_notification_num}

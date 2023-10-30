@@ -18,7 +18,9 @@ import { ImCancelCircle } from "react-icons/im";
 import { FaPen, FaEye } from "react-icons/fa";
 
 import pat from "./img/pat.png";
+
 function EmployeeAddPage() {
+  
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
 
   const navigate = useNavigate();

@@ -12,12 +12,6 @@ function Login() {
     password: "",
   });
 
-  // error
-  const [errors, setErrors] = useState({
-    username: "",
-    password: "",
-  });
-
   //ฟังก์ชั่นการเข้าสู่ระบบ
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,6 +26,7 @@ function Login() {
 
       if (adminResponse.data[0].department === "พนักงานฝ่ายผลิต") {
         const userLoginData = sessionStorage.getItem("userlogin");
+
         const parsedUserLoginData = JSON.parse(userLoginData);
 
         console.log(parsedUserLoginData);
@@ -76,41 +71,16 @@ function Login() {
 
   return (
     <>
-      {/* <form className="login0" onSubmit={handleSubmit}>
-        <div className="login1">
-          <div className="login1-1">
-            <div className="onlogin">
-              <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>username :
-                </label>
-                <input
-                  name="username"
-                  type="text"
-                  className="form-input-new"
-                  onChange={handleInput}
-                />
-              </div>
-              <div className="form-row-new">
-                <label className="form-label-new">
-                  <p>*</p>password :
-                </label>
-                <input
-                  name="password"
-                  type="text"
-                  className="form-input-new"
-                  onChange={handleInput}
-                />
-              </div>
-              <button type="submit">เข้าสู่ระบบ</button>
-            </div>
-          </div>
-        </div>
-      </form> */}
-
       <div className="login-container">
-        <h1 className="title-login">Food4skin Thailand</h1>
         <div className="glass-panel">
+          <div className="piclog01">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
+              alt=""
+              className="piclog02"
+            />
+          </div>
+          <h1 className="title-login">Food4skin Thailand</h1>
           <h2>เข้าสู่ระบบ</h2>
           {/* สร้างฟอร์มเข้าสู่ระบบ */}
           <form onSubmit={handleSubmit} className="login0">

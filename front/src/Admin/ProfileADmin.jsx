@@ -20,10 +20,14 @@ function ProfileADmin() {
   // state เก็บ ข้อมูลจาก api
   const [data, setData] = useState([]);
 
+  const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
+
   // โหลดข้อมูล จาก api
   useEffect(() => {
     axios
-      .get(`http://localhost:5500/employeeReadID/${id}`)
+      .get(
+        `http://localhost:5500/employeeReadID/${userLoginData[0].id_employee}`
+      )
       .then((res) => {
         console.log(res);
         setValues({
@@ -69,10 +73,18 @@ function ProfileADmin() {
   const handleUpdate = (event) => {
     event.preventDefault();
     axios
-      .put("http://localhost:5500/employeeUpdate/" + id, values)
+      .put(
+        "http://localhost:5500/employeeUpdate/" + userLoginData[0].id_employee,
+        values
+      )
       .then((res) => {
         console.log(res);
-        navigate("/EM/ProfileRead");
+
+        // หลังจากที่อัพเดตข้อมูลสำเร็จ คุณสามารถอัพเดตข้อมูลใน sessionStorage ด้วยคำสั่งนี้
+        userLoginData[0] = { ...userLoginData[0], ...values };
+        sessionStorage.setItem("userlogin", JSON.stringify(userLoginData));
+
+        navigate("/AD/ProfileAdminRead");
       })
       .catch((err) => console.log(err));
   };

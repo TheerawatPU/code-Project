@@ -4,38 +4,21 @@ import TopNavAD from "./ComponentAD/TopNavAD";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFloppyDisk,
+  faXmark,
+  faBan,
+  faArrowLeft,
+  faCircleArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaPen, FaEye } from "react-icons/fa";
+import { ImCancelCircle } from "react-icons/im";
 
 // font
 import FontTH from "../PDF/THSarabun.ttf";
 import FontTHBold from "../PDF/THSarabun Bold.ttf";
-
-// PDF
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFDownloadLink,
-  Font,
-  Image,
-} from "@react-pdf/renderer";
-
-// PDF
-import logo from "../PDF/logo.jpg";
-
-// PDF
-import {
-  Table,
-  TableHeader,
-  TableCell,
-  TableBody,
-  DataTableCell,
-} from "@david.kucsai/react-pdf-table";
 
 function EmployeeReadIDPage() {
   const navigate = useNavigate();
@@ -48,83 +31,6 @@ function EmployeeReadIDPage() {
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
-
-  // สไตล์ใน PDF
-  const styles = StyleSheet.create({
-    page: {
-      fontFamily: "FontTH",
-      padding: 10,
-    },
-    section: {
-      margin: 15,
-      padding: 10,
-      flexGrow: 1,
-      fontFamily: "FontTH",
-      fontSize: 15,
-      // border: 1,
-    },
-    section5: {
-      marginTop: 15,
-      paddingTop: 10,
-      flexGrow: 1,
-      fontFamily: "FontTH",
-      fontSize: 15,
-      // border: 1,
-    },
-
-    texts: {
-      fontSize: 18,
-      fontFamily: "FontTHBold",
-    },
-    title: {
-      marginTop: 0,
-      fontSize: 25,
-      fontFamily: "FontTHBold",
-      textAlign: "center",
-    },
-    body: {
-      flexDirection: "row",
-      fontFamily: "FontTH",
-      paddingLeft: 15,
-      marginLeft: 10,
-      // border: 1,
-      fontSize: 15,
-    },
-    body3: {
-      fontFamily: "FontTH",
-      margin: 15,
-      padding: 10,
-      fontSize: 15,
-      // border: 1,
-    },
-    tableHeader: {
-      textAlign: "center",
-      backgroundColor: "#22a699",
-      fontFamily: "FontTHBold",
-      color: "#ffffff",
-      paddingTop: 3,
-      paddingBottom: 3,
-    },
-    tableHeader2: {
-      paddingTop: 3,
-      paddingBottom: 3,
-      paddingLeft: 10,
-    },
-    body2: {
-      textAlign: "right",
-    },
-    imgLogo: {
-      width: 100,
-      height: 100,
-    },
-    Textpad: {
-      paddingBottom: 10,
-    },
-  });
-
-  // นำฟ้อนมาใช้ PDF
-  Font.register({ family: "FontTH", src: FontTH });
-  Font.register({ family: "FontTHBold", src: FontTHBold });
 
   // -------------------------
 
@@ -171,6 +77,14 @@ function EmployeeReadIDPage() {
     card_id: "",
   });
 
+  function formatDateOfBirth(dateString) {
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    const date = new Date(dateString);
+    return date.toLocaleDateString("th-TH", options);
+  } // แปลงวันเกิดเป็น "วัน/เดือน/ปี"
+
+  const formattedDateOfBirth = formatDateOfBirth(values.birthday);
+
   return (
     <div className="all-page-new">
       <header className="header-new">
@@ -179,231 +93,223 @@ function EmployeeReadIDPage() {
       <section className="aside-new">
         <MenuAD />
       </section>
+
       <main className="main-new">
-        <div className="top-text-new">
-          <div className="text-new" style={{ marginLeft: "80px" }}>
-            แก้ไขข้อมูลพนักงาน
-          </div>
-        </div>
-
-        <div className="text-new-lg" style={{ marginLeft: "80px" }}>
-          กรุณากรอกข้อมูลให้ครบทุกช่อง ถ้าไม่มีให้ใส่เครื่องหมาย - ไว้
-        </div>
-
-        <div className="box-big-bg-new-EM">
-          {/* //!ฟอร์มที่1 รูป */}
-          <div className="box-BG-area-new-EM">
-            <form className="form-EM-new">
-              <div className="form-row-img-AD">
-                <img src={values.image} alt="" className="img-AD" />
+        <div className="embox0">
+          <div className="emtitle">
+            <div className="title1">
+              <div className="text_title1">
+                <FontAwesomeIcon
+                  icon={faArrowLeft}
+                  style={{ marginRight: "10px", cursor: "pointer" }}
+                  onClick={() => navigate(-1)}
+                />
+                ดูรายละเอียดพนักงาน
               </div>
-              <div className="form-row-new">
-                {/* <input
-                  type="file"
-                  name="image"
-                  id="image"
-                  
-                /> */}
+            </div>
+            {/* <div className="title2">
+              <div className="btn_can">
+                <button
+                  className="cencle"
+                  onClick={() => navigate(-1)}
+                  type="cancle"
+                >
+                  <FontAwesomeIcon icon={faBan} />
+                  <label htmlFor="" className="text_cencle">
+                    ยกเลิก
+                  </label>
+                </button>
               </div>
-            </form>
+
+              <div className="btn_can">
+                <button className="submit" type="submit">
+                  <FontAwesomeIcon icon={faFloppyDisk} />
+                  <label htmlFor="" className="text_cencle">
+                    บันทึก
+                  </label>
+                </button>
+              </div>
+            </div> */}
           </div>
-          {/* //!ฟอร์มที่2 ข้อมูลส่วนตัว */}
-          <div className="box-BG-area-new-EM">
-            <form className="form-EM-new">
-              {/* เลือกตำแหน่ง และสถานะ */}
-              <h2 style={{ marginBottom: "20px" }}>ข้อมูลส่วนตัว</h2>
-              <div className="form-row-new-select-EM">
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">ตำแหน่ง :</label>
-                  {/* <select className="form-input-select-EM" name="department">
-                    <option>{values.department}</option>
-                  </select> */}
+          <div className="embox1">
+            <div className="embox21">
+              <div className="pic0">
+                <img src={values.image} alt="" className="pic1" name="image" />
+              </div>
+            </div>
+            <div className="embox22">
+              <div className="embox22_1">
+                <div className="textem1">
+                  <h3>ตำแหน่ง:</h3>
                   <input
                     type="text"
-                    className="form-input-select-EM"
-                    name="department"
+                    className="inputtext1_read"
+                    disabled
                     value={values.department}
-                    disabled
                   />
                 </div>
-
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">สถานะการทำงาน :</label>
+                <div className="textem1">
+                  <h3>สถานะการทำงาน:</h3>
                   <input
                     type="text"
-                    className="form-input-select-EM"
-                    name="status"
-                    value={values.status}
+                    className="inputtext1_read"
                     disabled
+                    value={values.status}
                   />
-                  {/* <select className="form-input-select-EM" name="status">
-                    <option>{values.status}</option>
-                  </select> */}
                 </div>
+                {/* <div className="textem1">
+                  <h3>ตำแหน่ง:</h3>
+                  <select className="inputtext1_3" name="department">
+                    <option value="">เลือกตำแหน่ง</option>
+                    <option value="ผู้บริหาร">ผู้บริหาร</option>
+                    <option value="พนักงานฝ่ายผลิต">พนักงานฝ่ายผลิต</option>
+                  </select>
+                </div>
+                <div className="textem1">
+                  <h3>สถานะการทำงาน:</h3>
+                  <select className="inputtext1_3" name="status">
+                    <option value="">เลือกตำแหน่ง</option>
+                    <option value="กำลังทำงาน">กำลังทำงาน</option>
+                    <option value="พ้นสภาพการทำงาน">พ้นสภาพการทำงาน</option>
+                  </select>
+                </div> */}
               </div>
 
-              {/*คำนำหน้า ชื่อ-นามสกุล */}
-              <div className="form-row-new-select-EM">
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">คำนำหน้า :</label>
-                  {/* <select
-                    className="form-input-select-title-EM"
-                    name="title"
-
-                    // value={values.title}
-                  >
-                    <option>{values.title}</option>
-                  </select> */}
+              <div className="embox22_1">
+                {/* <div className="textem1">
+                  <h3>คำนำหน้า:</h3>
+                  <select name="title" className="inputtext1_3">
+                    <option value="">เลือกคำนำหน้า</option>
+                    <option value="นาย">นาย</option>
+                    <option value="นาง">นาง</option>
+                    <option value="นางสาว">นางสาว</option>
+                  </select>
+                </div> */}
+                <div className="textem1">
+                  <h3>คำนำหน้า:</h3>
                   <input
                     type="text"
-                    className="form-input-select-title-EM"
+                    className="inputtext1_read"
                     name="title"
                     value={values.title}
                     disabled
                   />
                 </div>
-
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">ชื่อ-นามสกุล :</label>
+                <div className="textem1">
+                  <h3>ชื่อ-นามสกุล:</h3>
                   <input
-                    name="name"
                     type="text"
-                    className="form-input-new-title-EM"
+                    className="inputtext1_read"
+                    name="name"
                     value={values.name}
                     disabled
                   />
                 </div>
               </div>
 
-              {/* เพศ วันเกิด */}
-              <div className="form-row-new-select-EM-Radio">
-                <div className="select-row-Radio">
-                  <div className="btn-Radio">
-                    <label className="form-label-new-EM">เพศ :</label>
-                    <div className="radio-EM">
-                      <input
-                        disabled
-                        name="sex"
-                        // value="ชาย"
-                        value={values.sex}
-                        type="radio"
-                        className="form-input-new-title-Radio-EM"
-                      />
-                      <span>ชาย</span>
-                      <input
-                        disabled
-                        value={values.sex}
-                        name="sex"
-                        // value="หญิง"
-                        type="radio"
-                        className="form-input-new-title-Radio-EM"
-                      />
-                      <span>หญิง</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">วันเดือนปีเกิด :</label>
+              <div className="embox22_1">
+                {/* <div className="textem1">
+                  <h3>เพศ:</h3>
+                  <select name="sex" className="inputtext1_3">
+                    <option value="">เลือกเพศ</option>
+                    <option value="ชาย">ชาย</option>
+                    <option value="หญิง">หญิง</option>
+                  </select>
+                </div> */}
+                <div className="textem1">
+                  <h3>เพศ:</h3>
                   <input
+                    type="text"
+                    className="inputtext1_read"
+                    name="sex"
+                    value={values.sex}
+                    disabled
+                  />
+                </div>
+                <div className="textem1">
+                  <h3>วันเกิด:</h3>
+                  <input
+                    type="text"
+                    className="inputtext1_read"
                     name="birthday"
-                    type="text"
-                    className="form-input-new-title-EM"
+                    // value={values.birthday}
+                    value={formattedDateOfBirth}
                     disabled
-                    value={values.birthday}
                   />
                 </div>
               </div>
 
-              {/* เบอร์โทร IDLine Facebook */}
-
-              <div className="form-row-new-select-EM">
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">เบอร์โทรศัพท์ :</label>
+              <div className="embox22_1">
+                <div className="textem1">
+                  <h3>เลขบัตรประชาชน:</h3>
                   <input
+                    type="number"
+                    className="inputtext1_2_read"
+                    name="card_id"
+                    value={values.card_id}
                     disabled
+                  />
+                </div>
+              </div>
+
+              <div className="embox22_1-2">
+                <div className="textem1">
+                  <h3>เบอร์โทรศัพท์:</h3>
+                  <input
+                    type="number"
+                    className="inputtext1_read"
                     name="phone"
-                    type="text"
-                    className="form-input-new-3-EM"
                     value={values.phone}
+                    disabled
                   />
                 </div>
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">ไอดีไลน์ :</label>
+                <div className="textem1">
+                  <h3>ไอดีไลน์:</h3>
                   <input
-                    disabled
+                    type="text"
+                    className="inputtext1_read"
                     name="line_id"
-                    type="text"
-                    className="form-input-new-3-EM"
                     value={values.line_id}
-                  />
-                </div>
-                <div className="select-row-C">
-                  <label className="form-label-new-EM">เฟสบุ๊ค :</label>
-                  <input
                     disabled
-                    name="facebook_id"
+                  />
+                </div>
+                <div className="textem1">
+                  <h3>ชื่อเฟสบุ๊ค:</h3>
+                  <input
                     type="text"
-                    className="form-input-new-3-EM"
+                    className="inputtext1_read"
+                    name="facebook_id"
                     value={values.facebook_id}
+                    disabled
                   />
                 </div>
               </div>
 
-              <div className="form-row-new">
-                <label className="form-label-new">รหัสบัตรประชาชน :</label>
-                <input
-                  disabled
-                  name="card_id"
-                  type="text"
-                  className="form-input-new-EM"
-                  value={values.card_id}
-                />
+              <div className="embox22_1">
+                <div className="textem1">
+                  <h3>บัญชีผู้ใช้:</h3>
+                  <input
+                    type="text"
+                    className="inputtext1_2_read"
+                    name="username"
+                    value={values.username}
+                    disabled
+                  />
+                </div>
               </div>
-            </form>
-          </div>
-          {/* //!ฟอร์มที่3 บัญชีผู้ใช้ */}
-          <div className="box-BG-area-new-EM">
-            <form className="form-EM-new">
-              <h2 style={{ marginBottom: "20px" }}>บัญชีผู้ใช้</h2>
-              <div className="form-row-new">
-                <label className="form-label-new">อีเมล :</label>
-                <input
-                  disabled
-                  name="username"
-                  type="text"
-                  className="form-input-new-EM"
-                  value={values.username}
-                />
-              </div>
-              <div className="form-row-new">
-                <label className="form-label-new">รหัสผ่าน :</label>
-                <input
-                  disabled
-                  name="password"
-                  type="password"
-                  className="form-input-new-EM"
-                  value={values.password}
-                />
-              </div>
-            </form>
-          </div>
-          {/* //!ปุ่ม */}
-          <div className="btn-submit-new">
-            <div className="btn-area-new" style={{ width: "60%" }}>
-              <button
-                type="cancle"
-                className="cancle-new"
-                onClick={() => navigate(-1)}
-              >
-                <FontAwesomeIcon icon={faXmark} />
-                <span>ยกเลิก</span>
-              </button>
-              <button type="submit" className="submit-new">
-                <FaPen />
 
-                <span>แก้ไข</span>
-              </button>
+              <div className="embox22_1">
+                <div className="textem1">
+                  <h3>รหัสผ่าน:</h3>
+                  <input
+                    type="password"
+                    className="inputtext1_2_read"
+                    name="password"
+                    value={values.password}
+                    disabled
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -20,6 +20,7 @@ import {
   faPrint,
   faAnglesLeft,
   faAnglesRight,
+  faArrowRightArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 function TabReport2() {
@@ -81,24 +82,6 @@ function TabReport2() {
     }
   }
 
-  // สร้าง state สำหรับเก็บวันที่เริ่มต้นและสิ้นสุดของช่วงเวลาที่จะค้นหา
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-
-  // ฟังก์ชันสำหรับค้นหาข้อมูล
-  const searchByDate = () => {
-    // ทำการค้นหาข้อมูลจาก API โดยส่งวันที่เริ่มต้นและสิ้นสุดไปด้วย
-    axios
-      .get(
-        `http://localhost:5500/buy_stable_all?start_date=${startDate}&end_date=${endDate}`
-      )
-      .then((res) => {
-        // นำข้อมูลที่ได้มาแสดงในตาราง
-        setData(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
   //! ฟังก์ชั่นเลขหน้าจำนวนแถวในตาราง
   const [filterVal, setFilterVal] = useState("");
   const [searchApiData, setSearchApiData] = useState([]);
@@ -137,86 +120,206 @@ function TabReport2() {
     setFilterVal(e.target.value);
   };
   //! ..........................................
+  // ! ฟังก์ชั่นเลือกรีพอร์ต
+  // สร้าง state สำหรับเก็บวันที่เริ่มต้นและสิ้นสุดของช่วงเวลาที่จะค้นหา
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // ฟังก์ชันสำหรับค้นหาข้อมูล
+  const handleSearch = () => {
+    axios
+      .get(
+        `http://localhost:5500/Report_buy_stable_date?start_date=${startDate}&end_date=${endDate}`
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error searching for students", error);
+      });
+  };
+
+  // ล้างข้อมูล
+  const handleClear = () => {
+    setStartDate("");
+    setEndDate("");
+    axios
+      .get("http://localhost:5500/buy_stable_all")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // select เลือกวัน/เดือน/ปี
+  const handleViewOption = (event) => {
+    const view = event.target.value;
+    axios
+      .get(`http://localhost:5500/Report_buy_stable_button_date/${view}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // ปุ่มกด สัปหาด์/เดือน/ปี
+  const handleViewOption2 = (option) => {
+    axios
+      .get(`http://localhost:5500/Report_buy_stable_button_date/${option}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // กด เรียงลำดับน้อยไปมาก มากไปน้อย
+  const [sortOrder, setSortOrder] = useState("asc");
+  const handleSort = (column) => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+    axios
+      .get(
+        `http://localhost:5500/Report_buy_stable_button_sort/${column}/${newSortOrder}`
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error sorting students", error);
+      });
+  };
+
+  // เลือกร้านค้า
+  const [store, setStore] = useState([]);
+  //   โหลดข้อมูลมาใส่ไว้ใน component นี้
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/Report_buy_stable_select_Store")
+      .then((res) => {
+        setStore(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  // โชว์จากที่เลือก
+  const handleTeacherSelect = (event) => {
+    const store = event.target.value;
+
+    if (store) {
+      axios
+        .get(
+          `http://localhost:5500/Report_buy_stable_select_StoreData/${store}`
+        )
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching students", error);
+        });
+    } else {
+      // ถ้าคุณเลือก "เลือกครูที่ปรึกษา" ให้ดึงรายชื่อนักเรียนทั้งหมด
+      axios
+        .get("http://localhost:5500/buy_stable_all")
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching students", error);
+        });
+    }
+  };
+
+  // ! ฟังก์ชั่นเลือกรีพอร์ต------------------------------
 
   return (
     <>
       <div className="back-0">
-        <div className="back01">
-          <div className="back1">
-            <div className="Rbox1">
-              <div className="Report_search">
-                <input
-                  type="text"
-                  className="Report_search_input"
-                  placeholder="ค้นหา..."
-                  value={filterVal}
-                  onInput={(e) => handleFilter(e)}
-                />
-                <button
-                  type="submit"
-                  className="Report_search_btn"
-                  // onClick={searchByDate}
-                >
-                  ค้นหา
-                </button>
-              </div>
+        <div className="back01new">
+          <div className="R00">
+            <input
+              type="text"
+              className="inReport00"
+              placeholder="ค้นหา..."
+              value={filterVal}
+              onInput={(e) => handleFilter(e)}
+            />
+          </div>
 
-              {/* <div className="report-print">
-                <button
-                  className="Report_search_btn"
-                  type="submit"
-                  style={{
-                    background: "#000",
-                    color: "white",
-                    width: "auto",
-                    height: "auto",
-                    marginLeft: "50px",
-                  }}
-                >
-                  <div className="btn-save01">
-                    <FontAwesomeIcon icon={faPrint} />
-
-                    <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
-                  </div>
-                </button>
-              </div> */}
+          <div className="R01">
+            <div className="R1">
+              <select
+                name=""
+                id=""
+                className="selectReport00"
+                onChange={handleTeacherSelect}
+              >
+                <option value="">ร้านค้าที่สั่งซื้อ</option>
+                {store.map((cusOption) => (
+                  <option key={cusOption.id} value={cusOption.store}>
+                    {cusOption.store}
+                  </option>
+                ))}
+              </select>
             </div>
 
-            <div className="Rbox2">
-              <div className="Rbox2-2">
-                <div className="Rbox2-2-2-1">
-                  <select name="" id="" className="input-select-Report">
-                    <option value="">วัตถุดิบทั้งหมด</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </div>
+            <div className="R2">
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("week")}
+              >
+                สัปดาห์
+              </button>
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("month")}
+              >
+                เดือน
+              </button>
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("year")}
+              >
+                ปี
+              </button>
+            </div>
 
-                <div className="Rbox2-2-2-2">
-                  <input
-                    type="date"
-                    className="input-date-Report"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                  />
-                  <h2>ถึง</h2>
-                  <input
-                    type="date"
-                    className="input-date-Report"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                </div>
+            <div className="R3">
+              <input
+                type="date"
+                name=""
+                className="dateSeach"
+                id="startDate"
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <label htmlFor="" className="labeldate">
+                ถึง
+              </label>
+              <input
+                type="date"
+                name=""
+                className="dateSeach"
+                id="endDate"
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
 
-                <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn" onClick={searchByDate}>
-                    ค้นหา
-                  </button>
-                </div>
-              </div>
+            <div className="R4">
+              <button className="B_report00" onClick={handleSearch}>
+                ค้นหา
+              </button>
+              <button className="B_report01" onClick={handleClear}>
+                ล้าง
+              </button>
             </div>
           </div>
         </div>
+
         <div className="back02">
           <div className="back2">
             <div className="back2-2">
@@ -226,6 +329,15 @@ function TabReport2() {
                     <div className="title-boxRSM1">สั่งซื้อวัตถุดิบ</div>
                     <div className="title-list-boxRSM">
                       <div className="title-boxRSM2">{idStapleCount}</div>
+                      <p
+                        style={{
+                          paddingLeft: "5px",
+                          color: "#393B44",
+                          fontSize: "25px",
+                        }}
+                      >
+                        รายการ
+                      </p>
                       {/* {data_Count.map((item2, index) => {
                   <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
                 })} */}
@@ -262,18 +374,75 @@ function TabReport2() {
                   <table class="styled-table-Unit">
                     <thead>
                       <tr>
-                        <th>รหัสการสั่งซื้อ</th>
-                        <th>วันที่สั่งซื้อ</th>
-                        <th>วันที่รับวัตถุดิบ </th>
-                        <th>ร้านค้าที่สั่งซื้อ</th>
-                        <th>ราคาต้นทุน (บาท)</th>
-                        <th>ยอดรวม (บาท)</th>
-                        <th>รหัสอ้างอิง</th>
-                        <th>หมายเหตุ</th>
+                        <th onClick={() => handleSort("id_buylist")}>
+                          รหัสการสั่งซื้อ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("day_buy")}>
+                          วันที่สั่งซื้อ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("day_admit_staple")}>
+                          วันที่รับวัตถุดิบ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("store")}>
+                          ร้านค้าที่สั่งซื้อ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("cost_price")}>
+                          ราคาต้นทุน (บาท)
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("total_cost")}>
+                          ยอดรวม (บาท)
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("refer_id")}>
+                          รหัสอ้างอิง
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("note")}>
+                          หมายเหตุ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {data.map((item, index) => {
+                        let date = new Date(item["day_buy"]);
                         return (
                           <tr key={index}>
                             <td>{item.id_buylist}</td>

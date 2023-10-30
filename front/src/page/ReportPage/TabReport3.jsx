@@ -16,7 +16,12 @@ import {
   faPrint,
   faAnglesLeft,
   faAnglesRight,
+  faArrowRightArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
 
 function TabReport3() {
   const [idStapleCount, setIdStapleCount] = useState(0);
@@ -42,7 +47,7 @@ function TabReport3() {
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
-      .get("http://localhost:5500/table_cutStock")
+      .get("http://localhost:5500/Report_cutStock_all")
       .then((res) => {
         setData(res.data);
         setSearchApiData(res.data);
@@ -124,103 +129,191 @@ function TabReport3() {
   };
   //! ..........................................
 
+  // ! ฟังก์ชั่นเลือกรีพอร์ต
+  // สร้าง state สำหรับเก็บวันที่เริ่มต้นและสิ้นสุดของช่วงเวลาที่จะค้นหา
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // ฟังก์ชันสำหรับค้นหาข้อมูล
+  const handleSearch = () => {
+    axios
+      .get(
+        `http://localhost:5500/Report_cutStock_date?start_date=${startDate}&end_date=${endDate}`
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error searching for students", error);
+      });
+  };
+
+  // ล้างข้อมูล
+  const handleClear = () => {
+    setStartDate("");
+    setEndDate("");
+    axios
+      .get("http://localhost:5500/Report_cutStock_all")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // select เลือกวัน/เดือน/ปี
+  const handleViewOptionselect = (event) => {
+    const view = event.target.value;
+    axios
+      .get(`http://localhost:5500/buy_stable_all3/${view}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // ปุ่มกด สัปหาด์/เดือน/ปี
+  const handleViewOption2 = (option) => {
+    axios
+      .get(`http://localhost:5500/Report_cutStock_date_button_date/${option}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // กด เรียงลำดับน้อยไปมาก มากไปน้อย
+  const [sortOrder, setSortOrder] = useState("asc");
+  const handleSort = (column) => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+    axios
+      .get(
+        `http://localhost:5500/Report_cutStock_date_button_sort/${column}/${newSortOrder}`
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error sorting students", error);
+      });
+  };
+
+  // ! ฟังก์ชั่นเลือกรีพอร์ต------------------------------
+
   return (
     <>
       <div className="back-0">
-        <div className="back01">
-          <div className="back1">
-            <div className="Rbox1">
-              <div className="Report_search">
-                <input
-                  type="text"
-                  className="Report_search_input"
-                  placeholder="ค้นหา..."
-                  value={filterVal}
-                  onInput={(e) => handleFilter(e)}
-                />
-                <button type="submit" className="Report_search_btn">
-                  ค้นหา
-                </button>
-              </div>
+        <div className="back01new">
+          <div className="R00">
+            <input
+              type="text"
+              className="inReport00"
+              placeholder="ค้นหา..."
+              value={filterVal}
+              onInput={(e) => handleFilter(e)}
+            />
+          </div>
 
-              {/* <div className="report-print">
-                <button
-                  className="Report_search_btn"
-                  type="submit"
-                  style={{
-                    background: "#000",
-                    color: "white",
-                    width: "auto",
-                    height: "auto",
-                    marginLeft: "50px",
-                  }}
-                >
-                  <div className="btn-save01">
-                    <FontAwesomeIcon icon={faPrint} />
-
-                    <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
-                  </div>
-                </button>
-              </div> */}
+          <div className="R01">
+            <div className="R1">
+              {/* <select name="" id="" className="selectReport00">
+                <option value="">วัตถุดิบทั้งหมด</option>
+                <option value="">1</option>
+                <option value="">1</option>
+              </select> */}
             </div>
 
-            <div className="Rbox2">
-              <div className="Rbox2-2">
-                <div className="Rbox2-2-2-1">
-                  <select name="" id="" className="input-select-Report">
-                    <option value="">วัตถุดิบทั้งหมด</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </div>
+            <div className="R2">
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("week")}
+              >
+                สัปดาห์
+              </button>
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("month")}
+              >
+                เดือน
+              </button>
+              <button
+                className="B_DMY"
+                onClick={() => handleViewOption2("year")}
+              >
+                ปี
+              </button>
+            </div>
 
-                <div className="Rbox2-2-2-2">
-                  <input type="date" className="input-date-Report" />
-                  <h2>ถึง</h2>
-                  <input type="date" className="input-date-Report" />
-                </div>
+            <div className="R3">
+              <input
+                type="date"
+                name=""
+                className="dateSeach"
+                id="startDate"
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <label htmlFor="" className="labeldate">
+                ถึง
+              </label>
+              <input
+                type="date"
+                name=""
+                className="dateSeach"
+                id="endDate"
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
 
-                <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn">ค้นหา</button>
-                </div>
-              </div>
+            <div className="R4">
+              <button className="B_report00" onClick={handleSearch}>
+                ค้นหา
+              </button>
+              <button className="B_report01" onClick={handleClear}>
+                ล้าง
+              </button>
             </div>
           </div>
         </div>
+
         <div className="back02">
           <div className="back2">
             <div className="back2-2">
               <div className="boxR2-1">
-                <div className="boxRSM2-1-1">
+                <div
+                  className="boxRSM2-1-1"
+                  style={{
+                    width: "auto",
+                    paddingRight: "20px",
+                    marginLeft: "20px",
+                  }}
+                >
                   <div className="title-boxRSM">
-                    <div className="title-boxRSM1">จำนวนรายการทั้งหมด</div>
+                    <div
+                      className="title-boxRSM1"
+                      style={{ marginLeft: "20px" }}
+                    >
+                      จำนวนรายการปรับสต๊อก
+                    </div>
                     <div className="title-list-boxRSM">
                       <div className="title-boxRSM2">{idStapleCount}</div>
-                      {/* <div className="title-boxRSM2">{idStapleCount}</div> */}
-                      {/* {data_Count.map((item2, index) => {
-                  <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                })} */}
+                      <p
+                        style={{
+                          paddingLeft: "5px",
+                          color: "#393B44",
+                          fontSize: "25px",
+                        }}
+                      >
+                        รายการ
+                      </p>
                     </div>
                   </div>
                 </div>
-                {/* <div className="boxRSM2-1-1">
-                <div className="title-boxRSM">
-                  <div className="title-boxRSM1">จำนวนวัตถุดิบที่ปรับ</div>
-                  <div className="title-boxRSM2">2</div>
-                </div>
-              </div> */}
-                {/* <div className="boxRSM2-1-1">
-                <div className="title-boxRSM">
-                  <div className="title-boxRSM1">จำนวนที่ทำรายการวันนี้</div>
-                  <div className="title-boxRSM2">10</div>
-                </div>
-              </div> */}
-                {/* <div className="boxRSM2-1-1">
-                <div className="title-boxRSM">
-                  <div className="title-boxRSM1">ปริมาณที่ปรับทั้งหมด</div>
-                  <div className="title-boxRSM2">10</div>
-                </div>
-              </div> */}
               </div>
               <div className="boxR2-2">
                 <div className="titleR">
@@ -228,23 +321,57 @@ function TabReport3() {
                 </div>
 
                 <div className="mainR">
-                  {/* {activeTab === 1 ? (
-              <Report3Chart1 />
-            ) : activeTab === 2 ? (
-              <Report3Chart1 />
-            ) : (
-              <Report3Chart1 />
-            )} */}
-
                   <table class="styled-table-Unit">
                     <thead>
                       <tr>
-                        <th>รหัสการปรับ</th>
-                        <th>วันที่ทำการ</th>
-                        <th>ชื่อวัตถุดิบ </th>
-                        <th>รหัสล็อต</th>
-                        <th>ปริมาณก่อนปรับ (กรัม)</th>
-                        <th>ปริมาณที่ปรับ (กรัม)</th>
+                        <th onClick={() => handleSort("id_cutStock")}>
+                          รหัสการปรับ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("date_cutStock")}>
+                          วันที่ทำการ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("Name_staple")}>
+                          ชื่อวัตถุดิบ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("id_lot")}>
+                          รหัสล็อต
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("amount_old")}>
+                          ปริมาณก่อนปรับ (กรัม)
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("amount_total")}>
+                          ปริมาณที่ปรับ (กรัม)
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
                       </tr>
                     </thead>
                     <tbody>

@@ -13,7 +13,8 @@
 .main {
   margin-top: 0px;
   grid-area: main-menu;
-  background: #ffffff;
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
 }
 
 .aside {
@@ -283,7 +284,8 @@ button.btnstableLot2 {
 .main-new {
   margin-top: 0px;
   grid-area: main;
-  background: #efefef;
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
   overflow-y: auto;
 }
 /* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
@@ -309,13 +311,13 @@ button.btnstableLot2 {
   display: flex;
   justify-content: space-around;
   align-items: end;
-  background: #efefef;
+  /* background: #efefef; */
 }
 .title-Text-stable {
   display: flex;
   justify-content: space-around;
   align-items: end;
-  background: #efefef;
+  /* background: #efefef; */
 }
 
 .top-text-stable {
@@ -332,7 +334,7 @@ button.btnstableLot2 {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: #efefef;
+  /* background: #efefef; */
   margin-left: 220px;
 }
 /* ตกแต่งตัวหนังสือบอกรายละเอียดรองลงมา */
@@ -348,7 +350,7 @@ button.btnstableLot2 {
 /* พื้นหลังสุดพื้นที่ทำงานสีเทา */
 .box-big-bg-new {
   display: flex;
-  background: #efefef;
+  /* background: #efefef; */
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -424,7 +426,7 @@ button.btnstableLot2 {
   height: 40px;
   border: 1px solid #ffffff;
   background: white;
-  border-bottom: 1px solid #979797;
+  border-bottom: 1px solid #dfdfdf;
 
   color: #000000;
   font-family: "Noto Serif Thai", serif;
@@ -435,7 +437,7 @@ button.btnstableLot2 {
   width: 1000px;
   height: 60px;
   border: 1px solid #ffffff;
-  border-bottom: 1px solid #979797;
+  border-bottom: 1px solid #dfdfdf;
   background: white;
   color: #000000;
   padding-right: 10px;

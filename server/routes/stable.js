@@ -11,6 +11,8 @@ import {
   stableUpdate,
   LotNew,
   buy_stable_all,
+  buy_stable_all2,
+  buy_stable_all3,
   producter,
 } from "../controller/stable.js";
 
@@ -41,6 +43,10 @@ router.put("/stableUpdate/:id", stableUpdate);
 // สั่งซื้อวัตถุดิบ
 //@End Point อัพเดตข้อมูล  http://localhost:5500/buy_stable_all
 router.get("/buy_stable_all", buy_stable_all);
+//@End Point อัพเดตข้อมูล  http://localhost:5500/buy_stable_all2
+router.get("/buy_stable_all2", buy_stable_all2);
+//@End Point อัพเดตข้อมูล  http://localhost:5500/buy_stable_all3/:view
+router.get("/buy_stable_all3/:view", buy_stable_all3);
 
 // producter
 //@End Point อัพเดตข้อมูล  http://localhost:5500/producter

@@ -3,6 +3,8 @@ import { FaPen, FaEye } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import "../../CSS/button.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPenToSquare,
@@ -11,6 +13,8 @@ import {
   faAnglesLeft,
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 function TabUnit2() {
   // ดึงข้อมูลผู้บันทึกที่เข้าระบบตอนนั้น
@@ -60,6 +64,8 @@ function TabUnit2() {
     }
   }
 
+  const [showHint, setShowHint] = useState(false);
+
   return (
     <div>
       <main className="main-stable ">
@@ -89,7 +95,7 @@ function TabUnit2() {
                 <th>วันที่ผลิต</th>
                 <th>วันที่ส่งมอบ</th>
                 <th>ยอดรวม </th>
-              
+
                 <th>ยืนยันการผลิต</th>
                 <th>ผู้บันทึก</th>
 
@@ -122,31 +128,53 @@ function TabUnit2() {
                     <td>{item.day_productorder}</td>
                     <td>{item.day_move}</td>
                     <td>{item.total_cost}</td>
-                    
+
                     <td>ยืนยันแล้ว</td>
                     <td>{userLoginData[0].name}</td>
 
                     <td className="TDStable">
-                  <button
-                    className="btnstableRead2"
-                    onClick={() => navigate(`ProductID/${ProductID}`)}
-                  >
-                    <div className="icon_edit">
-                      <FontAwesomeIcon icon={faEye} />
-                    </div>
-                    {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
-                  </button>
+                      <button
+                        data-tooltip-id="my-tooltip-10"
+                        className="btnstableRead2"
+                        onClick={() => navigate(`ProductID/${ProductID}`)}
+                      >
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faEye} />
+                        </div>
 
-                  <button
-                    onClick={() => navigate(`StableEdit/$`)}
-                    className="btnstableEdit2"
-                  >
-                    <div className="icon_edit">
-                      <FontAwesomeIcon icon={faPenToSquare} />
-                    </div>
-                    {/* <div className="test-icon-edit">แก้ไข</div> */}
-                  </button>
-                </td>
+                        <ReactTooltip
+                          id="my-tooltip-10"
+                          place="bottom"
+                          content="ดูข้อมูล"
+                          style={{
+                            backgroundColor: "#000000",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
+                      </button>
+
+                      <button
+                        data-tooltip-id="my-tooltip-20"
+                        onClick={() => navigate(`StableEdit/$`)}
+                        className="btnstableEdit2"
+                      >
+                        <div className="icon_edit">
+                          <FontAwesomeIcon icon={faPenToSquare} />
+                        </div>
+
+                        <ReactTooltip
+                          id="my-tooltip-20"
+                          place="bottom"
+                          content="แก้ไข"
+                          style={{
+                            backgroundColor: "#000000",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -160,7 +188,7 @@ function TabUnit2() {
                 <td>12/12/2023</td>
                 <td>5/5/2024</td>
                 <td>4500</td>
-              
+
                 <td>
                   <button className="btnstableRead">
                     <h3>ยืนยัน</h3>
@@ -172,20 +200,25 @@ function TabUnit2() {
                   <button
                     className="btnstableRead2"
                     onClick={() => navigate(`ProductID/${ProductID}`)}
+                    onMouseEnter={() => setShowHint(true)}
+                    onMouseLeave={() => setShowHint(false)}
                   >
                     <div className="icon_edit">
                       <FontAwesomeIcon icon={faEye} />
                     </div>
-                    {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
+                    <div className="hint-button-popup">ดูข้อมูล</div>
                   </button>
 
                   <button
                     onClick={() => navigate(`StableEdit/$`)}
                     className="btnstableEdit2"
+                    onMouseEnter={() => setShowHint(true)}
+                    onMouseLeave={() => setShowHint(false)}
                   >
                     <div className="icon_edit">
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </div>
+                    <div className="hint-button-popup">ดูข้อมูล</div>
                     {/* <div className="test-icon-edit">แก้ไข</div> */}
                   </button>
                 </td>

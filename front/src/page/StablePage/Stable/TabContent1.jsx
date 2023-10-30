@@ -12,6 +12,8 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 function TabContent1() {
   //! การนำทางข้าม component
   const navigate = useNavigate();
@@ -103,6 +105,29 @@ function TabContent1() {
   }
   //! ..................
 
+  // const [showHint, setShowHint] = useState(false);
+  const [showHintEdit, setShowHintEdit] = useState({});
+  const [showHintRead, setShowHintRead] = useState({});
+  const [showHintLot, setShowHintLot] = useState({});
+  const handleMouseEnterEdit = (id) => {
+    setShowHintEdit((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveEdit = (id) => {
+    setShowHintEdit((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+  const handleMouseEnterRead = (id) => {
+    setShowHintRead((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveRead = (id) => {
+    setShowHintRead((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+  const handleMouseEnterLot = (id) => {
+    setShowHintLot((prevShowHint) => ({ ...prevShowHint, [id]: true }));
+  };
+  const handleMouseLeaveLot = (id) => {
+    setShowHintLot((prevShowHint) => ({ ...prevShowHint, [id]: false }));
+  };
+
   return (
     <div>
       <main className="main-stable ">
@@ -147,6 +172,11 @@ function TabContent1() {
             </thead>
             <tbody>
               {records.map((item, index) => {
+                const showHintEditButton =
+                  showHintEdit[item.id_staple] || false;
+                const showHintReadButton =
+                  showHintRead[item.id_staple] || false;
+                const showHintLotButton = showHintLot[item.id_staple] || false;
                 return (
                   <tr key={index}>
                     <td
@@ -169,34 +199,92 @@ function TabContent1() {
 
                     <td className="TDStable">
                       <button
+                        data-tooltip-id="my-tooltip-1"
                         className="btnstableRead2"
                         onClick={() =>
                           navigate(`Stabledetel/${item.id_staple}`)
                         }
+                        // onMouseEnter={() =>
+                        //   handleMouseEnterRead(item.id_staple)
+                        // }
+                        // onMouseLeave={() =>
+                        //   handleMouseLeaveRead(item.id_staple)
+                        // }
                       >
                         <div className="icon_edit">
                           <FontAwesomeIcon icon={faEye} />
                         </div>
-                        {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
+
+                        <ReactTooltip
+                          id="my-tooltip-1"
+                          place="bottom"
+                          content="ดูข้อมูล"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
+
+                        {/* {showHintReadButton && (
+                          <div className="hint-button-popup1">ดูข้อมูล</div>
+                        )} */}
                       </button>
 
                       <button
+                        data-tooltip-id="my-tooltip-20"
                         onClick={() => navigate(`StableEdit/${item.id_staple}`)}
                         className="btnstableEdit2"
+                        // onMouseEnter={() =>
+                        //   handleMouseEnterEdit(item.id_staple)
+                        // }
+                        // onMouseLeave={() =>
+                        //   handleMouseLeaveEdit(item.id_staple)
+                        // }
                       >
                         <div className="icon_edit">
                           <FontAwesomeIcon icon={faPenToSquare} />
                         </div>
-                        {/* <div className="test-icon-edit">แก้ไข</div> */}
+                        {/* {showHintEditButton && (
+                          <div className="hint-button-popup2">แก้ไข</div>
+                        )} */}
+
+                        <ReactTooltip
+                          id="my-tooltip-20"
+                          place="bottom"
+                          content="แก้ไข"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
                       </button>
 
                       <button
+                        data-tooltip-id="my-tooltip-3"
                         className="btnstableLot2"
                         onClick={() => navigate(`TableLot/${item.id_staple}`)}
+                        // onMouseEnter={() => handleMouseEnterLot(item.id_staple)}
+                        // onMouseLeave={() => handleMouseLeaveLot(item.id_staple)}
                       >
                         <h3>
                           <FontAwesomeIcon icon={faBoxArchive} />
                         </h3>
+                        {/* {showHintLotButton && (
+                          <div className="hint-button-popup3">ล็อตวัตถุดิบ</div>
+                        )} */}
+
+                        <ReactTooltip
+                          id="my-tooltip-3"
+                          place="bottom"
+                          content="ล็อตวัตถุดิบ"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
                       </button>
                     </td>
                   </tr>

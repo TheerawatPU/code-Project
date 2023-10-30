@@ -4,6 +4,7 @@ import {
   Report_Stable_Lot,
   Report_Stable_Count,
   Report_Stable,
+  Report_Stable2,
   countUnit,
   countbuy_staple,
   countstaple,
@@ -14,8 +15,11 @@ import {
 //@End Point อ่านข้อมูล   http://localhost:5500/Report_Stable_Lot
 router.get("/Report_Stable_Lot", Report_Stable_Lot);
 
-//@End Point อ่านข้อมูล   http://localhost:5500/Report_Stable
+//@End Point อ่านข้อมูลวัตถุดิบ รีพอร์ต   http://localhost:5500/Report_Stable
 router.get("/Report_Stable", Report_Stable);
+
+//@End Point อ่านข้อมูลวัตถุดิบ รีพอร์ตค้นหาวันที่   http://localhost:5500/Report_Stable2
+router.get("/Report_Stable2", Report_Stable2);
 
 //@End Point อ่านข้อมูล   http://localhost:5500/Report_Stable_Count
 router.get("/Report_Stable_Count", Report_Stable_Count);

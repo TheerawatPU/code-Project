@@ -168,7 +168,8 @@ label {
 .main-stable {
   margin-top: 0px;
   grid-area: main-menu;
-  background: #ffffff;
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
 }
 /* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
 .top-text-new-EM {
@@ -182,7 +183,7 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: end;
-  background: #efefef;
+  /* background: #efefef; */
 }
 
 /* ตกแต่งตัวหนังสือบอกหน้าเพจ */
@@ -233,12 +234,18 @@ label {
   border-right: 2px solid #b3b3b3;
   width: 60%;
   height: 75vh;
-  padding: 40px;
+  padding: 40px 40px 40px 40px;
+  margin-left: 40px;
+  border-radius: 15px 0px 0px 15px;
+  background: white;
 }
 .Ubox2 {
   width: 100%;
   height: 75vh;
   padding: 40px;
+  margin-right: 40px;
+  border-radius: 0px 10px 15px 0px;
+  background: white;
 }
 
 .Ubox1-1 {

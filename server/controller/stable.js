@@ -156,6 +156,50 @@ export const buy_stable_all = (req, res) => {
   });
 };
 
+//สั่งซื้อวัตถุดิบ2
+export const buy_stable_all2 = (req, res) => {
+  const { start_date, end_date } = req.query;
+  const sql =
+    "SELECT `id_buylist`,DATE_FORMAT(day_buy, '%d/%m/%Y') AS day_buy,DATE_FORMAT(day_admit_staple, '%d/%m/%Y') AS  day_admit_staple,`store`,`cost_price`,`total_cost`,`refer_id`,`note` FROM `buy_staple` WHERE `day_buy` BETWEEN ? AND ? ORDER BY `id_buylist` DESC";
+  db.query(sql, [start_date, end_date], (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
+//สั่งซื้อวัตถุดิบ3
+export const buy_stable_all3 = (req, res) => {
+  const { view } = req.params;
+  let sql = "";
+
+  switch (view) {
+    case "เลือกช่วงวันที่":
+      sql =
+        "SELECT `id_buylist`,DATE_FORMAT(day_buy, '%d/%m/%Y') AS day_buy,DATE_FORMAT(day_admit_staple, '%d/%m/%Y') AS  day_admit_staple,`store`,`cost_price`,`total_cost`,`refer_id`,`note` FROM `buy_staple` ORDER BY `id_buylist` DESC";
+      break;
+    case "week":
+      sql =
+        "SELECT `id_buylist`,DATE_FORMAT(day_buy, '%d/%m/%Y') AS day_buy,DATE_FORMAT(day_admit_staple, '%d/%m/%Y') AS  day_admit_staple,`store`,`cost_price`,`total_cost`,`refer_id`,`note` FROM `buy_staple` WHERE WEEK(`day_buy`) = WEEK(NOW())  ORDER BY `id_buylist` DESC";
+      break;
+    case "month":
+      sql =
+        "SELECT `id_buylist`,DATE_FORMAT(day_buy, '%d/%m/%Y') AS day_buy,DATE_FORMAT(day_admit_staple, '%d/%m/%Y') AS  day_admit_staple,`store`,`cost_price`,`total_cost`,`refer_id`,`note` FROM `buy_staple` WHERE MONTH(`day_buy`) = MONTH(NOW())  ORDER BY `id_buylist` DESC";
+      break;
+    case "year":
+      sql =
+        "SELECT `id_buylist`,DATE_FORMAT(day_buy, '%d/%m/%Y') AS day_buy,DATE_FORMAT(day_admit_staple, '%d/%m/%Y') AS  day_admit_staple,`store`,`cost_price`,`total_cost`,`refer_id`,`note` FROM `buy_staple` WHERE YEAR(`day_buy`) = YEAR(NOW())  ORDER BY `id_buylist` DESC";
+      break;
+    default:
+      sql =
+        "SELECT `id_buylist`,DATE_FORMAT(day_buy, '%d/%m/%Y') AS day_buy,DATE_FORMAT(day_admit_staple, '%d/%m/%Y') AS  day_admit_staple,`store`,`cost_price`,`total_cost`,`refer_id`,`note` FROM `buy_staple`  ORDER BY `id_buylist` DESC";
+  }
+
+  db.query(sql, (err, result) => {
+    if (err) return res.json({ Message: "Error inside server" });
+    return res.json(result);
+  });
+};
+
 // สั่งผลิต
 
 export const producter = (req, res) => {

@@ -12,6 +12,8 @@ import {
   faAnglesRight,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { Tooltip as ReactTooltip } from "react-tooltip";
+
 function TabContent2() {
   // ดึงข้อมูลผู้บันทึกที่เข้าระบบตอนนั้น
   const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
@@ -102,6 +104,7 @@ function TabContent2() {
   };
   //! ..........................................
 
+
   return (
     <div>
       <main className="main-stable ">
@@ -152,6 +155,7 @@ function TabContent2() {
             </thead>
             <tbody>
               {records.map((item, index) => {
+               
                 return (
                   <tr key={index}>
                     <td
@@ -175,14 +179,39 @@ function TabContent2() {
 
                     <td className="TDStable">
                       <button
-                        className="btnstableRead2"
                         onClick={() =>
                           navigate(`BuyStableRead/${item.id_buylist}`)
                         }
+                        data-tooltip-id="my-tooltip-1"
+                        className="btnstableRead2"
+                        // onClick={() =>
+                        //   navigate(`BuyStableRead/${item.id_buylist}`)
+                        // }
+                        // onMouseEnter={() =>
+                        //   handleMouseEnterRead(item.id_staple)
+                        // }
+                        // onMouseLeave={() =>
+                        //   handleMouseLeaveRead(item.id_staple)
+                        // }
                       >
                         <div className="icon_edit">
                           <FontAwesomeIcon icon={faEye} />
                         </div>
+
+                        <ReactTooltip
+                          id="my-tooltip-1"
+                          place="bottom"
+                          content="ดูข้อมูล"
+                          style={{
+                            backgroundColor: "#0000005b",
+                            borderRadius: "15px",
+                            marginTop: "10px",
+                          }}
+                        />
+
+                        {/* {showHintReadButton && (
+                          <div className="hint-button-popup4">ดูข้อมูล</div>
+                        )} */}
                         {/* <div className="test-icon-edit">ดูข้อมูล</div> */}
                       </button>
 

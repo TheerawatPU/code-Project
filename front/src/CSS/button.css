@@ -1,0 +1,165 @@
+/* CSS for Popup */
+.hint-button-popup {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 5px;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+}
+
+.TDStable {
+  position: relative;
+}
+
+/* .TDStable:hover .hint-button-popup {
+  display: block;
+} */
+
+.TDStable:hover .hint-button-popup {
+  display: block;
+  position: absolute;
+  bottom: -28px; /* ปรับตำแหน่งด้านล่างของปุม */
+  left: 50%; /* จัดตำแหน่งตรงกลาง */
+  transform: translateX(-50%); /* จัดตำแหน่งตรงกลาง */
+  background: #00000070;
+  border: 1px solid #0000009e;
+  padding: 5px;
+  z-index: 1;
+  font-size: 13px;
+  border-radius: 10px;
+}
+
+/* ดู */
+.hint-button-popup1 {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 5px;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+}
+
+.TDStable:hover .hint-button-popup1 {
+  display: block;
+  position: absolute;
+  bottom: -28px; /* ปรับตำแหน่งด้านล่างของปุม */
+  left: 35%; /* จัดตำแหน่งตรงกลาง */
+  transform: translateX(-30%); /* จัดตำแหน่งตรงกลาง */
+  background: #000000b7;
+  border: 1px solid #0000009e;
+  padding: 5px;
+  z-index: 1;
+  font-size: 13px;
+  border-radius: 10px;
+}
+
+/* แก้ไข */
+.hint-button-popup2 {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 5px;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+}
+
+.TDStable:hover .hint-button-popup2 {
+  display: block;
+  position: absolute;
+  bottom: -28px; /* ปรับตำแหน่งด้านล่างของปุม */
+  left: 52%; /* จัดตำแหน่งตรงกลาง */
+  transform: translateX(-50%); /* จัดตำแหน่งตรงกลาง */
+  background: #000000b7;
+  border: 1px solid #0000009e;
+  padding: 5px;
+  z-index: 1;
+  font-size: 13px;
+  border-radius: 10px;
+}
+/* ล็อตวัตถุดิบ */
+.hint-button-popup3 {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 5px;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+}
+
+.TDStable:hover .hint-button-popup3 {
+  display: block;
+  position: absolute;
+  bottom: -28px; /* ปรับตำแหน่งด้านล่างของปุม */
+  left: 66%; /* จัดตำแหน่งตรงกลาง */
+  transform: translateX(-50%); /* จัดตำแหน่งตรงกลาง */
+  background: #000000b7;
+  border: 1px solid #0000009e;
+  padding: 5px;
+  z-index: 1;
+  font-size: 13px;
+  border-radius: 10px;
+}
+/* ดูสั่งซื้อ */
+.hint-button-popup4 {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 5px;
+  z-index: 1;
+  color: rgb(255, 255, 255);
+}
+
+.TDStable:hover .hint-button-popup4 {
+  display: block;
+  position: absolute;
+  bottom: -28px; /* ปรับตำแหน่งด้านล่างของปุม */
+  left: 53%; /* จัดตำแหน่งตรงกลาง */
+  transform: translateX(-50%); /* จัดตำแหน่งตรงกลาง */
+  background: #000000b7;
+  border: 1px solid #0000009e;
+  padding: 5px;
+  z-index: 1;
+  font-size: 13px;
+  border-radius: 10px;
+}
+
+.hint-button-popup5 {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1;
+  top: 300px; /* ปรับตำแหน่งด้านบนของปุม */
+  left: 90.5%; /* จัดตำแหน่งตรงกลาง */
+  transform: translateX(-50%); /* จัดตำแหน่งตรงกลาง */
+}
+
+.btnstableRead2:hover .hint-button-popup5 {
+  display: block;
+}
+.hint-button-popup6 {
+  display: none;
+  position: absolute;
+  background-color: #ed2525;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  z-index: 1;
+  top: 300px; /* ปรับตำแหน่งด้านบนของปุม */
+  left: 90.5%; /* จัดตำแหน่งตรงกลาง */
+  transform: translateX(-50%); /* จัดตำแหน่งตรงกลาง */
+}
+
+.btnstableRead2:hover .hint-button-popup5 {
+  display: block;
+}

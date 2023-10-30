@@ -29,6 +29,7 @@ function BuyStableNew() {
   const [unit_date_notification_num, setUnit_Date_notification_num] =
     useState("");
   const [unit_id_customer, setUnit_Id_customer] = useState("");
+  const [note, setNote] = useState("");
 
   // detail_buystaple
   const [unit_detail_id_staple, setUnit_detail_id_staple] = useState("");
@@ -207,7 +208,7 @@ function BuyStableNew() {
           day_admit_staple: unit_day_admit_list,
           store: unit_date_notification_num,
           refer_id: unit_notification_num,
-          note: unit_id_customer,
+          note: setNote,
           id_employee: `${userLoginData[0].id_employee}`,
         },
         detail_buystaple,
@@ -343,7 +344,7 @@ function BuyStableNew() {
               <div className="Ubox1-1-1">
                 <label className="form-label1-1">รหัสอ้างอิง :</label>
                 <input
-                  type="text"
+                  type="number"
                   className="Uinput1"
                   name="refer_id"
                   value={unit_notification_num}
@@ -358,10 +359,19 @@ function BuyStableNew() {
                   type="text"
                   className="Uinput1"
                   name="note"
-                  value={unit_notification_num}
-                  onChange={(e) => setUnit_Notification_num(e.target.value)}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
                 />
               </div>
+              <p
+                style={{
+                  // paddingRight: "870px",
+                  // marginRight: "870px",
+                  marginTop: "20px",
+                }}
+              >
+                * เมื่อกดบันทึกแล้วไม่สามารถแก้ไขข้อมูลได้
+              </p>
 
               {/* <div className="Ubox1-1-1">
                 <label className="form-label1-1">ยอดรวม :</label>

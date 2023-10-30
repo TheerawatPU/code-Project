@@ -170,14 +170,15 @@ label {
 .main-stable {
   margin-top: 0px;
   grid-area: main-menu;
-  background: #ffffff;
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
 }
 
 .title-Text {
   display: flex;
   justify-content: space-between;
   align-items: end;
-  background: #efefef;
+  /* background: #efefef; */
 }
 
 .btn01 {
@@ -497,4 +498,10 @@ button.btnAddUnit-stable {
 .submit-new-C span {
   padding-left: 5px;
   color: #ffffff;
+}
+
+
+
+.thSort{
+  display: flex;
 }

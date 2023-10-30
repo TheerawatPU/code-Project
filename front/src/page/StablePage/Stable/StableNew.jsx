@@ -297,7 +297,7 @@ function StableNew() {
                     height: "35px",
                   }}
                   name="reOrder"
-                  type="text"
+                  type="number"
                   className="stable_input1"
                   onChange={handleInput}
                 />

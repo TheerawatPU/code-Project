@@ -111,7 +111,7 @@ function CustomerCreatePage() {
   });
   // ! -------------------------
 
-  // เช็ค Error
+  // เช็ค Error พร้อม บันทึก
   const [errors, setErrors] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -198,6 +198,7 @@ function CustomerCreatePage() {
       <main className="main">
         <div className="box-big-bg-new-C">
           <div className="box-BG-area-new-Customer">
+            
             <div className="title-Text-customer">
               <div className="top-text-new-EM">
                 <div className="text-new-EM-Unit">

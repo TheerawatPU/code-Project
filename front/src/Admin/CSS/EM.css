@@ -1,0 +1,218 @@
+.embox0 {
+  width: 100%;
+  height: 100%;
+  /* background: violet; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.embox1 {
+  background: rgb(255, 255, 255);
+  width: 85%;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+}
+
+.embox21 {
+  width: 40%;
+  border-right: 0px solid #a9a9a9;
+  height: 97%;
+  padding: 10px;
+}
+.embox22 {
+  width: 80%;
+  border-left: 0.1px solid #a9a9a9;
+  height: 97%;
+  padding: 10px;
+}
+
+.embox22_1 {
+  width: 100%;
+  height: 12%;
+  /* border: 1px solid #000; */
+  margin-bottom: 17px;
+  display: flex;
+  padding-left: 15px;
+}
+
+.textem1 {
+  width: 100%;
+  /* background: blueviolet; */
+  /* border: 1px solid #000; */
+}
+
+.inputtext1 {
+  margin-top: 10px;
+  width: 90%;
+  height: 45%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+}
+
+.embox22_1-2 {
+  width: 98%;
+  height: 12%;
+  /* border: 1px solid #000; */
+  margin-bottom: 17px;
+  display: flex;
+  padding-left: 15px;
+}
+
+.inputtext1_2 {
+  margin-top: 10px;
+  width: 95%;
+  height: 45%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+}
+
+.inputtext1_3 {
+  margin-top: 10px;
+  width: 95%;
+  height: 45%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #d2d2d2;
+}
+
+.pic0 {
+  width: 100%;
+  height: 50%;
+  /* background: violet; */
+}
+
+.pic1 {
+  width: 100%;
+  height: 100%;
+  /* background: violet; */
+}
+
+/* -------------------------รูป */
+.emtitle {
+  /* background: rgb(243, 77, 77); */
+  width: 85%;
+  height: 7%;
+  display: flex;
+  margin-bottom: 15px;
+}
+.title1 {
+  width: 50%;
+  /* border: 1px solid #000; */
+  display: flex;
+  justify-content: start;
+  align-items: end;
+}
+
+.title2 {
+  width: 50%;
+  /* border: 1px solid #000; */
+  display: flex;
+  justify-content: end;
+  align-items: end;
+}
+
+/* ปุ่ม */
+.btn_can {
+  display: flex;
+}
+
+.cencle {
+  margin-left: 10px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #bb2525;
+  width: 100px;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  border-radius: 5px;
+  box-shadow: 3px 5px 14px -1px rgba(0, 0, 0, 0.51);
+  -webkit-box-shadow: 3px 5px 14px -1px rgba(0, 0, 0, 0.51);
+  -moz-box-shadow: 3px 5px 14px -1px rgba(0, 0, 0, 0.51);
+}
+
+.submit {
+  margin-left: 10px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #099a97;
+  width: 100px;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  border-radius: 5px;
+  box-shadow: 3px 5px 14px -1px rgba(0, 0, 0, 0.51);
+  -webkit-box-shadow: 3px 5px 14px -1px rgba(0, 0, 0, 0.51);
+  -moz-box-shadow: 3px 5px 14px -1px rgba(0, 0, 0, 0.51);
+}
+
+.text_cencle {
+  font-size: 15px;
+  padding-left: 10px;
+}
+/* -------------------------รูป */
+
+/* ข้อความ */
+.text_title1 {
+  font-size: 35px;
+  font-weight: bold;
+  /* padding-left: 10px; */
+}
+
+.text_input0 {
+  font-size: 20px;
+}
+
+/* read */
+.inputtext1_read {
+  margin-top: 10px;
+  width: 90%;
+  height: 45%;
+  /* padding-left: 10px; */
+  padding-right: 10px;
+  font-size: 15px;
+  /* border-radius: 5px; */
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  border-bottom: 1px solid #dbdbdb;
+  color: black;
+}
+
+.inputtext1_2_read {
+  margin-top: 10px;
+  width: 95%;
+  height: 45%;
+  /* padding-left: 10px; */
+  padding-right: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #ffffff;
+  background: #ffffff;
+  border-bottom: 1px solid #dbdbdb;
+  color: black;
+}
+
+input {
+  cursor: pointer;
+}
+select {
+  cursor: pointer;
+}
+button {
+  cursor: pointer;
+}

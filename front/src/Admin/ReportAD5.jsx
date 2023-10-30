@@ -11,6 +11,7 @@ import {
   faPrint,
   faAnglesLeft,
   faAnglesRight,
+  faArrowRightArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "../CSS/Report.css";
@@ -37,12 +38,12 @@ function ReportAD5() {
 
   const [data, setData] = useState([]);
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5500/producter")
-  //     .then((res) => setData(res.data))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5500/producter")
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   //next page555555
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,102 +72,44 @@ function ReportAD5() {
     }
   }
 
-  //
-  const [startDate, setStartDate] = useState(""); // เก็บวันเริ่มต้น
-  const [endDate, setEndDate] = useState(""); // เก็บวันสิ้นสุด
-
-  useEffect(() => {
-    let apiUrl = "http://localhost:5500/producter";
-
-    if (startDate && endDate) {
-      apiUrl += `?startDate=${startDate}&endDate=${endDate}`;
-    }
-
-    axios
-      .get(apiUrl)
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
-  }, [startDate, endDate]);
-
   return (
     <>
       <div className="back-0">
-        <div className="back01">
-          <div className="back1">
-            <div className="Rbox1">
-              <div className="Report_search">
-                <input
-                  type="text"
-                  className="Report_search_input"
-                  placeholder="ค้นหา..."
-                />
-                <button type="submit" className="Report_search_btn">
-                  ค้นหา
-                </button>
-              </div>
+        <div className="back01new">
+          <div className="R00">
+            <input type="text" className="inReport00" placeholder="ค้นหา..." />
+          </div>
 
-              {/* <div className="report-print">
-                <button
-                  className="Report_search_btn"
-                  type="submit"
-                  style={{
-                    background: "#000",
-                    color: "white",
-                    width: "auto",
-                    height: "auto",
-                    marginLeft: "50px",
-                  }}
-                >
-                  <div className="btn-save01">
-                    <FontAwesomeIcon icon={faPrint} />
-
-                    <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
-                  </div>
-                </button>
-              </div> */}
+          <div className="R01">
+            <div className="R1">
+              <select name="" id="" className="selectReport00">
+                <option value="">ชื่อลูกค้า</option>
+                <option value="">1</option>
+                <option value="">1</option>
+              </select>
             </div>
 
-            <div className="Rbox2">
-              <div className="Rbox2-2">
-                <div className="Rbox2-2-2-1">
-                  <select name="" id="" className="input-select-Report">
-                    <option value="">วัตถุดิบทั้งหมด</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </div>
+            <div className="R2">
+              <button className="B_DMY">สัปดาห์</button>
+              <button className="B_DMY">เดือน</button>
+              <button className="B_DMY">ปี</button>
+            </div>
 
-                <div className="Rbox2-2-2-2">
-                  <input
-                    type="date"
-                    className="input-date-Report"
-                    onChange={(e) => setStartDate(e.target.value)}
-                    value={startDate}
-                  />
-                  <h2>ถึง</h2>
-                  <input
-                    className="input-date-Report"
-                    type="date"
-                    onChange={(e) => setEndDate(e.target.value)}
-                    value={endDate}
-                  />
-                </div>
+            <div className="R3">
+              <input type="date" name="" id="" className="dateSeach" />
+              <label htmlFor="" className="labeldate">
+                ถึง
+              </label>
+              <input type="date" name="" id="" className="dateSeach" />
+            </div>
 
-                <div className="Rbox2-2-2-3">
-                  <button
-                    className="Report_search_btn"
-                    onClick={() => {
-                      setStartDate();
-                      setEndDate();
-                    }}
-                  >
-                    ค้นหา
-                  </button>
-                </div>
-              </div>
+            <div className="R4">
+              <button className="B_report00">ค้นหา</button>
+              <button className="B_report01">ล้าง</button>
             </div>
           </div>
         </div>
+
         <div className="back02">
           <div className="back2">
             <div className="back2-2">
@@ -176,44 +119,63 @@ function ReportAD5() {
                 </div>
 
                 <div className="mainR">
-                  {/* {activeTab === 1 ? (
-                <Report5Chart1 />
-              ) : activeTab === 2 ? (
-                <Report5Chart1 />
-              ) : (
-                <Report5Chart1 />
-              )} */}
-
                   <table class="styled-table-Unit">
                     <thead>
                       <tr>
-                        <th>รหัสการผลิต</th>
-                        <th>ชื่อลูกค้า</th>
-                        <th>วันที่ผลิต </th>
-                        <th>วันที่ส่งมอบ</th>
-                        <th>ยอดรวม</th>
+                        <th onClick={() => handleSort("id_cutStock")}>
+                          รหัสการผลิต
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("id_cutStock")}>
+                          ชื่อลูกค้า
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("id_cutStock")}>
+                          วันที่ผลิต
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("id_cutStock")}>
+                          วันที่ส่งมอบ
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
+                        <th onClick={() => handleSort("id_cutStock")}>
+                          ยอดรวม
+                          <FontAwesomeIcon
+                            icon={faArrowRightArrowLeft}
+                            rotation={270}
+                            style={{ marginLeft: "15px" }}
+                          />
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {records
-                        .filter((data) => {
-                          const expDate = new Date(data.day_move);
-                          return (
-                            (!startDate || expDate >= new Date(startDate)) &&
-                            (!endDate || expDate <= new Date(endDate))
-                          );
-                        })
-                        .map((item, index) => {
-                          return (
-                            <tr key={index}>
-                              <td>{item.id_productorder}</td>
-                              <td>{item.name_cus}</td>
-                              <td>{item.day_productorder}</td>
-                              <td>{item.day_move}</td>
-                              <td>{item.total_cost}</td>
-                            </tr>
-                          );
-                        })}
+                      {records.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item.id_productorder}</td>
+                            <td>{item.name_cus}</td>
+                            <td>{item.day_productorder}</td>
+                            <td>{item.day_move}</td>
+                            <td>{item.total_cost}</td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
 

@@ -11,6 +11,7 @@ import {
   faPrint,
   faAnglesLeft,
   faAnglesRight,
+  faArrowRightArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 import "../CSS/Report.css";
@@ -39,7 +40,7 @@ function ReportAD1() {
   //   โหลดข้อมูลมาใส่ไว้ใน component นี้
   useEffect(() => {
     axios
-      .get("http://localhost:5500/Report_Stable")
+      .get("http://localhost:5500/Report_Stable_all")
       .then((res) => {
         setData(res.data);
         setSearchApiData(res.data);
@@ -113,69 +114,113 @@ function ReportAD1() {
     setFilterVal(e.target.value);
   };
 
+  // ล้างข้อมูล
+  const handleClear = () => {
+    axios
+      .get("http://localhost:5500/Report_Stable_all")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // select เลือกวัน/เดือน/ปี
+  const handleViewOptionselect = (event) => {
+    const view = event.target.value;
+    axios
+      .get(`http://localhost:5500/Report_Stable_date/${view}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching students", error);
+      });
+  };
+
+  // กด เรียงลำดับน้อยไปมาก มากไปน้อย
+  const [sortOrder, setSortOrder] = useState("asc");
+  const handleSort = (column) => {
+    const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newSortOrder);
+    axios
+      .get(
+        `http://localhost:5500/Report_Stable_button_sort/${column}/${newSortOrder}`
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error sorting students", error);
+      });
+  };
+
   return (
     <>
       <div className="back-0">
-        <div className="back01">
-          <div className="back1">
-            <div className="Rbox1">
-              <div className="Report_search">
-                <input
-                  type="text"
-                  className="Report_search_input"
-                  placeholder="ค้นหา..."
-                  value={filterVal}
-                  onInput={(e) => handleFilter(e)}
-                />
-                <button type="submit" className="Report_search_btn">
-                  ค้นหา
-                </button>
-              </div>
+        <div className="back01new">
+          <div className="R00">
+            <input
+              type="text"
+              className="inReport00"
+              placeholder="ค้นหา..."
+              value={filterVal}
+              onInput={(e) => handleFilter(e)}
+            />
+          </div>
 
-              {/* <div className="report-print">
-                <button
-                  className="Report_search_btn"
-                  type="submit"
-                  style={{
-                    background: "#000",
-                    color: "white",
-                    width: "auto",
-                    height: "auto",
-                    marginLeft: "50px",
-                  }}
-                >
-                  <div className="btn-save01">
-                    <FontAwesomeIcon icon={faPrint} />
-
-                    <label style={{ paddingLeft: "5px" }}>พิมพ์</label>
-                  </div>
-                </button>
-              </div> */}
+          <div className="R01">
+            <div className="R1">
+              {/* <select name="" id="" className="selectReport00">
+                <option value="">วัตถุดิบทั้งหมด</option>
+                <option value="">1</option>
+                <option value="">1</option>
+              </select> */}
             </div>
 
-            <div className="Rbox2">
-              <div className="Rbox2-2">
-                <div className="Rbox2-2-2-1">
-                  <select name="" id="" className="input-select-Report">
-                    <option value="">วัตถุดิบทั้งหมด</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </div>
+            <div className="R2">
+              {/* <button className="B_DMY">สัปดาห์</button>
+              <button className="B_DMY">เดือน</button>
+              <button className="B_DMY">ปี</button> */}
+            </div>
 
-                <div className="Rbox2-2-2-2">
-                  <input type="date" className="input-date-Report" />
-                  <h2>ถึง</h2>
-                  <input type="date" className="input-date-Report" />
-                </div>
+            <div className="R3">
+              {/* <input type="date" name="" id="" className="dateSeach" />
+              <label htmlFor="" className="labeldate">
+                ถึง
+              </label>
+              <input type="date" name="" id="" className="dateSeach" /> */}
+            </div>
 
-                <div className="Rbox2-2-2-3">
-                  <button className="Report_search_btn">ค้นหา</button>
-                </div>
-              </div>
+            <div className="R4-4">
+              {/* <button className="B_report00">ค้นหา</button> */}
+              <select
+                name=""
+                id=""
+                className="selectReport00"
+                onChange={handleViewOptionselect}
+              >
+                <option value="วัตถุดิบทั้งหมด">วัตถุดิบทั้งหมด</option>
+                <option value="วัตถุดิบต่ำกว่าจุดสั่งซื้อ">
+                  วัตถุดิบต่ำกว่าจุดสั่งซื้อ
+                </option>
+                <option value="วัตถุดิบคงเหลือมากสุด">
+                  วัตถุดิบคงเหลือมากสุด
+                </option>
+                <option value="วัตถุดิบคงเหลือน้อยสุด">
+                  วัตถุดิบคงเหลือน้อยสุด
+                </option>
+                <option value="วัตถุดิบราคามากสุด">วัตถุดิบราคามากสุด</option>
+                <option value="วัตถุดิบราคาน้อยสุด">วัตถุดิบราคาน้อยสุด</option>
+              </select>
+              <button className="B_report02" onClick={handleClear}>
+                ล้าง
+              </button>
             </div>
           </div>
         </div>
+
         <div className="back02">
           <div className="back2">
             <div className="back2-2">
@@ -185,33 +230,20 @@ function ReportAD1() {
                     <div className="title-boxRSM1">วัตถุดิบทั้งหมด</div>
                     <div className="title-list-boxRSM">
                       <div className="title-boxRSM2">{idStapleCount}</div>
-                      {/* {data_Count.map((item2, index) => {
-                    <div key={index} className="title-boxRSM2">{item2.id_staple}</div>;
-                  })} */}
+                      <p
+                        style={{
+                          paddingLeft: "5px",
+                          color: "#393B44",
+                          fontSize: "25px",
+                        }}
+                      >
+                        รายการ
+                      </p>
                     </div>
                   </div>
                 </div>
-                {/* <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">วัตถุดิบใหม่</div>
-                    <div className="title-boxRSM2">2</div>
-                  </div>
-                </div> */}
-                {/* <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">
-                      วัตถุดิบต่ำกว่าจุดสั่งซื้อ
-                    </div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
-                </div> */}
-                {/* <div className="boxRSM2-1-1">
-                  <div className="title-boxRSM">
-                    <div className="title-boxRSM1">วัตถุดิบหมดอายุ</div>
-                    <div className="title-boxRSM2">10</div>
-                  </div>
-                </div> */}
               </div>
+
               <div className="boxR2-2">
                 <div className="titleR">
                   <div className="titleR-Table">ตารางวัตถุดิบ</div>
@@ -220,14 +252,57 @@ function ReportAD1() {
                 <table class="styled-table-Unit">
                   <thead>
                     <tr>
-                      <th>รหัส</th>
-                      <th>ชื่อวัตถุดิบ</th>
-                      <th>INCIname </th>
-                      <th>จุดสั่งซื้อ</th>
-                      <th>ปริมาณคงเหลือ (กรัม)</th>
-                      <th>ราคา (บาท)</th>
+                      <th onClick={() => handleSort("id_staple")}>
+                        รหัส
+                        <FontAwesomeIcon
+                          icon={faArrowRightArrowLeft}
+                          rotation={270}
+                          style={{ marginLeft: "15px" }}
+                        />
+                      </th>
+                      <th onClick={() => handleSort("Name_staple")}>
+                        ชื่อวัตถุดิบ
+                        <FontAwesomeIcon
+                          icon={faArrowRightArrowLeft}
+                          rotation={270}
+                          style={{ marginLeft: "15px" }}
+                        />
+                      </th>
+                      <th onClick={() => handleSort("Name_INCIname")}>
+                        INCIname
+                        <FontAwesomeIcon
+                          icon={faArrowRightArrowLeft}
+                          rotation={270}
+                          style={{ marginLeft: "15px" }}
+                        />
+                      </th>
+                      <th onClick={() => handleSort("reOrder")}>
+                        จุดสั่งซื้อ
+                        <FontAwesomeIcon
+                          icon={faArrowRightArrowLeft}
+                          rotation={270}
+                          style={{ marginLeft: "15px" }}
+                        />
+                      </th>
+                      <th onClick={() => handleSort("cost")}>
+                        ปริมาณคงเหลือ (กรัม)
+                        <FontAwesomeIcon
+                          icon={faArrowRightArrowLeft}
+                          rotation={270}
+                          style={{ marginLeft: "15px" }}
+                        />
+                      </th>
+                      <th onClick={() => handleSort("amount_re")}>
+                        ราคา (บาท)
+                        <FontAwesomeIcon
+                          icon={faArrowRightArrowLeft}
+                          rotation={270}
+                          style={{ marginLeft: "15px" }}
+                        />
+                      </th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {records.map((item, index) => {
                       return (

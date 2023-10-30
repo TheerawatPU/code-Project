@@ -37,7 +37,7 @@ function TopNavAD() {
           {/* ภายในกล่อง เมื่อกดแล้ว */}
           {showMenu && (
             <div className="dropdown-content">
-              <a onClick={() => navigate(`/AD/ProfileAdminRead`)}>โปรไฟล์</a>
+              <a onClick={() => navigate(`/AD/ProfileReadID`)}>โปรไฟล์</a>
               <a href="#" onClick={handleLogout}>
                 ออกจากระบบ
               </a>

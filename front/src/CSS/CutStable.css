@@ -13,7 +13,9 @@
 .main {
   margin-top: 0px;
   grid-area: main-menu;
-  background: #ffffff;
+  /* background: #ffffff; */
+  background: #f1ddfe;
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
 }
 
 .aside {
@@ -123,7 +125,7 @@
   border-radius: 10px;
   height: 40px;
   padding-left: 20px;
-  border: 1px solid #a1a1a1;
+  border: 1px solid #e2e2e2;
   font-size: 15px;
 }
 
@@ -151,6 +153,8 @@ ul.pagination-stable {
   background: white;
   height: 50px;
   box-shadow: 0px 0px 0px 0px rgb(255 255 255);
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
 }
 .pagination-stable .page-item-stable:hover a {
   background: #b0b0b0;
@@ -320,7 +324,10 @@ button.btnstableEdit {
 .main-new {
   margin-top: 0px;
   grid-area: main;
-  background: #efefef;
+  /* background: #efefef; */
+  /* background: #f2f2fc; */
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
   overflow-y: auto;
 }
 /* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
@@ -338,7 +345,7 @@ button.btnstableEdit {
   font-weight: 700;
   color: #000000;
   justify-content: center;
-  background: #efefef;
+  /* background: #efefef; */
   padding: 30px 250px 4px;
 }
 /* ตกแต่งตัวหนังสือบอกรายละเอียดรองลงมา */
@@ -354,7 +361,7 @@ button.btnstableEdit {
 /* พื้นหลังสุดพื้นที่ทำงานสีเทา */
 .box-big-bg-new {
   display: flex;
-  background: #efefef;
+  /* background: #efefef; */
   justify-content: start;
   align-items: center;
   flex-direction: column;
@@ -370,6 +377,10 @@ button.btnstableEdit {
   align-items: center;
   overflow: hidden;
   padding: 50px 0px;
+  border-radius: 15px;
+  box-shadow: 3px 5px 42px -4px #0000000a;
+  -webkit-box-shadow: 3px 5px 42px -4px #0000000a;
+  -moz-box-shadow: 3px 5px 42px -4px #0000000a;
 }
 /* ฟอร์มของหน้า stable */
 .form-stable-new {
@@ -400,8 +411,6 @@ button.btnstableEdit {
   font-weight: bold;
 }
 
-
-
 /* ช่องกรอกข้อมูลของฟอร์ม */
 .form-input-new {
   width: 440px;
@@ -417,7 +426,7 @@ button.btnstableEdit {
   width: 440px;
   height: 40px;
   border: 1px solid #ffffff;
-  border-bottom: 1px solid #737373;
+  border-bottom: 1px solid #dfdfdf;
   background: white;
   color: #424242;
   font-family: "Noto Serif Thai", serif;
@@ -530,14 +539,14 @@ button.btnstableEdit {
   display: flex;
   justify-content: space-around;
   align-items: end;
-  background: #efefef;
+  /* background: #efefef; */
 }
 
 .title-Text-cutstable {
   display: flex;
   justify-content: start;
   align-items: end;
-  background: #efefef;
+  /* background: #efefef; */
 }
 
 /* ตัวหนังสือบอกหน้าเพจเพื่อจัดตำแหน่ง */
@@ -545,7 +554,7 @@ button.btnstableEdit {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #efefef;
+  /* background: #efefef; */
   margin-left: 220px;
 }
 .btn01 {
@@ -566,9 +575,11 @@ button.btnstableEdit {
   color: #000000;
   justify-content: center;
   /* background: #efefef; */
-  background: #efefef;
+  /* background: #efefef; */
   padding: 30px 25px 4px;
   display: flex;
   align-items: center;
   padding-right: 20px;
+  background: rgb(241, 221, 254);
+  background: linear-gradient(222deg, #f8effe 0%, #eff8ff 100%);
 }

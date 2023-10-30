@@ -18,15 +18,18 @@
   padding: 20px;
   backdrop-filter: blur(10px);
   width: 500px;
-  height: 300px;
+  height: 550px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 .login0 {
+  margin-top: 10px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,6 +43,7 @@
   height: 35px;
   font-size: 18px;
   border: 1px solid #22a699;
+  width: 94%;
 }
 
 .login-btn {
@@ -54,7 +58,33 @@
 }
 
 .title-login {
-  color: #fff;
+  color: #22a699;
   font-family: "Mitr", sans-serif;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  font-size: 3rem;
+}
+
+/* login */
+.piclog01 {
+  background: #f54747;
+  width: 30%;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.piclog02 {
+  width: 100%;
+  height: 150px;
+  border: 2px solid transparent;
+  /* border-image: linear-gradient(
+    to right,
+    rgb(34, 166, 153),
+    rgba(129, 208, 255, 1) 100%
+  );
+  border-image-slice: 1; */
 }

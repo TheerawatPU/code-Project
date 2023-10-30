@@ -5,24 +5,35 @@ import axios from "axios";
 import Menu from "../../component/Menu";
 import Topnav from "../../component/Topnav";
 
-import { faPenToSquare, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenToSquare,
+  faFloppyDisk,
+  faBan,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { ImCancelCircle } from "react-icons/im";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 import "../../CSS/Profile.css";
+import "../../Admin/CSS/EM.css";
 
 function ProfileEdit() {
-  // ไอดีจาก URL
-  const { id } = useParams();
   // นำทางข้าม component
   const navigate = useNavigate();
   // state เก็บ ข้อมูลจาก api
   const [data, setData] = useState([]);
   // โหลดข้อมูล จาก api
+
+  const userLoginData = JSON.parse(sessionStorage.getItem("userlogin"));
+
+  console.log("userLoginData", userLoginData[0].id_employee);
+
   useEffect(() => {
     axios
-      .get(`http://localhost:5500/employeeReadID/${id}`)
+      .get(
+        `http://localhost:5500/employeeReadID/${userLoginData[0].id_employee}`
+      )
       .then((res) => {
         console.log(res);
         setValues({
@@ -68,9 +79,17 @@ function ProfileEdit() {
   const handleUpdate = (event) => {
     event.preventDefault();
     axios
-      .put("http://localhost:5500/employeeUpdate/" + id, values)
+      .put(
+        "http://localhost:5500/employeeUpdate/" + userLoginData[0].id_employee,
+        values
+      )
       .then((res) => {
         console.log(res);
+
+        // หลังจากที่อัพเดตข้อมูลสำเร็จ คุณสามารถอัพเดตข้อมูลใน sessionStorage ด้วยคำสั่งนี้
+        userLoginData[0] = { ...userLoginData[0], ...values };
+        sessionStorage.setItem("userlogin", JSON.stringify(userLoginData));
+
         navigate("/EM/ProfileRead");
       })
       .catch((err) => console.log(err));
@@ -79,6 +98,7 @@ function ProfileEdit() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   // เก็บข้อมูลจาก input ส่งไป Values รวมถึงเช็ครูปภาพด้วย
+
   const handleInput = (event) => {
     const { name, value } = event.target;
 
@@ -110,258 +130,267 @@ function ProfileEdit() {
 
   return (
     <>
-      <div className="all-page">
-        <header className="header">
+      <div className="all-page-new">
+        <header className="header-new">
           <Topnav />
         </header>
-        <section className="aside">
+        <section className="aside-new">
           <Menu />
         </section>
-        <main className="main">
-          <div className="title-Text">
-            <div className="top-text-new-EM">
-              <div className="text-new-EM-Unit">
-                <div
-                  className="titleText"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => navigate(-1)}
-                >
-                  <FaArrowLeftLong />
-                </div>
-                <div className="titleText">แก้ไขโปรไฟล์</div>
-              </div>
-            </div>
-            <div className="all-btn-0">
-              <button
-                className="btn01"
-                type="submit"
-                style={{
-                  background: "rgb(221 62 62)",
-                  color: "white",
-                  width: "auto",
-                  height: "auto",
-                  marginRight: "20px",
-                  marginBottom: "10px",
-                }}
-                onClick={() => navigate(-1)}
-              >
-                <div className="btn-save01">
-                  <ImCancelCircle />
-                  <label style={{ paddingLeft: "5px" }}>ยกเลิก</label>
-                </div>
-              </button>
-              <button
-                onClick={handleUpdate}
-                className="btn01"
-                type="submit"
-                style={{
-                  background: "#22a699",
-                  color: "white",
-                  width: "auto",
-                  height: "auto",
-                  marginRight: "50px",
-                  marginBottom: "10px",
-                }}
-              >
-                <div className="btn-save01">
-                  <FontAwesomeIcon icon={faFloppyDisk} />
-                  {/* <FontAwesomeIcon icon={faPenToSquare} /> */}
-                  <label style={{ paddingLeft: "5px" }}>บันทึก</label>
-                </div>
-              </button>
-            </div>
-          </div>
 
-          <div className="Ubox0">
-            <div className="Profile1">
-              <img
-                src={values.image}
-                alt=""
-                className="profile-img"
-                name="image"
-              />
-              <input
-                type="file"
-                name="image"
-                id="image"
-                onChange={handleInput}
-              />
-            </div>
-
-            <div className="Profile2">
-              {/* รหัส-ตำแหน่ง */}
-              <div className="profile2plye" style={{ marginTop: "10px" }}>
-                <div className="profile2-1">
-                  <label className="label-profile">รหัสพนักงาน:</label>
-                  <input
-                    type="text"
-                    className="input-profile"
-                    disabled
-                    name="id_employee"
-                    value={values.id_employee}
+        <main className="main-new">
+          <div className="embox0">
+            <div className="emtitle">
+              <div className="title1">
+                <div className="text_title1">
+                  <FontAwesomeIcon
+                    icon={faArrowLeft}
+                    style={{ marginRight: "10px", cursor: "pointer" }}
+                    onClick={() => navigate(-1)}
                   />
-                </div>
-                <div className="profile2-1">
-                  <label className="label-profile">ตำแหน่ง:</label>
-                  {/* <select name="" id="" className="input-profile">
-                    <option value="">1</option>
-                  </select> */}
-                  <input
-                    type="text"
-                    className="input-profile"
-                    disabled
-                    value={values.department}
-                  />
+                  แก้ไขโปรไฟล์
                 </div>
               </div>
-
-              {/* คำนำหน้า-ชื่อ */}
-              <div className="profile2plye">
-                <div className="profile2-1">
-                  <label className="label-profile">คำนำหน้า:</label>
-                  <select
-                    name="title"
-                    id=""
-                    className="input-profile"
-                    onChange={(e) =>
-                      setValues({ ...values, title: e.target.value })
-                    }
+              <div className="title2">
+                <div className="btn_can">
+                  <button
+                    className="cencle"
+                    onClick={() => navigate(-1)}
+                    type="cancle"
                   >
-                    <option value="">{values.title}</option>
-                    <option value="">นาย</option>
-                    <option value="">นาง</option>
-                    <option value="">นางสาว</option>
-                  </select>
+                    <FontAwesomeIcon icon={faBan} />
+                    <label htmlFor="" className="text_cencle">
+                      ยกเลิก
+                    </label>
+                  </button>
                 </div>
-                <div className="profile2-1">
-                  <label className="label-profile">ชื่อ-นามสกุล:</label>
-                  <input
-                    type="text"
-                    className="input-profile"
-                    name="name"
-                    value={values.name}
-                    onChange={(e) =>
-                      setValues({ ...values, name: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
 
-              {/* เพศ-วันเกิด */}
-              <div className="profile2plye">
-                <div className="profile2-1">
-                  <label className="label-profile">เพศ:</label>
-                  <select
-                    name="sex"
-                    id=""
-                    className="input-profile"
-                    value={values.sex}
-                    onChange={(e) =>
-                      setValues({ ...values, sex: e.target.value })
-                    }
+                <div className="btn_can">
+                  <button
+                    className="submit"
+                    onClick={handleUpdate}
+                    type="submit"
                   >
-                    <option value="">เลือกเพศ</option>
-                    <option value="ชาย">ชาย</option>
-                    <option value="หญิง">หญิง</option>
-                  </select>
+                    <FontAwesomeIcon icon={faFloppyDisk} />
+                    <label htmlFor="" className="text_cencle">
+                      บันทึก
+                    </label>
+                  </button>
                 </div>
-                <div className="profile2-1">
-                  <label className="label-profile">วันเกิด:</label>
+              </div>
+            </div>
+            <div className="embox1">
+              <div className="embox21">
+                <div className="pic0">
+                  <img
+                    src={values.image}
+                    alt=""
+                    className="pic1"
+                    name="image"
+                  />
                   <input
-                    type="date"
-                    className="input-profile"
-                    name="birthday"
-                    value={values.birthday}
-                    onChange={(e) =>
-                      setValues({ ...values, birthday: e.target.value })
-                    }
+                    type="file"
+                    name="image"
+                    id="image"
+                    onChange={handleInput}
                   />
                 </div>
               </div>
+              <div className="embox22">
+                <div className="embox22_1">
+                  <div className="textem1">
+                    <h3>รหัสพนักงาน:</h3>
+                    <input
+                      type="text"
+                      className="inputtext1"
+                      disabled
+                      value={userLoginData[0].id_employee}
+                    />
+                  </div>
 
-              {/* เลขบัตร */}
-              <div className="profile2-1-long">
-                <label className="label-profile">เลขบัตรประชาชน:</label>
-                <input
-                  type="text"
-                  className="input-profile-long"
-                  name="card_id"
-                  value={values.card_id}
-                  onChange={(e) =>
-                    setValues({ ...values, card_id: e.target.value })
-                  }
-                />
-              </div>
+                  <div className="textem1">
+                    <h3>ตำแหน่ง:</h3>
+                    <select
+                      className="inputtext1_3"
+                      name="department"
+                      onChange={(e) =>
+                        setValues({ ...values, department: e.target.value })
+                      }
+                      value={values.department}
+                      disabled
+                    >
+                      <option value="">เลือกตำแหน่ง</option>
+                      <option value="ผู้บริหาร">ผู้บริหาร</option>
+                      <option value="พนักงานฝ่ายผลิต">พนักงานฝ่ายผลิต</option>
+                    </select>
+                  </div>
 
-              {/* เบอร์โทร - ไลน์ - เฟส */}
-              <div className="profile2plye">
-                {/*  เบอร์โทรศัพท์ */}
-                <div className="profile2-1">
-                  <label className="label-profile">เบอร์โทรศัพท์:</label>
-                  <input
-                    type="text"
-                    className="input-profile"
-                    name="phone"
-                    value={values.phone}
-                    onChange={(e) =>
-                      setValues({ ...values, phone: e.target.value })
-                    }
-                  />
+                  <div className="textem1">
+                    <h3>สถานะการทำงาน:</h3>
+                    <select
+                      className="inputtext1_3"
+                      name="status"
+                      onChange={(e) =>
+                        setValues({ ...values, status: e.target.value })
+                      }
+                      value={values.status}
+                      disabled
+                    >
+                      <option value="">เลือกสถานะการทำงาน</option>
+                      <option value="กำลังทำงาน">กำลังทำงาน</option>
+                      <option value="พ้นสภาพการทำงาน">พ้นสภาพการทำงาน</option>
+                    </select>
+                  </div>
                 </div>
-                {/*  ไอดีไลน์ */}
-                <div className="profile2-1">
-                  <label className="label-profile">ไอดีไลน์:</label>
-                  <input
-                    type="text"
-                    className="input-profile"
-                    name="line_id"
-                    value={values.line_id}
-                    onChange={(e) =>
-                      setValues({ ...values, line_id: e.target.value })
-                    }
-                  />
-                </div>
-                {/*  ชื่อเฟส */}
-                <div className="profile2-1">
-                  <label className="label-profile">ชื่อเฟส:</label>
-                  <input
-                    type="text"
-                    className="input-profile"
-                    name="facebook_id"
-                    value={values.facebook_id}
-                    onChange={(e) =>
-                      setValues({ ...values, facebook_id: e.target.value })
-                    }
-                  />
-                </div>
-              </div>
 
-              {/* บัญชีผู้ใช้ */}
-              <div className="profile2-1-long">
-                <label className="label-profile">บัญชีผู้ใช้:</label>
-                <input
-                  type="text"
-                  className="input-profile-long"
-                  name="username"
-                  value={values.username}
-                  onChange={(e) =>
-                    setValues({ ...values, username: e.target.value })
-                  }
-                />
-              </div>
+                <div className="embox22_1">
+                  <div className="textem1">
+                    <h3>คำนำหน้า:</h3>
+                    <select
+                      name="title"
+                      className="inputtext1_3"
+                      onChange={(e) =>
+                        setValues({ ...values, title: e.target.value })
+                      }
+                      value={values.title}
+                    >
+                      <option value="">เลือกคำนำหน้า</option>
+                      <option value="นาย">นาย</option>
+                      <option value="นาง">นาง</option>
+                      <option value="นางสาว">นางสาว</option>
+                    </select>
+                  </div>
+                  <div className="textem1">
+                    <h3>ชื่อ-นามสกุล:</h3>
+                    <input
+                      type="text"
+                      className="inputtext1"
+                      name="name"
+                      value={values.name}
+                      onChange={(e) =>
+                        setValues({ ...values, name: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
 
-              {/* รหัสผ่าน */}
-              <div className="profile2-1-long">
-                <label className="label-profile">รหัสผ่าน:</label>
-                <input
-                  type="password"
-                  className="input-profile-long"
-                  name="password"
-                  value={values.password}
-                  onChange={(e) =>
-                    setValues({ ...values, password: e.target.value })
-                  }
-                />
+                <div className="embox22_1">
+                  <div className="textem1">
+                    <h3>เพศ:</h3>
+                    <select
+                      name="sex"
+                      className="inputtext1_3"
+                      value={values.sex}
+                      onChange={(e) =>
+                        setValues({ ...values, sex: e.target.value })
+                      }
+                    >
+                      <option value="">เลือกเพศ</option>
+                      <option value="ชาย">ชาย</option>
+                      <option value="หญิง">หญิง</option>
+                    </select>
+                  </div>
+                  <div className="textem1">
+                    <h3>วันเกิด:</h3>
+                    <input
+                      type="date"
+                      className="inputtext1"
+                      name="birthday"
+                      value={values.birthday}
+                      onChange={(e) =>
+                        setValues({ ...values, birthday: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="embox22_1">
+                  <div className="textem1">
+                    <h3>เลขบัตรประชาชน:</h3>
+                    <input
+                      type="number"
+                      className="inputtext1_2"
+                      name="card_id"
+                      maxLength={13}
+                      required
+                      value={values.card_id}
+                      onChange={(e) =>
+                        setValues({ ...values, card_id: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="embox22_1-2">
+                  <div className="textem1">
+                    <h3>เบอร์โทรศัพท์:</h3>
+                    <input
+                      type="text"
+                      className="inputtext1"
+                      name="phone"
+                      maxLength={12}
+                      required
+                      value={values.phone}
+                      onChange={(e) =>
+                        setValues({ ...values, phone: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="textem1">
+                    <h3>ไอดีไลน์:</h3>
+                    <input
+                      type="text"
+                      className="inputtext1"
+                      name="line_id"
+                      value={values.line_id}
+                      onChange={(e) =>
+                        setValues({ ...values, line_id: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="textem1">
+                    <h3>ชื่อเฟสบุ๊ค:</h3>
+                    <input
+                      type="text"
+                      className="inputtext1"
+                      name="facebook_id"
+                      value={values.facebook_id}
+                      onChange={(e) =>
+                        setValues({ ...values, facebook_id: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="embox22_1">
+                  <div className="textem1">
+                    <h3>บัญชีผู้ใช้:</h3>
+                    <input
+                      type="text"
+                      className="inputtext1_2"
+                      name="username"
+                      value={values.username}
+                      onChange={(e) =>
+                        setValues({ ...values, username: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
+
+                <div className="embox22_1">
+                  <div className="textem1">
+                    <h3>รหัสผ่าน:</h3>
+                    <input
+                      type="password"
+                      className="inputtext1_2"
+                      name="password"
+                      value={values.password}
+                      onChange={(e) =>
+                        setValues({ ...values, password: e.target.value })
+                      }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

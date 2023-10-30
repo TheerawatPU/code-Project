@@ -229,7 +229,7 @@ function StableEdit() {
               <div className="form-row-new">
                 <label className="form-label-new">จุดสั่งซื้อ :</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-input-new"
                   name="reOrder"
                   value={values.reOrder}
