@@ -158,7 +158,7 @@ export const Report_buy_stable_button_sort = (req, res) => {
 
 //สั่งซื้อวัตถุดิบทั้งหมด
 export const Report_buy_stable_select_Store = (req, res) => {
-  const sql = "SELECT store FROM buy_staple";
+  const sql = "SELECT store FROM buy_staple GROUP BY store";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);
@@ -341,7 +341,7 @@ export const Report_unit_button_sort = (req, res) => {
 //สั่งซื้อวัตถุดิบทั้งหมด
 export const Report_unit_select_customer = (req, res) => {
   const sql =
-    "SELECT customer.name_cus FROM `unit` INNER JOIN customer ON unit.id_customer = customer.id_customer ";
+    "SELECT customer.name_cus FROM `unit` INNER JOIN customer ON unit.id_customer = customer.id_customer GROUP BY customer.id_customer";
   db.query(sql, (err, result) => {
     if (err) return res.json({ Message: "Error inside server" });
     return res.json(result);

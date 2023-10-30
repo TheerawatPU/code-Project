@@ -106,7 +106,7 @@ function TabUnit2() {
                     marginTop: "10px",
                   }}
                 >
-                  แก้ไข
+                  จัดการ
                 </th>
               </tr>
             </thead>
@@ -180,7 +180,7 @@ function TabUnit2() {
               })}
 
               {/* ข้อมูลจำลอง */}
-              <tr>
+              {/* <tr>
                 <td style={{ color: "blue", cursor: "pointer" }}>2</td>
                 <td>
                   <b>ดวงใจ เดือนเพ็ญ</b>
@@ -219,10 +219,10 @@ function TabUnit2() {
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </div>
                     <div className="hint-button-popup">ดูข้อมูล</div>
-                    {/* <div className="test-icon-edit">แก้ไข</div> */}
+                  
                   </button>
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
 

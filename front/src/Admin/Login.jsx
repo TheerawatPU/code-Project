@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS/login.css";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
+
 function Login() {
   const navigate = useNavigate();
 
@@ -82,22 +85,35 @@ function Login() {
           </div>
           <h1 className="title-login">Food4skin Thailand</h1>
           <h2>เข้าสู่ระบบ</h2>
-          {/* สร้างฟอร์มเข้าสู่ระบบ */}
+
           <form onSubmit={handleSubmit} className="login0">
-            <input
-              name="username"
-              type="text"
-              placeholder="บัญชีผู้ใช้"
-              className="form-input-login"
-              onChange={handleInput}
-            />
-            <input
-              type="password"
-              placeholder="รหัสผ่าน"
-              name="password"
-              className="form-input-login"
-              onChange={handleInput}
-            />
+            <div className="rowI">
+              <input
+                name="username"
+                type="text"
+                placeholder="บัญชีผู้ใช้"
+                className="form-input-login"
+                onChange={handleInput}
+              />
+              <div className="icons">
+                <FontAwesomeIcon icon={faUser} />
+              </div>
+            </div>
+
+            <div className="rowI">
+              {" "}
+              <input
+                type="password"
+                placeholder="รหัสผ่าน"
+                name="password"
+                className="form-input-login"
+                onChange={handleInput}
+              />
+              <div className="icons">
+                <FontAwesomeIcon icon={faKey} />
+              </div>
+            </div>
+
             <button className="login-btn" type="submit">
               ตกลง
             </button>

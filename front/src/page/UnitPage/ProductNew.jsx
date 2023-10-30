@@ -170,7 +170,7 @@ function ProductNew() {
               >
                 <FaArrowLeftLong />
               </div>
-              <div className="titleText">รายละเอียดข้อมูลการผลิต</div>
+              <div className="titleText">เพิ่มข้อมูลการผลิต</div>
             </div>
           </div>
           <div className="all-btn-0">

@@ -161,7 +161,7 @@ function EmployeeReadPage() {
                 <th>เบอร์โทรศัพท์</th>
                 <th style={{ textAlign: "center" }}>สถานะการทำงาน</th>
 
-                <th>แก้ไข</th>
+                <th>จัดการ</th>
               </tr>
             </thead>
             <tbody>

@@ -3,6 +3,7 @@
 
 .login-container {
   background: #22a699;
+  background-image: url("../Admin/img/wave5.svg");
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -13,18 +14,20 @@
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.801);
+  background: rgba(255, 255, 255, 0);
   border-radius: 10px;
   padding: 20px;
   backdrop-filter: blur(10px);
   width: 500px;
   height: 550px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 0px 65px 0px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  backdrop-filter: blur(15px);
 }
 
 .login0 {
@@ -36,25 +39,44 @@
 }
 
 .form-input-login {
-  padding: 10px;
-  margin: 5px 5px 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  padding-left: 50px;
+  padding-right: 0px;
+  margin: 5px 0px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   height: 35px;
   font-size: 18px;
   border: 1px solid #22a699;
-  width: 94%;
+  width: 90%;
+}
+.icons {
+  position: absolute;
+  left: 20px;
+  top: 40%;
+  transform: translateY(-50%);
+  color: #22a699;
+  font-size: 18px;
+}
+.rowI {
+  position: relative;
 }
 
 .login-btn {
   padding: 10px;
-  margin: 5px;
+
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
   background-color: #22a699;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   height: 55px;
+  width: 99%;
 }
 
 .title-login {

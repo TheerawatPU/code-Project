@@ -1,8 +1,6 @@
-import { Modal } from "react-modal";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-import { BsPlusLg } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 import "../CSS/Modal.css";
 
@@ -34,12 +32,7 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
   // todo
   // ฟังก์ชั่น การกดปุ่มเพิ่มในตารางเพื่อนำไปตัดสต๊อก
   const [selectedAmount, setSelectedAmount] = useState(0);
-  // const handleSelectQuantity = (item, quantity) => {
-  //   // อัปเดต item.selectedAmount เมื่อกดปุ่มเพื่อเก็บค่าปริมาณที่เลือก
-  //   item.selectedAmount = quantity;
-  //   // ทำอื่นๆ ที่คุณต้องการในฟังก์ชันนี้
-  //   console.log(`เลือกปริมาณสาร ${quantity} ของรหัส ${item.id_lot}`);
-  // };
+
   const handleSelectQuantity = (item, quantity) => {
     // อัปเดต item.selectedAmount เมื่อกดปุ่มเพื่อเก็บค่าปริมาณที่เลือก
     item.selectedAmount = quantity;
@@ -57,14 +50,25 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
     setSelectedAmount(totalSelectedAmount);
   };
 
-  const [remainingAmount, setRemainingAmount] = useState(0);
+  // ทำปุ่มไปหน้าสั่งซื้อวัตถุดิบ
+  const navigate = useNavigate();
+  const Topage = () => {
+    navigate("/EM/StablePage");
+  };
 
+  const [remainingAmount, setRemainingAmount] = useState(0);
   useEffect(() => {
     // คำนวณค่าเหลือ
     const remainingAmount = grams - selectedAmount;
     // อัปเดต state ของค่าเหลือ
     setRemainingAmount(remainingAmount);
   }, [selectedAmount, dataFromApi]);
+
+  // คำนวณรวมของคอลัมน์ "ปริมาณคงเหลือ (กรัม)"
+  const totalAmountInStock = dataFromApi.reduce(
+    (total, item) => total + item.amount_re,
+    0
+  );
 
   return (
     <div>
@@ -74,7 +78,11 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
             <div className="form-new-Unit">
               <div className="title-Name-Modal">
                 <div className="title-L-Modal">
-                  <h2 style={{ marginBottom: "20px" }}>ล็อต {nameS}</h2>
+                  <h2>ล็อต {nameS}</h2>
+                  <p style={{ marginBottom: "10px", fontSize: "15px" }}>
+                    *ถ้าปริมาณสารที่มีในล็อตต่ำกว่าปริมาณสารที่ใช้
+                    (ตัวหนังสือสีแดง) ให้กดสั่งซื้อวัตถุดิบ
+                  </p>
                 </div>
 
                 <div className="title-R-Modal">
@@ -108,11 +116,10 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                       className="form-input1-1-R"
                       disabled
                       value={`${selectedAmount} กรัม`}
-                      // value={`${totalAmount} กรัม`}
                     />
                   </div>
                   <div className="form1-1-2">
-                    <label className="form-label1-1">เหลืออีกปริมาณสาร :</label>
+                    <label className="form-label1-1">ปริมาณสารเหลืออีก :</label>
                     <input
                       type="text"
                       className="form-input1-1-R"
@@ -120,21 +127,44 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                       value={`${remainingAmount} กรัม`}
                     />
                   </div>
-                </div>
-                {/* <div className="input-Modal2">
                   <div className="form1-1-2">
-                    <label className="form-label1-1">กรอกปริมาณสาร :</label>
-                    <input type="text" className="form-input1-1" />
+                    <label className="form-label1-1">
+                      ปริมาณสารที่มีในล็อต :
+                    </label>
+                    <input
+                      type="text"
+                      className="form-input1-1-R"
+                      disabled
+                      value={`${totalAmountInStock} กรัม`}
+                      style={{
+                        color: totalAmountInStock > grams ? "black" : "red",
+                      }}
+                    />
                   </div>
+                </div>
 
-                  <div className="form1-1-2">
-                    <button style={{ background: "#191D88", color: "white" }}>
-                      <h3>
-                        <BsPlusLg />
-                      </h3>
+                <div className="input-Modal2">
+                  <div
+                    className="form1-1-2"
+                    style={{
+                      marginRight: "0px",
+                    }}
+                  >
+                    <button
+                      style={{
+                        background: "#191D88",
+                        color: "white",
+                        fontSize: "15px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                      onClick={Topage}
+                    >
+                      สั่งซื้อวัตถุดิบ
                     </button>
                   </div>
-                </div> */}
+                </div>
               </div>
 
               <div class="table-body-Unit">
@@ -145,8 +175,7 @@ function Model({ open, onClose, id_staple, nameS, grams }) {
                         <th>รหัส</th>
                         <th>วันหมดอายุ</th>
                         <th>ราคา (บาท)</th>
-                        {/* <th>ปริมาณ (กรัม)</th> */}
-                        <th>ปริมาณคงเหลือ (กรัม)</th>
+                        <th>ปริมาณคงเหลือในล็อต (กรัม)</th>
                         <th>ใส่ปริมาณที่ต้องการ</th>
                       </tr>
                     </thead>

@@ -67,8 +67,6 @@ import ProfileADmin from "./Admin/ProfileADmin";
 import ProfileReadID from "./Admin/ProfileReadID";
 import ProfileAdminEdit from "./Admin/ProfileAdminEdit";
 
-import customerPDF from "./page/CustomerPage/customerPDF";
-
 import EMnew from "./Admin/EMnew";
 import EMUP from "./Admin/EMUP";
 

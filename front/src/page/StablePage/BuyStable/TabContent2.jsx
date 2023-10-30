@@ -109,7 +109,7 @@ function TabContent2() {
     <div>
       <main className="main-stable ">
         <div className="grup_btn">
-          <p>รายการผลิต</p>
+          <p>รายการสั่งซื้อวัตถุดิบ</p>
           <input
             className="inputsearch"
             type="text"
@@ -149,7 +149,7 @@ function TabContent2() {
                     marginTop: "10px",
                   }}
                 >
-                  แก้ไข
+                  ดูรายละเอียด
                 </th>
               </tr>
             </thead>

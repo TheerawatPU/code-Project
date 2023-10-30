@@ -163,7 +163,7 @@ function TabUnit1() {
                     marginTop: "10px",
                   }}
                 >
-                  แก้ไข
+                  ดูรายละเอียด
                 </th>
               </tr>
             </thead>

@@ -176,17 +176,11 @@ function CustomerReadPage() {
                 <th className="sss">เบอร์โทรศัพท์</th>
                 <th>ที่อยู่</th>
 
-                <th>แก้ไข</th>
+                <th>จัดการ</th>
               </tr>
             </thead>
             <tbody>
               {records.map((item, index) => {
-                const showHintEditButton =
-                  showHintEdit[item.id_staple] || false;
-                const showHintReadButton =
-                  showHintRead[item.id_staple] || false;
-                const showHintLotButton = showHintLot[item.id_staple] || false;
-
                 return (
                   <tr key={index}>
                     <td

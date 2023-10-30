@@ -306,7 +306,7 @@ label {
 }
 
 .form1-1-2 {
-  margin-right: 36px;
+  margin-right: 20px;
 }
 
 .form1 {
@@ -500,8 +500,6 @@ button.btnAddUnit-stable {
   color: #ffffff;
 }
 
-
-
-.thSort{
+.thSort {
   display: flex;
 }
